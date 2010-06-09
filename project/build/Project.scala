@@ -10,6 +10,17 @@ class Project(info: ProjectInfo) extends DefaultProject(info) {
   override def libraryDependencies =
     Set(
       "org.jboss.netty" % "netty" % "3.2.0.CR1" % "compile->default"
+      , "log4j" % "log4j" % "1.2.14" % "compile->default"
+      , "org.slf4j" % "slf4j-api" % "1.5.10" % "compile->default"
+      , "org.slf4j" % "slf4j-log4j12" % "1.5.6" % "compile->default"
+      
     ) ++ super.libraryDependencies
+    
+
+//  val slinky = "thrift" % "libthrift" % "r917130" from cassandraLibUrl("libthrift-r917130")
+//  val cassandraVersion = "0.6.0-rc1"
+//  private def cassandraLibUrl(lib : String) : String = {
+//    "https://svn.apache.org/repos/asf/cassandra/tags/cassandra-" + cassandraVersion + "/lib/" + lib + ".jar"
+//  }
 }
 

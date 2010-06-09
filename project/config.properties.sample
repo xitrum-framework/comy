@@ -1,0 +1,5 @@
+SERVER_PORT = 8888
+DB_HOST = localhost
+DB_PORT = 9160
+DB_KEYSPACE = ShortenURL
+DB_COLFAM = ShortenURL
