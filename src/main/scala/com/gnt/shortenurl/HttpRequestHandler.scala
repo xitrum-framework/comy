@@ -24,62 +24,71 @@ class HttpRequestHandler(inputConfig: Properties) extends SimpleChannelUpstreamH
   private var config: Properties = inputConfig
   
   val db = new DatabaseConnector(inputConfig)
-  db.openConnection
   
   override def messageReceived(ctx:ChannelHandlerContext, e:MessageEvent) { //throw Exception {
     if (!readingChunks) {
       this.request = e.getMessage().asInstanceOf[HttpRequest];
       val requestUri: String = this.request.getUri()
       val clientIp: String = Utils.getClientIP(e.getRemoteAddress().toString)
-      var request:HttpRequest = this.request;
+      val allowedIp = config.getProperty(Utils.ALLOWED_IP)
+      var isAllowed:Boolean = false
+      if(allowedIp.equals("*")) {
+    	  isAllowed = true
+      } else if(allowedIp.indexOf(clientIp) >= 0) {
+    	  isAllowed = true
+      }
       
-      if (request.isChunked()) {
-        readingChunks = true;
-      } else { //This is the case when we want to handle
-    	var responseContent: String = ""
-    	if (requestUri.indexOf("/url=") == 0) {
-    	  val longUrl: String = Utils.getLongUrl(requestUri)
-    	  if (longUrl != null) {
-    	 	//TODO: Check longURL is existed
-    	 	val existedShortUrl = db.getShortURL(longUrl)
-    	 	var key: String = ""
-    	 	if (existedShortUrl == null) {	//not existed
-    	 		//TODO: Generate short key & add to DB
-    	 		var doGenarate = true
-    	 		while(doGenarate) {
-    	 			key = Utils.generateKey
-    	 			if(!db.existShortURL(key)) {
-    	 				db.addURL(key, longUrl)
-    	 				doGenarate = false
-    	 			}
-    	 		}
-    	 	} else {	//existed
-    	 		key = existedShortUrl
-    	 	}
-    	 	responseContent = key
-    	  } else {
-    	 	responseContent = "Invalid Request"
-    	  }
-    	  writeResponse(e, responseContent);
-    	} else {
-    	  val shortUrl: String = Utils.getShortUrl(requestUri)
-    	  
-    	  if (shortUrl != null) {
-    	 	 val longUrl = db.getLongURL(shortUrl)
-    	 	 if(longUrl != null) {
-    	 		 //TODO: Lookup for long URL and redirect
-    	 		 redirectResponse(e, longUrl)
-    	 		 
-    	 	 } else {
-    	 		responseContent = "Invalid URL"
-    	 		writeResponse(e, responseContent);
-    	 	 }
-    	  } else {
-    	 	responseContent = "Invalid Request"
-    	 	writeResponse(e, responseContent);
-    	  }
-    	}
-	  }
+      if(isAllowed) {
+	      var request:HttpRequest = this.request;
+	      
+	      if (request.isChunked()) {
+	        readingChunks = true;
+	      } else { //This is the case when we want to handle
+	    	var responseContent: String = ""
+	    	if (requestUri.indexOf("/url=") == 0) {
+	    	  val longUrl: String = Utils.getLongUrl(requestUri)
+	    	  if (longUrl != null) {
+	    	 	val existedShortUrl = db.getShortURL(longUrl)
+	    	 	var key: String = ""
+	    	 	if (existedShortUrl == null) {	//not existed
+	    	 		var doGenarate = true
+	    	 		while(doGenarate) {
+	    	 			key = Utils.generateKey
+	    	 			if(!db.existShortURL(key)) {
+	    	 				db.addURL(key, longUrl)
+	    	 				doGenarate = false
+	    	 			}
+	    	 		}
+	    	 	} else {	//existed
+	    	 		key = existedShortUrl
+	    	 	}
+	    	 	responseContent = key
+	    	  } else {
+	    	 	responseContent = "Invalid Request"
+	    	  }
+	    	  writeResponse(e, responseContent);
+	    	} else {
+	    	  val shortUrl: String = Utils.getShortUrl(requestUri)
+	    	  
+	    	  if (shortUrl != null) {
+	    	 	 val longUrl = db.getLongURL(shortUrl)
+	    	 	 if(longUrl != null) {
+	    	 		 //TODO: update last access date & counter
+	    	 		 db.updateLastAccess(shortUrl)
+	    	 		 redirectResponse(e, longUrl)
+	    	 	 } else {
+	    	 		responseContent = "Invalid URL"
+	    	 		writeResponse(e, responseContent);
+	    	 	 }
+	    	  } else {
+	    	 	responseContent = "Invalid Request"
+	    	 	writeResponse(e, responseContent);
+	    	  }
+	    	}
+		  }
+      } else {
+	      writeResponse(e, "IP not allowed");
+      }
     } else {
 		val chunk:HttpChunk = e.getMessage().asInstanceOf[HttpChunk];
 		if (chunk.isLast()) {

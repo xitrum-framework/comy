@@ -1,5 +1,10 @@
 SERVER_PORT = 8888
-DB_HOST = localhost
+DB_HOST = 192.168.1.233
 DB_PORT = 9160
 DB_KEYSPACE = ShortenURL
-DB_COLFAM = ShortenURL
+DB_SHORT_URL_CF = ShortenURL
+DB_LONG_URL_CF = LongURL
+DB_ACCESS_TIME_CF = AccessTime
+LINK_EXPIRATION_DATE = 90
+# List of allowed client IP seperated by comma. ALLOW_IP = * to allow all IP
+ALLOWED_IP = *
