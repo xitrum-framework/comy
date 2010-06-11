@@ -1,0 +1,14 @@
+You need JDK 1.6 and SBT (http://code.google.com/p/simple-build-tool/).
+
+To download dependencies:
+sbt update
+
+To compile:
+sbt compile
+
+To run:
+sbt run com.gnt.shortenurl.ShortenUrlServer
+(do not forget to start Cassandra server)
+
+To package to .jar file:
+run sbt package

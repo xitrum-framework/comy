@@ -13,18 +13,16 @@ import org.apache.cassandra.thrift.Cassandra
 
 import java.util.Properties
 
-class HttpRequestHandler(inputConfig: Properties) extends SimpleChannelUpstreamHandler {
-  
+class HttpRequestHandler(config: Properties) extends SimpleChannelUpstreamHandler {
+
   var request:HttpRequest = _;
   var readingChunks:Boolean = false;
-  
+
   /** Buffer that stores the response content */
   var buf:StringBuilder = new StringBuilder();
-  
-  private var config: Properties = inputConfig
-  
-  val db = new DatabaseConnector(inputConfig)
-  
+
+  val db = new DatabaseConnector(config)
+
   override def messageReceived(ctx:ChannelHandlerContext, e:MessageEvent) { //throw Exception {
     if (!readingChunks) {
       this.request = e.getMessage().asInstanceOf[HttpRequest];
@@ -37,10 +35,10 @@ class HttpRequestHandler(inputConfig: Properties) extends SimpleChannelUpstreamH
       } else if(allowedIp.indexOf(clientIp) >= 0) {
     	  isAllowed = true
       }
-      
+
       if(isAllowed) {
 	      var request:HttpRequest = this.request;
-	      
+
 	      if (request.isChunked()) {
 	        readingChunks = true;
 	      } else { //This is the case when we want to handle
@@ -69,7 +67,7 @@ class HttpRequestHandler(inputConfig: Properties) extends SimpleChannelUpstreamH
 	    	  writeResponse(e, responseContent);
 	    	} else {
 	    	  val shortUrl: String = Utils.getShortUrl(requestUri)
-	    	  
+
 	    	  if (shortUrl != null) {
 	    	 	 val longUrl = db.getLongURL(shortUrl)
 	    	 	 if(longUrl != null) {
@@ -99,12 +97,12 @@ class HttpRequestHandler(inputConfig: Properties) extends SimpleChannelUpstreamH
 		}
 	}
   }
-  
+
   def redirectResponse(e: MessageEvent, redirectUrl: String) {
 	var keepAlive:Boolean = isKeepAlive(request);
 	val response:HttpResponse = new DefaultHttpResponse(HTTP_1_1, TEMPORARY_REDIRECT);
 	response.setHeader(LOCATION, redirectUrl);
-	 
+
 	if (keepAlive) {
 	  // Add 'Content-Length' header only for a keep-alive connection.
 	  response.setHeader(CONTENT_LENGTH, response.getContent().readableBytes());
@@ -112,13 +110,13 @@ class HttpRequestHandler(inputConfig: Properties) extends SimpleChannelUpstreamH
 
 	// Write the response.
 	val future:ChannelFuture = e.getChannel().write(response);
-		
+
   	// Close the non-keep-alive connection after the write operation is done.
 	if (!keepAlive) {
       future.addListener(ChannelFutureListener.CLOSE);
 	}
   }
-  
+
   def writeResponse(e: MessageEvent, content: String) {
     // Decide whether to close the connection or not.
 	var keepAlive:Boolean = isKeepAlive(request);
@@ -136,13 +134,13 @@ class HttpRequestHandler(inputConfig: Properties) extends SimpleChannelUpstreamH
 
 	// Write the response.
 	val future:ChannelFuture = e.getChannel().write(response);
-		
+
   	// Close the non-keep-alive connection after the write operation is done.
 	if (!keepAlive) {
       future.addListener(ChannelFutureListener.CLOSE);
 	}
   }
-  
+
   override def exceptionCaught(ctx:ChannelHandlerContext, e:ExceptionEvent ) {
     e.getCause().printStackTrace();
 	e.getChannel().close();

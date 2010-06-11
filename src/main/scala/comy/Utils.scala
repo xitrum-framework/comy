@@ -1,9 +1,7 @@
 package com.gnt.shortenurl
 
-
-import java.util.Properties
+import java.util.{Properties, Date, Calendar}
 import java.io.{FileInputStream, IOException, File}
-import java.util.{Date, Calendar}
 import java.text.SimpleDateFormat
 
 object Utils {

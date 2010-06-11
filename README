@@ -1,36 +1,7 @@
-This is a simple Shorten URL service that uses Scala, Cassandra, Netty and Simple Build Tool (SBT). Every long URL will be shorten into a 7 characters string using Base62. In theory, it can support up to 62^7 unique URLs (which is more than 3 trillions)
+Comy is a simple URL Shortener service that uses Scala, Cassandra, and Netty.
+URLs will be shorten to a 7-character string using base 62. In theory, it can
+support up to 62^7 unique URLs (more than 3 trillions).
 
-******************************************
-PREREQUISITES:
-- Java SDK
-- Scala
-- Simple Build Tool SBT (http://code.google.com/p/simple-build-tool/)
-- Cassandra (version 0.6.0 or higher)
-
-*******************************************
-CONFIGURATION:
-Before running the service, you must configure it. Rename "project/config.properties.sample" to "project/config.properties". You can just use the default configuration or re-config it.
-- SERVER_PORT: port where you want to run your service. Please note that you should not use port 8080 if you intend to run Cassandra on the same machine since Cassandra will also use this port for RMI. Using some non-special port such as 8888 is recommended.
-- DB_HOST: Cassandra host name or IP
-- DB_PORT: Cassandra port
-- DB_KEYSPACE, DB_SHORT_URL_CF, DB_LONG_URL_CF, DB_ACCESS_TIME_CF: those configurations are related to the database schema. Their values are linked with Cassandra configurations. Use the default values if you are not sure and going to use our Cassandra configuration file.
-- EXPIRATION_DATE: if the URL has not been accessed for a certain number of days, it will be removed by the GarbageCollector proccess
-- ALLOWED_IP: a list of allowed clients' IPs serparated by comma. To allow all IP, set ALLOWED_IP = *
-
-Replace or merge your Cassandra config file with "project/storage-conf.xml". You may want to modify <Seed></Seeds> and <ListenAddress></ListenAddrress> to match your IP and where you want to use cluster for data replication.
-
-*******************************************
-COMPILING AND RUNNING:
-- Start Cassandra
-- Go to the root directory of the project and run "sbt". It will take a while to download Scala libraries
-- In SBT console, run "update", it will take a while to download all dependency libraries
-- Run "compile" in SBT console to compile the code
-- Run "run com.gnt.shortenurl.ShortenUrlServer " in SBT console to start the service. If everything is OK, you will see the text "Shorten URL Server started and running ....". Congratualations, you now have your own shorten URL service.
-- To handle expired URLs, schedule the "com.gnt.shortenurl.GarbageCollector" to be run daily
-
-*******************************************
-USAGE:
-- To ask for a shorten key, send request to the service with param "url" set to the long URL that you want to be shorten. For example, you can test by typing "http://localhost:8888/url=http://my_long_url.com" into your browser (assuming that the service is running on your localhost on port 8888). Assuming that the return string is "abcdefg". To use the shorten key, type "http://localhost:8888/abcdefg" into your browser, you will be redirected to http://my_long_url.com
-
-
-
+See:
+* INSTALL for installation and usage
+* DEVELOPMENT if you are a developer
