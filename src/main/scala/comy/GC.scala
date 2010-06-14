@@ -5,10 +5,7 @@ package comy
  * entries.
  */
 object GC {
-  def main(args: Array[String]) {
-    val configPath = args(1)
-    val config = new Config(configPath)
-
+  def start(config: Config) {
     // FIXME: log to file
     println("GC started")
     val db = new DB(config)

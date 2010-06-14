@@ -1,0 +1,14 @@
+<Keyspace Name="comy">
+    <ColumnFamily Name="Key"            CompareWith="UTF8Type"/>
+    <ColumnFamily Name="URL"            CompareWith="UTF8Type"/>
+    <ColumnFamily Name="LastAccessDate" CompareWith="UTF8Type"/>
+
+    <ReplicaPlacementStrategy>org.apache.cassandra.locator.RackUnawareStrategy</ReplicaPlacementStrategy>
+    <ReplicationFactor>2</ReplicationFactor>
+    <EndPointSnitch>org.apache.cassandra.locator.EndPointSnitch</EndPointSnitch>
+</Keyspace>
+
+<Seeds>
+    <Seed>192.168.1.233</Seed>
+    <Seed>192.168.1.66</Seed>
+</Seeds>

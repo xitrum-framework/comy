@@ -9,7 +9,7 @@ See:
 == Usage
 
 * To shorten a URL, send a POST request to
-http://<server>/api?url=<URL>
+http://SERVER/api?url=URL
 The response is a key.
 * To be redirected to the original long URL, send a GET request to
-http://<server>/<key>
+http://SERVER/KEY
