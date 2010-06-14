@@ -1,149 +1,74 @@
-package com.gnt.shortenurl
+package comy
 
 import org.jboss.netty.handler.codec.http.HttpHeaders._;
 import org.jboss.netty.handler.codec.http.HttpHeaders.Names._;
 import org.jboss.netty.handler.codec.http.HttpResponseStatus._;
 import org.jboss.netty.handler.codec.http.HttpVersion._;
-import org.jboss.netty.buffer._;
-import org.jboss.netty.channel._;
-import org.jboss.netty.handler.codec.http._;
-import org.jboss.netty.util.CharsetUtil;
+import org.jboss.netty.buffer._
+import org.jboss.netty.channel._
+import org.jboss.netty.handler.codec.http._
+import org.jboss.netty.util.CharsetUtil
 
 import org.apache.cassandra.thrift.Cassandra
 
-import java.util.Properties
+class HttpRequestHandler(config: Config) extends SimpleChannelUpstreamHandler {
+  private val db = new DB(config)
 
-class HttpRequestHandler(config: Properties) extends SimpleChannelUpstreamHandler {
+  override def messageReceived(ctx: ChannelHandlerContext, e: MessageEvent) {
+    if (!isAllowed(e)) {
+      e.getChannel.close
+      return
+    }
 
-  var request:HttpRequest = _;
-  var readingChunks:Boolean = false;
+    val request  = e.getMessage.asInstanceOf[HttpRequest]
+    val response = new DefaultHttpResponse(HTTP_1_1, OK)
 
-  /** Buffer that stores the response content */
-  var buf:StringBuilder = new StringBuilder();
+    val uri: String = request.getUri
+    val qd = new QueryStringDecoder(uri)
 
-  val db = new DatabaseConnector(config)
-
-  override def messageReceived(ctx:ChannelHandlerContext, e:MessageEvent) { //throw Exception {
-    if (!readingChunks) {
-      this.request = e.getMessage().asInstanceOf[HttpRequest];
-      val requestUri: String = this.request.getUri()
-      val clientIp: String = Utils.getClientIP(e.getRemoteAddress().toString)
-      val allowedIp = config.getProperty(Utils.ALLOWED_IP)
-      var isAllowed:Boolean = false
-      if(allowedIp.equals("*")) {
-    	  isAllowed = true
-      } else if(allowedIp.indexOf(clientIp) >= 0) {
-    	  isAllowed = true
-      }
-
-      if(isAllowed) {
-	      var request:HttpRequest = this.request;
-
-	      if (request.isChunked()) {
-	        readingChunks = true;
-	      } else { //This is the case when we want to handle
-	    	var responseContent: String = ""
-	    	if (requestUri.indexOf("/url=") == 0) {
-	    	  val longUrl: String = Utils.getLongUrl(requestUri)
-	    	  if (longUrl != null) {
-	    	 	val existedShortUrl = db.getShortURL(longUrl)
-	    	 	var key: String = ""
-	    	 	if (existedShortUrl == null) {	//not existed
-	    	 		var doGenarate = true
-	    	 		while(doGenarate) {
-	    	 			key = Utils.generateKey
-	    	 			if(!db.existShortURL(key)) {
-	    	 				db.addURL(key, longUrl)
-	    	 				doGenarate = false
-	    	 			}
-	    	 		}
-	    	 	} else {	//existed
-	    	 		key = existedShortUrl
-	    	 	}
-	    	 	responseContent = key
-	    	  } else {
-	    	 	responseContent = "Invalid Request"
-	    	  }
-	    	  writeResponse(e, responseContent);
-	    	} else {
-	    	  val shortUrl: String = Utils.getShortUrl(requestUri)
-
-	    	  if (shortUrl != null) {
-	    	 	 val longUrl = db.getLongURL(shortUrl)
-	    	 	 if(longUrl != null) {
-	    	 		 //TODO: update last access date & counter
-	    	 		 db.updateLastAccess(shortUrl)
-	    	 		 redirectResponse(e, longUrl)
-	    	 	 } else {
-	    	 		responseContent = "Invalid URL"
-	    	 		writeResponse(e, responseContent);
-	    	 	 }
-	    	  } else {
-	    	 	responseContent = "Invalid Request"
-	    	 	writeResponse(e, responseContent);
-	    	  }
-	    	}
-		  }
+    if (qd.getPath == "/api") {
+      val url = qd.getParameters.get("url").get(0)
+      if (url != null) {
+        val key = db.save(url)
+        response.setContent(ChannelBuffers.copiedBuffer(key, CharsetUtil.UTF_8))
+        response.setHeader(CONTENT_TYPE, "text/plain")
       } else {
-	      writeResponse(e, "IP not allowed");
+        response.setStatus(BAD_REQUEST)
       }
     } else {
-		val chunk:HttpChunk = e.getMessage().asInstanceOf[HttpChunk];
-		if (chunk.isLast()) {
-		  readingChunks = false;
-		  writeResponse(e, "");
-		} else {
-		  println("CHUNK: "	+ chunk.getContent().toString(CharsetUtil.UTF_8) + "\r\n");
-		}
-	}
-  }
+      val key = uri.substring(1)  // Skip "/" prefix
+      val url = db.getUrl(key)
+      if (url != null) {
+        response.setStatus(TEMPORARY_REDIRECT)
+        response.setHeader(LOCATION, url)
+      } else {
+        response.setStatus(NOT_FOUND)
+      }
+    }
 
-  def redirectResponse(e: MessageEvent, redirectUrl: String) {
-	var keepAlive:Boolean = isKeepAlive(request);
-	val response:HttpResponse = new DefaultHttpResponse(HTTP_1_1, TEMPORARY_REDIRECT);
-	response.setHeader(LOCATION, redirectUrl);
+    val keepAlive = isKeepAlive(request)
 
-	if (keepAlive) {
-	  // Add 'Content-Length' header only for a keep-alive connection.
-	  response.setHeader(CONTENT_LENGTH, response.getContent().readableBytes());
-	}
-
-	// Write the response.
-	val future:ChannelFuture = e.getChannel().write(response);
-
-  	// Close the non-keep-alive connection after the write operation is done.
-	if (!keepAlive) {
-      future.addListener(ChannelFutureListener.CLOSE);
-	}
-  }
-
-  def writeResponse(e: MessageEvent, content: String) {
-    // Decide whether to close the connection or not.
-	var keepAlive:Boolean = isKeepAlive(request);
-
-    // Build the response object.
-    val response:HttpResponse = new DefaultHttpResponse(HTTP_1_1, OK);
-
-	 response.setContent(ChannelBuffers.copiedBuffer(content, CharsetUtil.UTF_8));
-	 response.setHeader(CONTENT_TYPE, "text/html; charset=UTF-8");
-
+    // Add 'Content-Length' header only for a keep-alive connection.
+    // Close the non-keep-alive connection after the write operation is done.
     if (keepAlive) {
-	  // Add 'Content-Length' header only for a keep-alive connection.
-	  response.setHeader(CONTENT_LENGTH, response.getContent().readableBytes());
-	}
-
-	// Write the response.
-	val future:ChannelFuture = e.getChannel().write(response);
-
-  	// Close the non-keep-alive connection after the write operation is done.
-	if (!keepAlive) {
-      future.addListener(ChannelFutureListener.CLOSE);
-	}
+      response.setHeader(CONTENT_LENGTH, response.getContent().readableBytes())
+    }
+    val future = e.getChannel.write(response)
+    if (!keepAlive) {
+      future.addListener(ChannelFutureListener.CLOSE)
+    }
   }
 
   override def exceptionCaught(ctx:ChannelHandlerContext, e:ExceptionEvent ) {
-    e.getCause().printStackTrace();
-	e.getChannel().close();
+    // FIXME: log to file
+    e.getCause.printStackTrace
+
+    e.getChannel.close
   }
 
+  private def isAllowed(e: MessageEvent): Boolean = {
+    val remoteAddress = e.getRemoteAddress().toString
+    val ip = remoteAddress.substring(1, remoteAddress.indexOf(':'))
+    config.isAllowed(ip)
+  }
 }

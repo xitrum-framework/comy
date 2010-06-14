@@ -3,5 +3,13 @@ URLs will be shorten to a 7-character string using base 62. In theory, it can
 support up to 62^7 unique URLs (more than 3 trillions).
 
 See:
-* INSTALL for installation and usage
+* INSTALL for installation
 * DEVELOPMENT if you are a developer
+
+== Usage
+
+* To shorten a URL, send a POST request to
+http://<server>/api?url=<URL>
+The response is a key.
+* To be redirected to the original long URL, send a GET request to
+http://<server>/<key>

@@ -8,9 +8,9 @@
 Config Cassandra, add to <Keyspaces>:
 
 <Keyspace Name="comy">
-    <ColumnFamily Name="ShortenURL" CompareWith="UTF8Type"/>
-    <ColumnFamily Name="LongURL"    CompareWith="UTF8Type"/>
-    <ColumnFamily Name="AccessTime" CompareWith="UTF8Type"/>
+    <ColumnFamily Name="Key"            CompareWith="UTF8Type"/>
+    <ColumnFamily Name="URL"            CompareWith="UTF8Type"/>
+    <ColumnFamily Name="LastAccessDate" CompareWith="UTF8Type"/>
 
     <ReplicaPlacementStrategy>org.apache.cassandra.locator.RackUnawareStrategy</ReplicaPlacementStrategy>
     <ReplicationFactor>2</ReplicationFactor>
@@ -48,16 +48,6 @@ match your IP and where you want to use cluster for data replication.
 == Run
 
 java -jar comy.jar ...
-
-== Use
-
-- To ask for a shorten key, send request to the service with param "url"
-set to the long URL that you want to be shorten. For example, you can test
-by typing "http://localhost:8888/url=http://my_long_url.com" into your browser
-(assuming that the service is running on your localhost on port 8888). Assuming
-that the return string is "abcdefg". To use the shorten key, type
-"http://localhost:8888/abcdefg" into your browser, you will be redirected to
-http://my_long_url.com
 
 == Remove old data
 
