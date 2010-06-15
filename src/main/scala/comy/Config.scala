@@ -12,7 +12,7 @@ class Config(path: String) {
 
   val dbHost           = properties.getProperty("DB_HOST")
   val dbPort           = properties.getProperty("DB_PORT").toInt
-  val dbKeyspace       = properties.getProperty("DB_KEYSPACE")
+  val dbDB             = properties.getProperty("DB_DB")
   val dbExpirationDays = properties.getProperty("DB_EXPIRATION_DAYS").toInt
 
   def isAllowed(ip: String) = allowedIps.exists { ip2 =>
