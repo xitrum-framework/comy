@@ -1,6 +1,6 @@
 SERVER_PORT = 8888
 # Comma-separated. ALLOWED_IPS = * to allow all IPs
-SERVER_ALLOWED_IPS = *
+ALLOWED_IPS = *
 
 DB_HOST            = localhost
 DB_PORT            = 9160

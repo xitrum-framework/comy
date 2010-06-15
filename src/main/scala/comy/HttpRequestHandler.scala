@@ -24,10 +24,8 @@ class HttpRequestHandler(config: Config) extends SimpleChannelUpstreamHandler {
     val response = new DefaultHttpResponse(HTTP_1_1, OK)
 
     val uri: String = request.getUri
-    val qd = new QueryStringDecoder(uri)
-
-    if (qd.getPath == "/api") {
-      val url = qd.getParameters.get("url").get(0)
+    if (uri.indexOf("/api") == 0) {
+      val url = uri.substring(5)
       if (url != null) {
         db.saveUrl(url) match {
           case Some(key) =>
