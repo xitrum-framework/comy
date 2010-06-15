@@ -1,12 +1,11 @@
+TODO: Fix this document
+
 == Prequisites
 
 * Java 1.6
-* Cassandra 0.6.0+
+* MongoDB 1.4.3
 
-== Configure Cassandra
-
-See storage-conf.xml.snippet and edit your storage-conf.xml properly. Do not
-modify ColumnFamily of Keyspace for Comy.
+== Configure MongoDB
 
 == Config Comy
 

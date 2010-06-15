@@ -11,7 +11,7 @@ object HttpServer {
     val bootstrap = new ServerBootstrap(
       new NioServerSocketChannelFactory(
         Executors.newCachedThreadPool, Executors.newCachedThreadPool))
-    bootstrap.setPipelineFactory(new HttpServerPipelineFactory(config))
+    bootstrap.setPipelineFactory(new HttpChannelPipelineFactory(config))
     bootstrap.bind(new InetSocketAddress(config.serverPort))
 
     // FIXME: log to file

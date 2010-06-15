@@ -29,20 +29,24 @@ class HttpRequestHandler(config: Config) extends SimpleChannelUpstreamHandler {
     if (qd.getPath == "/api") {
       val url = qd.getParameters.get("url").get(0)
       if (url != null) {
-        val key = db.save(url)
-        response.setContent(ChannelBuffers.copiedBuffer(key, CharsetUtil.UTF_8))
-        response.setHeader(CONTENT_TYPE, "text/plain")
+        db.saveUrl(url) match {
+          case Some(key) =>
+            response.setContent(ChannelBuffers.copiedBuffer(key, CharsetUtil.UTF_8))
+            response.setHeader(CONTENT_TYPE, "text/plain")
+          case None =>
+            response.setStatus(INTERNAL_SERVER_ERROR)
+        }
       } else {
         response.setStatus(BAD_REQUEST)
       }
     } else {
       val key = uri.substring(1)  // Skip "/" prefix
-      val url = db.getUrl(key)
-      if (url != null) {
-        response.setStatus(TEMPORARY_REDIRECT)
-        response.setHeader(LOCATION, url)
-      } else {
-        response.setStatus(NOT_FOUND)
+      db.getUrl(key) match {
+        case Some(url) =>
+          response.setStatus(MOVED_PERMANENTLY)
+          response.setHeader(LOCATION, url)
+        case None =>
+          response.setStatus(NOT_FOUND)
       }
     }
 

@@ -4,5 +4,5 @@ SERVER_ALLOWED_IPS = *
 
 DB_HOST            = localhost
 DB_PORT            = 9160
-DB_KEYSPACE        = comy
+DB_DB              = comy
 DB_EXPIRATION_DAYS = 90
