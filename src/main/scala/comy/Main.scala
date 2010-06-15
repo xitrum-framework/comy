@@ -2,8 +2,8 @@ package comy
 
 object Main {
   def main(args: Array[String]) {
-    val mode       = args(1)
-    val configPath = args(2)
+    val mode       = args(0)
+    val configPath = args(1)
 
     val config = new Config(configPath)
     mode match {
