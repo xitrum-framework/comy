@@ -11,7 +11,7 @@ import org.jboss.netty.util.CharsetUtil
 
 import org.apache.cassandra.thrift.Cassandra
 
-class HttpRequestHandler(config: Config) extends SimpleChannelUpstreamHandler {
+class HttpRequestHandler(config: Config) extends SimpleChannelUpstreamHandler with Logs {
   private val db = new DB(config)
 
   override def messageReceived(ctx: ChannelHandlerContext, e: MessageEvent) {
@@ -62,8 +62,7 @@ class HttpRequestHandler(config: Config) extends SimpleChannelUpstreamHandler {
   }
 
   override def exceptionCaught(ctx:ChannelHandlerContext, e:ExceptionEvent ) {
-    // FIXME: log to file
-    e.getCause.printStackTrace
+    error(e.getCause)
 
     e.getChannel.close
   }
