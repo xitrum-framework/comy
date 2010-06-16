@@ -3,7 +3,7 @@ package comy
 import com.mongodb._
 import java.util.Date
 
-class DB(config: Config) {
+class DB(config: Config) extends Logger {
   private val KEY = "key"
   private val URL = "url"
   private val CREATED_AT = "created_at"
@@ -35,7 +35,9 @@ class DB(config: Config) {
 	    existedKey
 	  }
 	} catch {
-	  case e: Exception => None
+	  case e: Exception => 
+	   error(e)
+	   None
 	}
   }
 
@@ -46,7 +48,9 @@ class DB(config: Config) {
     try {
       getUrlFromKey(key, true)
     } catch {
-      case e: Exception => None
+      case e: Exception => 
+        error(e)
+        None
     }
   }
 
@@ -63,7 +67,9 @@ class DB(config: Config) {
 	  }
 	  true
 	} catch {
-	  case e: Exception => false
+	  case e: Exception => 
+	   error(e)
+	   false
 	}
   }
   

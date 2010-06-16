@@ -7,4 +7,5 @@ DB_PORT            = 27017
 DB_DB              = comy
 DB_EXPIRATION_DAYS = 90
 
-LOG_PATH = /home/lantra/example.log
+# Path to the log file
+LOG_FILE = comy.log

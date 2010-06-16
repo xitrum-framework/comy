@@ -9,7 +9,7 @@ import org.jboss.netty.channel._
 import org.jboss.netty.handler.codec.http._
 import org.jboss.netty.util.CharsetUtil
 
-class HttpRequestHandler(config: Config) extends SimpleChannelUpstreamHandler {
+class HttpRequestHandler(config: Config) extends SimpleChannelUpstreamHandler with Logger {
   private val db = new DB(config)
 
   override def messageReceived(ctx: ChannelHandlerContext, e: MessageEvent) {
@@ -60,8 +60,7 @@ class HttpRequestHandler(config: Config) extends SimpleChannelUpstreamHandler {
   }
 
   override def exceptionCaught(ctx:ChannelHandlerContext, e:ExceptionEvent ) {
-    // FIXME: log to file
-    e.getCause.printStackTrace
+    error(e.toString)
 
     e.getChannel.close
   }

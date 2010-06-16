@@ -3,18 +3,15 @@ package comy
 import org.apache.log4j._
 import java.io.IOException
 
-/**
-http://github.com/davetron5000/shorty/blob/master/src/main/scala/shorty/Logs.scala 
-*/
-trait Logs {
-  private[this] val logger = Logger.getLogger(getClass().getName());
+trait Logger {
+  private[this] val logger = org.apache.log4j.Logger.getLogger(getClass().getName())
 
   import org.apache.log4j.Level._
   
   def debug(message: => String) = if (logger.isEnabledFor(DEBUG)) logger.debug(message)
-  def debug(message: => String, ex:Throwable) = if (logger.isEnabledFor(DEBUG)) logger.debug(message,ex)
-  def debugValue[T](valueName: String, value: => T):T = {
-    val result:T = value
+  def debug(message: => String, ex: Throwable) = if (logger.isEnabledFor(DEBUG)) logger.debug(message,ex)
+  def debugValue[T](valueName: String, value: => T) :T = {
+    val result: T = value
     debug(valueName + " == " + result.toString)
     result
   }
@@ -33,13 +30,12 @@ trait Logs {
   def fatal(message: => String) = if (logger.isEnabledFor(FATAL)) logger.fatal(message)
   def fatal(message: => String, ex:Throwable) = if (logger.isEnabledFor(FATAL)) logger.fatal(message,ex)
     
-  def setLogPath(logPath:String) {
-    //PropertyConfigurator.configure(s)
+  def setLogPath(logPath: String) {
     configureDefaultSettings(logPath)
   }
 
-  def configureDefaultSettings(logPath:String) {
-    var rootLogger = Logger.getRootLogger();
+  def configureDefaultSettings(logPath: String) {
+    var rootLogger = Logger.getRootLogger()
     rootLogger.setLevel(Level.DEBUG);
 
     val layout = new PatternLayout("%d [%t] %-5p %c - %m%n");

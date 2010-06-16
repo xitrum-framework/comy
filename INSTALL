@@ -6,6 +6,12 @@ TODO: Fix this document
 * MongoDB 1.4.3
 
 == Configure MongoDB
+To start MongoDB with just one instance (without replication), simply run:
+  mongod
+(see http://www.mongodb.org/display/DOCS/Tutorial for more details on how to start MongoDB)
+If you intend to have 2 instances of MongoDB, a Master-Master relication structure may be suitable. In this case run the following command on both servers:
+  mongod --master --slave --source <ip of the other server>
+(see http://www.mongodb.org/display/DOCS/Master+Master+Replication for more details on Master-Master replication)
 
 == Config Comy
 
