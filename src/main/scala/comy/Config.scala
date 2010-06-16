@@ -14,6 +14,7 @@ class Config(path: String) {
   val dbPort           = properties.getProperty("DB_PORT").toInt
   val dbDB             = properties.getProperty("DB_DB")
   val dbExpirationDays = properties.getProperty("DB_EXPIRATION_DAYS").toInt
+  val logFile          = properties.getProperty("LOG_FILE")
 
   def isAllowed(ip: String) = allowedIps.exists { ip2 =>
     (ip2 == "*") || (ip2 == ip)
