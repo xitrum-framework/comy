@@ -3,7 +3,7 @@ SERVER_PORT = 8888
 ALLOWED_IPS = *
 
 DB_HOST            = localhost
-DB_PORT            = 9160
+DB_PORT            = 27017
 DB_DB              = comy
 DB_EXPIRATION_DAYS = 90
 
