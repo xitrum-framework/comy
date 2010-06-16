@@ -6,3 +6,5 @@ DB_HOST            = localhost
 DB_PORT            = 9160
 DB_DB              = comy
 DB_EXPIRATION_DAYS = 90
+
+LOG_PATH = /home/lantra/example.log

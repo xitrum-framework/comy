@@ -12,10 +12,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="CASSANDRA_LIB" level="application" />
     <orderEntry type="library" name="SCALA_LIB" level="application" />
     <orderEntry type="library" name="Netty" level="application" />
-    <orderEntry type="library" name="SBT" level="application" />
   </component>
 </module>
 

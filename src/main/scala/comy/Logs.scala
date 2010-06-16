@@ -1,6 +1,7 @@
 package comy
 
 import org.apache.log4j._
+import java.io.IOException
 
 /**
 http://github.com/davetron5000/shorty/blob/master/src/main/scala/shorty/Logs.scala 
@@ -9,7 +10,7 @@ trait Logs {
   private[this] val logger = Logger.getLogger(getClass().getName());
 
   import org.apache.log4j.Level._
-
+  
   def debug(message: => String) = if (logger.isEnabledFor(DEBUG)) logger.debug(message)
   def debug(message: => String, ex:Throwable) = if (logger.isEnabledFor(DEBUG)) logger.debug(message,ex)
   def debugValue[T](valueName: String, value: => T):T = {
@@ -32,7 +33,25 @@ trait Logs {
   def fatal(message: => String) = if (logger.isEnabledFor(FATAL)) logger.fatal(message)
   def fatal(message: => String, ex:Throwable) = if (logger.isEnabledFor(FATAL)) logger.fatal(message,ex)
     
-  def setPropertyFile(s:String) {
-    PropertyConfigurator.configure(s);
+  def setLogPath(logPath:String) {
+    //PropertyConfigurator.configure(s)
+    configureDefaultSettings(logPath)
+  }
+
+  def configureDefaultSettings(logPath:String) {
+    var rootLogger = Logger.getRootLogger();
+    rootLogger.setLevel(Level.DEBUG);
+
+    val layout = new PatternLayout("%d [%t] %-5p %c - %m%n");
+    rootLogger.addAppender(new ConsoleAppender(layout));
+
+    try {
+        val rfa = new RollingFileAppender(layout,logPath)
+        rfa.setMaximumFileSize(1000000)
+        rfa.setMaxBackupIndex(1)
+        rootLogger.addAppender(rfa)
+    } catch {
+      case e:IOException => 
+    }
   }
 }
