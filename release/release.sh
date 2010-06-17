@@ -7,7 +7,7 @@ cd ..
 
 rm -rf target/comy-$COMY_VERSION*
 
-mkdir target/comy-$COMY_VERSION
+mkdir -p target/comy-$COMY_VERSION
 cp README target/comy-$COMY_VERSION
 cp release/INSTALL target/comy-$COMY_VERSION
 
