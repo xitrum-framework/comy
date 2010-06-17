@@ -2,10 +2,6 @@ Comy is a simple URL Shortener service that uses Scala, Netty, and MongoDB.
 URLs will be shorten to a 7-character string using base 62. In theory, it can
 support up to 62^7 unique URLs (more than 3 trillions).
 
-See:
-* INSTALL for installation
-* DEVELOPMENT if you are a developer
-
 == Usage
 
 To shorten a URL, send a POST request to:

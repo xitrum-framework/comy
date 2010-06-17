@@ -35,8 +35,8 @@ trait Logger {
   }
 
   def configureDefaultSettings(logPath: String) {
-    var rootLogger = Logger.getRootLogger()
-    rootLogger.setLevel(Level.DEBUG)
+    var rootLogger = Logger.getRootLogger
+    rootLogger.setLevel(Level.INFO)
 
     val layout = new PatternLayout("%d [%t] %-5p %c - %m%n")
     rootLogger.addAppender(new ConsoleAppender(layout))
