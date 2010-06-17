@@ -3,7 +3,7 @@ package comy
 import java.util.Properties
 import java.io.FileInputStream
 
-class Config(path: String) extends Logs {
+class Config(path: String) {
   val properties = new Properties
   properties.load(new FileInputStream(path))
 
@@ -15,9 +15,6 @@ class Config(path: String) extends Logs {
   val dbDB             = properties.getProperty("DB_DB")
   val dbExpirationDays = properties.getProperty("DB_EXPIRATION_DAYS").toInt
   val logFile          = properties.getProperty("LOG_FILE")
-
-  val logPath             = properties.getProperty("LOG_PATH")
-  setLogPath(logPath)
 
   def isAllowed(ip: String) = allowedIps.exists { ip2 =>
     (ip2 == "*") || (ip2 == ip)
