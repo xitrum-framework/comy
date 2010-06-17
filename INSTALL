@@ -5,24 +5,28 @@ TODO: Fix this document
 * Java 1.6
 * MongoDB 1.4.3
 
-== Configure MongoDB
-To start MongoDB with just one instance (without replication), simply run:
-  mongod
-(see http://www.mongodb.org/display/DOCS/Tutorial for more details on how to start MongoDB)
-If you intend to have 2 instances of MongoDB, a Master-Master relication structure may be suitable. In this case run the following command on both servers:
-  mongod --master --slave --source <ip of the other server>
-(see http://www.mongodb.org/display/DOCS/Master+Master+Replication for more details on Master-Master replication)
-
-== Config Comy
+== Configure
 
 Edit config.properties properly.
+
+Comy supports Replica Pair:
+
+Comy ---+--- Left  MongoDB
+         \-- Right MongoDB
+
+If you want master-master relication, run this command on both MongoDB servers:
+mongod --master --slave --source <ip of the other server>
+
+See: http://www.mongodb.org/display/DOCS/Master+Master+Replication
 
 == Run
 
 To run with memory in the range 2GB to 6GB:
-java -server -Xms2000m -Xmx6000m -cp /comy.jar server /path/to/config.properties
+java -server -Xms2000m -Xmx6000m -cp /path/to/comy.jar server /path/to/config.properties
 
 == Remove old data
 
+You may need to remove URL entries that are not accessed for a long time.
+
 Schedule this to be run periodically (on Linux, use on crontab  etc.):
-java -jar comy.jar gc /path/to/config.properties
+java -jar /path/to/comy.jar gc /path/to/config.properties
