@@ -1,6 +1,7 @@
 lib_managed
-target
 project/boot
+release/config.properties
+target
 .*
 *.log
 
