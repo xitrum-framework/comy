@@ -2,10 +2,13 @@ SERVER_PORT = 8888
 # Comma-separated. ALLOWED_IPS = * to allow all IPs
 ALLOWED_IPS = *
 
-DB_HOST            = localhost
-DB_PORT            = 27017
-DB_DB              = comy
-DB_EXPIRATION_DAYS = 90
-
-# Path to the log file
 LOG_FILE = comy.log
+
+DB_NAME                 = comy
+DB_CONNECTIONS_PER_HOST = 100
+DB_EXPIRATION_DAYS      = 90
+
+DB_HOST_LEFT  = localhost
+DB_PORT_LEFT  = 27017
+DB_HOST_RIGHT = localhost
+DB_PORT_RIGHT = 27017

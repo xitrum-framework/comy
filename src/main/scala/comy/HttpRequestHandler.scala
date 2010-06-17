@@ -9,9 +9,7 @@ import org.jboss.netty.channel._
 import org.jboss.netty.handler.codec.http._
 import org.jboss.netty.util.CharsetUtil
 
-class HttpRequestHandler(config: Config) extends SimpleChannelUpstreamHandler with Logger {
-  private val db = new DB(config)
-
+class HttpRequestHandler(config: Config, db: DB) extends SimpleChannelUpstreamHandler with Logger {
   override def messageReceived(ctx: ChannelHandlerContext, e: MessageEvent) {
     if (!isAllowed(e)) {
       e.getChannel.close
@@ -21,9 +19,10 @@ class HttpRequestHandler(config: Config) extends SimpleChannelUpstreamHandler wi
     val request  = e.getMessage.asInstanceOf[HttpRequest]
     val response = new DefaultHttpResponse(HTTP_1_1, OK)
 
-    val uri: String = request.getUri
-    if (uri.indexOf("/api") == 0) {
-      val url = uri.substring(5)
+    val uri = request.getUri
+    val qd = new QueryStringDecoder(uri)
+    if (qd.getPath == "/api") {
+      val url = qd.getParameters.get("url").get(0)
       if (url != null) {
         db.saveUrl(url) match {
           case Some(key) =>
@@ -51,7 +50,7 @@ class HttpRequestHandler(config: Config) extends SimpleChannelUpstreamHandler wi
     // Add 'Content-Length' header only for a keep-alive connection.
     // Close the non-keep-alive connection after the write operation is done.
     if (keepAlive) {
-      response.setHeader(CONTENT_LENGTH, response.getContent().readableBytes())
+      response.setHeader(CONTENT_LENGTH, response.getContent.readableBytes)
     }
     val future = e.getChannel.write(response)
     if (!keepAlive) {
@@ -59,9 +58,8 @@ class HttpRequestHandler(config: Config) extends SimpleChannelUpstreamHandler wi
     }
   }
 
-  override def exceptionCaught(ctx:ChannelHandlerContext, e:ExceptionEvent ) {
+  override def exceptionCaught(ctx:ChannelHandlerContext, e:ExceptionEvent) {
     error(e.toString)
-
     e.getChannel.close
   }
 

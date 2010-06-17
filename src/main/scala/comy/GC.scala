@@ -4,7 +4,7 @@ package comy
  * This Gabage Collector should be run periodically to remove old (expired) URL
  * entries.
  */
-object GC extends Logger{
+object GC extends Logger {
   def start(config: Config) {
     info("GC started")
     val db = new DB(config)
