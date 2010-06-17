@@ -32,6 +32,8 @@ class DB(config: Config) extends Logger {
   val db = mongo.getDB(config.dbName)
   val coll = db.getCollection(COLLECTION)
 
+  ensureIndex
+
   /**
    * @return None if there is error (DB is down etc.)
    */
@@ -89,6 +91,14 @@ class DB(config: Config) extends Logger {
         error(e)
         false
     }
+  }
+
+  def ensureIndex {
+    val obj = new BasicDBObject
+    obj.put(KEY,        1)
+    obj.put(URL,        1)
+    obj.put(UPDATED_ON, 1)
+    coll.ensureIndex(obj)
   }
 
   /**
