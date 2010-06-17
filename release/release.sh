@@ -1,18 +1,30 @@
 #!/bin/sh
 
+COMY_VERSION=0.1
+SCALA_VERSION=2.8.0.RC5
+
 cd ..
 
-# Collect files
-mkdir target/comy-0.1
-sbt package
-cp target/scala_2.8.0.RC5/comy_2.8.0.RC5-0.1.jar target/comy-0.1
-cp lib_managed/scala_2.8.0.RC5/*.jar target/comy-0.1
-cp project/boot/scala-2.8.0.RC5/lib/scala-library.jar target/comy-0.1/scala-library-2.8.0.RC5.jar
-cp release/config.properties.sample target/comy-0.1/config.properties
-cp release/INSTALL target/comy-0.1
+rm -rf target/comy-$COMY_VERSION*
 
-echo "java -server -Xms2000m -Xmx6000m -cp log4j-1.2.14.jar:mongo-java-driver-2.0.jar:netty-3.2.0.CR1.jar:scala-library-2.8.0.RC5.jar:slf4j-api-1.5.10.jar:slf4j-log4j12-1.5.6.jar:comy_2.8.0.RC5-0.1.jar comy.Main server config.properties" > target/comy-0.1/server.sh
-echo "java -cp log4j-1.2.14.jar:mongo-java-driver-2.0.jar:netty-3.2.0.CR1.jar:scala-library-2.8.0.RC5.jar:slf4j-api-1.5.10.jar:slf4j-log4j12-1.5.6.jar:comy_2.8.0.RC5-0.1.jar comy.Main gc config.properties" > target/comy-0.1/gc.sh
+mkdir target/comy-$COMY_VERSION
+cp README target/comy-$COMY_VERSION
+cp release/INSTALL target/comy-$COMY_VERSION
+
+mkdir target/comy-$COMY_VERSION/lib
+sbt package
+cp target/scala_$SCALA_VERSION/comy_$SCALA_VERSION-$COMY_VERSION.jar target/comy-$COMY_VERSION/lib
+cp lib_managed/scala_$SCALA_VERSION/compile/*.jar target/comy-$COMY_VERSION/lib
+cp project/boot/scala-$SCALA_VERSION/lib/scala-library.jar target/comy-$COMY_VERSION/lib/scala-library-$SCALA_VERSION.jar
+
+mkdir target/comy-$COMY_VERSION/bin
+echo "#!/bin/sh\n" > target/comy-$COMY_VERSION/bin/server.sh
+echo java -cp ../lib/log4j-1.2.14.jar:../lib/mongo-java-driver-2.0.jar:../lib/netty-3.2.0.CR1.jar:../lib/scala-library-$SCALA_VERSION.jar:../lib/slf4j-api-1.5.10.jar:../lib/slf4j-log4j12-1.5.6.jar:../lib/comy_$SCALA_VERSION-$COMY_VERSION.jar -server -Xms2000m -Xmx6000m comy.Main server config.properties >> target/comy-$COMY_VERSION/bin/server.sh
+chmod +x target/comy-$COMY_VERSION/bin/server.sh
+echo "#!/bin/sh\n" > target/comy-$COMY_VERSION/bin/gc.sh
+echo java -cp ../lib/log4j-1.2.14.jar:../lib/mongo-java-driver-2.0.jar:../lib/netty-3.2.0.CR1.jar:../lib/scala-library-$SCALA_VERSION.jar:../lib/slf4j-api-1.5.10.jar:../lib/slf4j-log4j12-1.5.6.jar:../lib/comy_$SCALA_VERSION-$COMY_VERSION.jar comy.Main gc config.properties >> target/comy-$COMY_VERSION/bin/gc.sh
+chmod +x target/comy-$COMY_VERSION/bin/gc.sh
+cp release/config.properties.sample target/comy-$COMY_VERSION/bin/config.properties
 
 cd target
-tar cjf comy-0.1.tar.bz2 comy-0.1
+tar cjf comy-$COMY_VERSION.tar.bz2 comy-$COMY_VERSION
