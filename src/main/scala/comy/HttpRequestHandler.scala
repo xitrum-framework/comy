@@ -1,12 +1,13 @@
 package comy
 
-import org.jboss.netty.handler.codec.http.HttpHeaders._;
-import org.jboss.netty.handler.codec.http.HttpHeaders.Names._;
-import org.jboss.netty.handler.codec.http.HttpResponseStatus._;
-import org.jboss.netty.handler.codec.http.HttpVersion._;
+import org.jboss.netty.handler.codec.http._
+import HttpHeaders._
+import HttpHeaders.Names._
+import HttpResponseStatus._
+import HttpVersion._
+import HttpMethod._
 import org.jboss.netty.buffer._
 import org.jboss.netty.channel._
-import org.jboss.netty.handler.codec.http._
 import org.jboss.netty.util.CharsetUtil
 
 class HttpRequestHandler(config: Config, db: DB) extends SimpleChannelUpstreamHandler with Logger {
@@ -21,7 +22,7 @@ class HttpRequestHandler(config: Config, db: DB) extends SimpleChannelUpstreamHa
 
     val uri = request.getUri
     val qd = new QueryStringDecoder(uri)
-    if (qd.getPath == "/api") {
+    if (qd.getPath == "/api" && request.getMethod == POST) {
       val url = qd.getParameters.get("url").get(0)
       if (url != null) {
         db.saveUrl(url) match {
