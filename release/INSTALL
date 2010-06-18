@@ -13,10 +13,7 @@ Comy supports Replica Pair:
 Comy ---+--- Left  MongoDB
          \-- Right MongoDB
 
-If you want master-master relication, run this command on both MongoDB servers:
-mongod --master --slave --source <ip of the other server>
-
-See: http://www.mongodb.org/display/DOCS/Master+Master+Replication
+See: http://www.mongodb.org/display/DOCS/Replica+Pairs
 
 == Run
 
