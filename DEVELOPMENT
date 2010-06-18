@@ -4,3 +4,16 @@ You need JDK 1.6 and SBT (http://code.google.com/p/simple-build-tool/).
 * To compile: sbt compile
 * To run: sbt run
 * To package to .jar file: sbt package
+
+Copy release/config.properties.sample to release/config.properties and edit
+to suit your environment.
+
+Then start SBT then from SBT command prompt, run:
+> run server release/config.properties
+
+== Release
+
+Change to release directory, then run:
+./release
+
+comy-<VERSION>.tar.bz2 will be created in target directory.

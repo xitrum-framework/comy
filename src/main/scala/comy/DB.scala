@@ -32,6 +32,8 @@ class DB(config: Config) extends Logger {
   val db = mongo.getDB(config.dbName)
   val coll = db.getCollection(COLLECTION)
 
+  ensureIndex
+
   /**
    * @return None if there is error (DB is down etc.)
    */
@@ -91,6 +93,14 @@ class DB(config: Config) extends Logger {
     }
   }
 
+  def ensureIndex {
+    val obj = new BasicDBObject
+    obj.put(KEY,        1)
+    obj.put(URL,        1)
+    obj.put(UPDATED_ON, 1)
+    coll.ensureIndex(obj)
+  }
+
   /**
    * @return None if URL is not existed, or otherwise the associated key
    */
@@ -112,12 +122,10 @@ class DB(config: Config) extends Logger {
     val result = coll.findOne(new BasicDBObject(KEY, key))
     if (result != null) {
       if (updateAccess) {
-        val resultUpdate = new BasicDBObject
-        resultUpdate.put(KEY,          result.get(KEY))
-        resultUpdate.put(URL,          result.get(URL))
-        resultUpdate.put(ACCESS_COUNT, result.get(ACCESS_COUNT).toString.toInt + 1)
-        resultUpdate.put(CREATED_ON,   result.get(CREATED_ON))
-        resultUpdate.put(UPDATED_ON,   formatDate(new Date))
+      	// This may not be accurate when there are many concurrent requests to the same key!
+        val resultUpdate = new BasicDBObject("$inc", new BasicDBObject(ACCESS_COUNT, 1))
+
+        resultUpdate.append("$set", new BasicDBObject(UPDATED_ON, formatDate(new Date)))
         coll.update(result, resultUpdate)
       }
       Some(result.get(URL).toString)
