@@ -12,17 +12,17 @@ import org.jboss.netty.util.CharsetUtil
 
 class HttpRequestHandler(config: Config, db: DB) extends SimpleChannelUpstreamHandler with Logger {
   override def messageReceived(ctx: ChannelHandlerContext, e: MessageEvent) {
-    if (!isAllowed(e)) {
-      e.getChannel.close
-      return
-    }
-
     val request  = e.getMessage.asInstanceOf[HttpRequest]
     val response = new DefaultHttpResponse(HTTP_1_1, OK)
 
     val uri = request.getUri
     val qd = new QueryStringDecoder(uri)
     if (qd.getPath == "/api" && request.getMethod == POST) {
+      if (!isApiAllowed(e)) {
+        e.getChannel.close
+        return
+      }
+
       val url = qd.getParameters.get("url").get(0)
       if (url != null) {
         db.saveUrl(url) match {
@@ -64,9 +64,9 @@ class HttpRequestHandler(config: Config, db: DB) extends SimpleChannelUpstreamHa
     e.getChannel.close
   }
 
-  private def isAllowed(e: MessageEvent): Boolean = {
+  private def isApiAllowed(e: MessageEvent): Boolean = {
     val remoteAddress = e.getRemoteAddress().toString
     val ip = remoteAddress.substring(1, remoteAddress.indexOf(':'))
-    config.isAllowed(ip)
+    config.isApiAllowed(ip)
   }
 }

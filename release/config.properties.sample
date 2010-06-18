@@ -1,6 +1,7 @@
 SERVER_PORT = 8888
-# Comma-separated. ALLOWED_IPS = * to allow all IPs
-ALLOWED_IPS = *
+# Comma-separated list of IPs to be allowed to send POST request to /api
+# API_ALLOWED_IPS = * to allow all IPs
+API_ALLOWED_IPS = *
 
 LOG_FILE = comy.log
 
