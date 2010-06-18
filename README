@@ -5,14 +5,14 @@ support up to 62^7 unique URLs (more than 3 trillions).
 == Usage
 
 To shorten a URL, send a POST request to:
-http://SERVER/api?url=URL
+http://SERVER/api?url=ESCAPED_URL
 
 Response:
 * Response code = 200: the response body is a key to lookup the original URL later
 * Response code = 500: there is something wrong at the server side, for example
   the DB may be down
 
-To be redirected to the original long URL, send a GET request to:
+To be redirected to the original (non-escaped) URL, send a GET request to:
 http://SERVER/KEY
 
 Response:
