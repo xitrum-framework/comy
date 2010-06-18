@@ -1,4 +1,4 @@
-SERVER_PORT = 8888
+SERVER_PORT = 8364
 # Comma-separated list of IPs to be allowed to send POST request to /api
 # API_ALLOWED_IPS = * to allow all IPs
 API_ALLOWED_IPS = *
