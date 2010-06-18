@@ -1,7 +1,7 @@
 #!/bin/sh
 
 COMY_VERSION=0.1
-SCALA_VERSION=2.8.0.RC5
+SCALA_VERSION=2.8.0.RC6
 
 cd ..
 
