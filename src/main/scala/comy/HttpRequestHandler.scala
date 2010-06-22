@@ -25,9 +25,9 @@ class HttpRequestHandler(config: Config, db: DB) extends SimpleChannelUpstreamHa
         return
       }
       if (method == GET)
-        processHumanGet(response)
+        processHumanGet(request, response)
       else
-        processHumanPost(response)
+        processHumanPost(request, response)
     } else if (path == "/api" && method == POST) {
       if (!isApiAllowed(e)) {
         e.getChannel.close
@@ -48,22 +48,39 @@ class HttpRequestHandler(config: Config, db: DB) extends SimpleChannelUpstreamHa
 
   //----------------------------------------------------------------------------
 
-  private def processHumanGet(response: HttpResponse) {
-    val content = index("x", "y", "")
+  private def processHumanGet(request: HttpRequest, response: HttpResponse) {
+    val content = index(request, "", "")
     response.setContent(ChannelBuffers.copiedBuffer(content, CharsetUtil.UTF_8))
     response.setHeader(CONTENT_TYPE, "text/html")
   }
 
-  private def processHumanPost(response: HttpResponse) {
-    val content = index("x", "y", "z")
-    response.setContent(ChannelBuffers.copiedBuffer(content, CharsetUtil.UTF_8))
-    response.setHeader(CONTENT_TYPE, "text/html")
+  private def processHumanPost(request: HttpRequest, response: HttpResponse) {
+    parsePostRequest(request) match {
+      case Some(qd) =>
+        val url = qd.getParameters.get("url").get(0)
+        if (url != null) {
+          db.saveUrl(url) match {
+            case Some(key) =>
+              val content = index(request, url, key)
+              response.setContent(ChannelBuffers.copiedBuffer(content, CharsetUtil.UTF_8))
+              response.setHeader(CONTENT_TYPE, "text/html")
+            case None =>
+              response.setStatus(INTERNAL_SERVER_ERROR)
+          }
+        } else {
+          response.setStatus(BAD_REQUEST)
+        }
+
+      case None => response.setStatus(BAD_REQUEST)
+    }
   }
 
-  private def index(title: String, url: String, result: String) =
+  private def index(request: HttpRequest, url: String, key: String) = {
+    val hostAndPort = request.getHeader("Host")
+    val result = "http://" + hostAndPort + "/" + key
     <html>
       <head>
-        <title>{title}</title>
+        <title>{hostAndPort}</title>
       </head>
 
       <body>
@@ -77,6 +94,15 @@ class HttpRequestHandler(config: Config, db: DB) extends SimpleChannelUpstreamHa
 
       </body>
     </html>.toString
+  }
+
+  private def parsePostRequest(request: HttpRequest): Option[QueryStringDecoder] = {
+    val content = request.getContent
+    if (content.readable) {
+      val uri = content.toString(CharsetUtil.UTF_8)
+      Some(new QueryStringDecoder("/?" + uri))
+    } else None
+  }
 
   //----------------------------------------------------------------------------
 
