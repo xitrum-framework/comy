@@ -9,7 +9,7 @@ Copy release/config.properties.sample to release/config.properties and edit
 to suit your environment.
 
 Then start SBT then from SBT command prompt, run:
-> run server release/config.properties
+> run release/config.properties
 
 == Release
 

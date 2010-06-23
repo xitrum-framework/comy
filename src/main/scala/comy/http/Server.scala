@@ -1,4 +1,4 @@
-package comy
+package comy.http
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;
@@ -6,7 +6,9 @@ import java.util.concurrent.Executors;
 import org.jboss.netty.bootstrap.ServerBootstrap;
 import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
 
-object HttpServer extends Logger {
+import comy._
+
+object Server extends Logger {
   def start(config: Config) {
     val bootstrap = new ServerBootstrap(
       new NioServerSocketChannelFactory(

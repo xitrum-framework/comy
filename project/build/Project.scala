@@ -16,5 +16,5 @@ class Project(info: ProjectInfo) extends DefaultProject(info) {
       "org.mongodb"     % "mongo-java-driver" % "2.0"       % "compile->default"
     ) ++ super.libraryDependencies
 
-  override def mainClass = Some("comy.Main")
+  override def mainClass = Some("comy.main.Http")
 }

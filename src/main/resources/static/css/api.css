@@ -1,0 +1,16 @@
+#header, #footer {
+  width: 100%;
+  text-align: center;
+}
+
+#header {
+  color: #FFFFDD;
+}
+
+#footer {
+  padding: 10px 20px;  /* 20px = half of padding of #csc */
+}
+
+#csc {
+  color: #FFFFFF;
+}

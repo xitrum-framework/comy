@@ -1,20 +1,45 @@
 <html>
   <head>
     <title>URL Shortener</title>
+
     <link rel="stylesheet" type="text/css" media="all" href="/static/css/reset.css" />
     <link rel="stylesheet" type="text/css" media="all" href="/static/css/text.css" />
     <link rel="stylesheet" type="text/css" media="all" href="/static/css/960.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="/static/css/smart_corners.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="/static/css/api.css" />
+
     <script type="text/javascript" src="/static/js/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="/static/js/api.js"></script>
   </head>
   <body>
     <div class="container_12">
-      <form method="post" action="/">
-        <label>URL:</label>
-        <input type="text" name="url" value="" size="83" />
-        <input type="submit" value="OK" />
-      </form>
+      <div class="grid_8 prefix_2">
+        <br />
+        <br />
 
-      <h1 id="result"></h1>
+        <div id="csc">
+          <span class="tr"></span>
+
+          <h1 id="header">URL Shortener</h1>
+
+          <label>URL:</label>
+          <input id="url" type="text" name="url" size="55" />
+          <input id="submit" type="submit" value="Shorten" />
+
+          <br />
+          <br />
+
+          <label>Result:</result>
+          <h3 id="result"></h3>
+
+          <a id="test" href="" target="_blank">Test</a>
+
+          <span class="bl"></span>
+          <span class="br"></span>
+        </div>
+
+        <h5 id="footer" class="grid_8">&copy; 2010 GNT Inc.</h5>
+      </div>
     </div>
   </body>
 </html>

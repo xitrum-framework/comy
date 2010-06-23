@@ -7,8 +7,9 @@ class Config(path: String) {
   private val properties = new Properties
   properties.load(new FileInputStream(path))
 
-  val serverPort = properties.getProperty("SERVER_PORT").toInt
-  val apiAllowedIps = properties.getProperty("API_ALLOWED_IPS").split(",").map(ip => ip.trim)
+  val serverPort      = properties.getProperty("SERVER_PORT").toInt
+  val apiAllowedIps   = properties.getProperty("API_ALLOWED_IPS").split(",").map(ip => ip.trim)
+  val adminAllowedIps = properties.getProperty("ADMIN_ALLOWED_IPS").split(",").map(ip => ip.trim)
 
   val logFile = properties.getProperty("LOG_FILE")
 
@@ -22,6 +23,10 @@ class Config(path: String) {
   val dbPortRight = properties.getProperty("DB_PORT_RIGHT").toInt
 
   def isApiAllowed(ip: String) = apiAllowedIps.exists { ip2 =>
+    (ip2 == "*") || (ip2 == ip)
+  }
+
+  def isAdminAllowed(ip: String) = adminAllowedIps.exists { ip2 =>
     (ip2 == "*") || (ip2 == ip)
   }
 }
