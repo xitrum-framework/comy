@@ -8,7 +8,7 @@
 
 #footer {
   width: 100%;
-  padding: 10px 20px;  /* 20px = half of padding of #csc */
+  padding: 10px 40px;  /* 40px = padding of #csc */
 }
 
 #csc {
