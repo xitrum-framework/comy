@@ -1,5 +1,4 @@
 #header, #footer {
-  width: 100%;
   text-align: center;
 }
 
@@ -8,9 +7,14 @@
 }
 
 #footer {
+  width: 100%;
   padding: 10px 20px;  /* 20px = half of padding of #csc */
 }
 
 #csc {
   color: #FFFFFF;
+}
+
+#url {
+  width: 480px;
 }

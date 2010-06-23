@@ -8,10 +8,12 @@ import HttpVersion._
 import HttpMethod._
 import org.jboss.netty.buffer._
 import org.jboss.netty.channel._
+import org.jboss.netty.channel.ChannelHandler.Sharable
 
 import comy._
 import comy.http.action._
 
+@Sharable
 class FrontController(config: Config, db: DB) extends SimpleChannelUpstreamHandler with Logger {
   override def messageReceived(ctx: ChannelHandlerContext, e: MessageEvent) {
     val request  = e.getMessage.asInstanceOf[HttpRequest]
