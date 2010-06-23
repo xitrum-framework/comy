@@ -1,11 +1,11 @@
 #!/bin/sh
 
-COMY_VERSION=0.3
+COMY_VERSION=0.4
 SCALA_VERSION=2.8.0.RC6
 
 cd ..
 
-rm -rf target/comy-$COMY_VERSION*
+rm -rf target/comy*
 
 mkdir -p target/comy-$COMY_VERSION
 cp README target/comy-$COMY_VERSION
