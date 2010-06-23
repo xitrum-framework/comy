@@ -6,7 +6,7 @@
 == Configure
 
 Edit config.properties to suit your environment. You may also need to edit
-server.sh to change the JVM memory option.
+http.sh to change the JVM memory option.
 
 Comy supports Replica Pair:
 
@@ -18,7 +18,7 @@ See: http://www.mongodb.org/display/DOCS/Replica+Pairs
 == Run
 
 Change to bin directory, then run:
-./server.sh
+./http.sh
 *
 == Remove old data
 

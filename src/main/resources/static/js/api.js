@@ -1,6 +1,7 @@
 $(function() {
   $('#submit').ajaxError(function() {
     $('#result').text('Error');
+    $('#test').attr('href', '');
   });
 
   $('#submit').click(function() {

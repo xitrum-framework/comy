@@ -32,14 +32,23 @@ object StaticCache {
     if (stream == null) {
       None
     } else {
-      val bytes = new Array[Byte](stream.available)
-      stream.read(bytes, 0, stream.available)
+      val available = stream.available
+      val bytes = new Array[Byte](available)
+
+      // Pitfall: All available bytes are not always returned in one read!
+      var totalRead = 0
+      var thisRead  = 0
+      while (totalRead < available) {
+        thisRead = stream.read(bytes, totalRead, available - totalRead)
+        totalRead += thisRead
+      }
+
       stream.close
 
       // NOTE: add more type when adding static files
       val contentType = path.split("\\.").last match {
         case "css"  => "text/css"
-        case "js"   => "text/javascript"
+        case "js"   => "application/x-javascript"
         case "html" => "text/html"
         case "png"  => "image/png"
       }
