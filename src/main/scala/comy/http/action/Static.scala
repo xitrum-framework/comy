@@ -5,6 +5,9 @@ import HttpHeaders.Names._
 import HttpResponseStatus._
 import org.jboss.netty.buffer._
 
+/**
+ * Mounted at /, /admin, /static/xxx
+ */
 class Static(request: HttpRequest, response: HttpResponse) extends Abstract(request, response) {
   def execute {
     StaticCache(path) match {

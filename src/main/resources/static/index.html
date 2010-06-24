@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" type="text/css" media="all" href="/static/css/reset.css" />
     <link rel="stylesheet" type="text/css" media="all" href="/static/css/text.css" />
-    <link rel="stylesheet" type="text/css" media="all" href="/static/css/960.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="/static/css/960_24_col.css" />
     <link rel="stylesheet" type="text/css" media="all" href="/static/css/smart_corners.css" />
     <link rel="stylesheet" type="text/css" media="all" href="/static/css/api.css" />
 
@@ -16,8 +16,8 @@
     <script type="text/javascript" src="/static/js/api.js"></script>
   </head>
   <body>
-    <div class="container_12">
-      <div class="grid_9 prefix_1">
+    <div class="container_24">
+      <div class="grid_18 prefix_2 suffix_4">
         <br />
         <br />
 
@@ -27,16 +27,23 @@
           <h1 id="header">URL Shortener</h1>
 
           <label>URL:</label>
-          <input id="url" type="text" name="url" />
+          <input id="url" type="text" value="http://mobion.jp/" />
           <input id="submit" type="submit" value="Shorten" />
 
           <br />
           <br />
 
-          <label>Result:</label>
-          <h3 id="result"></h3>
+          <div class="grid_5">
+            <img id="qrcode" src="" />
+          </div>
 
-          <a id="test" href="" target="_blank">Test</a>
+          <div>
+            <label>Result:</label>
+            <h3 id="result"></h3>
+            <a id="open" href="" target="_blank">Open</a>
+          </div>
+
+          <div class="clear"></div>
 
           <span class="bl"></span>
           <span class="br"></span>

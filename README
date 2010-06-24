@@ -5,7 +5,7 @@ support up to 62^7 unique URLs (more than 3 trillions).
 == Usage
 
 To shorten a URL, send a POST request to:
-http://SERVER/api?url=ESCAPED_URL
+http://SERVER/api/shorten?url=ESCAPED_URL
 
 Response:
 * Response code = 200: the response body is a key to lookup the original URL later

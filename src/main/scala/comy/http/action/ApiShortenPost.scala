@@ -8,7 +8,10 @@ import org.jboss.netty.util.CharsetUtil
 
 import comy.DB
 
-class ApiPost(request: HttpRequest, response: HttpResponse, db: DB) extends Abstract(request, response) {
+/**
+ * Mounted at /api/shorten?url=xxx
+ */
+class ApiShortenPost(request: HttpRequest, response: HttpResponse, db: DB) extends Abstract(request, response) {
   def execute {
     val url = qd.getParameters.get("url").get(0)
     if (url != null) {

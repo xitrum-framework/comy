@@ -48,14 +48,25 @@ class FrontController(config: Config, db: DB) extends SimpleChannelUpstreamHandl
       action.execute
     }
 
-    // Shorten URL
-    else if (path == "/api" && method == POST) {
+    // API: Shorten URL
+    else if (path == "/api/shorten" && method == POST) {
       if (!isApiAllowed(e)) {
         e.getChannel.close
         return false
       }
 
-      val action = new ApiPost(request, response, db)
+      val action = new ApiShortenPost(request, response, db)
+      action.execute
+    }
+
+    // API: QR code
+    else if (path == "/api/qrcode") {
+      if (!isApiAllowed(e)) {
+        e.getChannel.close
+        return false
+      }
+
+      val action = new ApiQrCode(request, response)
       action.execute
     }
 
@@ -69,7 +80,7 @@ class FrontController(config: Config, db: DB) extends SimpleChannelUpstreamHandl
 
     // ApiGet is at the lowest level
     else {
-      val action = new ApiGet(request, response, db)
+      val action = new ApiShortenGet(request, response, db)
       action.execute
     }
 
