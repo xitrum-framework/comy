@@ -2,6 +2,7 @@ package comy.http.action
 
 import org.jboss.netty.handler.codec.http._
 import HttpHeaders.Names._
+import HttpResponseStatus._
 import org.jboss.netty.buffer._
 
 import com.google.zxing.BarcodeFormat
@@ -26,16 +27,21 @@ class ApiQrCode(request: HttpRequest, response: HttpResponse) extends Abstract(r
   import ApiQrCode._
 
   def execute {
-    val url    = qd.getParameters.get("url").get(0)
-    val writer = new QRCodeWriter
-    val mtx    = writer.encode(url, BarcodeFormat.QR_CODE, WIDTH, HEIGHT)
-    invertImage(mtx)
-    val image  = MatrixToImageWriter.toBufferedImage(mtx)
+    val urls = qd.getParameters.get("url")
+    if (urls == null) {
+      response.setStatus(BAD_REQUEST)
+    } else {
+      val url    = urls.get(0)
+      val writer = new QRCodeWriter
+      val mtx    = writer.encode(url, BarcodeFormat.QR_CODE, WIDTH, HEIGHT)
+      invertImage(mtx)
+      val image  = MatrixToImageWriter.toBufferedImage(mtx)
 
-    val baos = new ByteArrayOutputStream
-    ImageIO.write(image, "png", baos)
-    response.setContent(ChannelBuffers.copiedBuffer(baos.toByteArray))
-    response.setHeader(CONTENT_TYPE, "image/png")
+      val baos = new ByteArrayOutputStream
+      ImageIO.write(image, "png", baos)
+      response.setContent(ChannelBuffers.copiedBuffer(baos.toByteArray))
+      response.setHeader(CONTENT_TYPE, "image/png")
+    }
   }
 
   private def invertImage(mtx: ByteMatrix) {
