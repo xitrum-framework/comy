@@ -7,7 +7,10 @@ import org.jboss.netty.buffer._
 
 import comy.DB
 
-class ApiGet(request: HttpRequest, response: HttpResponse, db: DB) extends Abstract(request, response) {
+/**
+ * Mounted at /key
+ */
+class ApiShortenGet(request: HttpRequest, response: HttpResponse, db: DB) extends Abstract(request, response) {
   def execute {
     val key = path.substring(1)  // Skip "/" prefix
     db.getUrl(key) match {

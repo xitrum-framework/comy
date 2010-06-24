@@ -8,7 +8,7 @@ object StaticCache {
     "/"                              -> load("/static/index.html").get,
     "/admin"                         -> load("/static/admin.html").get,
 
-    "/static/css/960.css"            -> load("/static/css/960.css").get,
+    "/static/css/960_24_col.css"     -> load("/static/css/960_24_col.css").get,
     "/static/css/reset.css"          -> load("/static/css/reset.css").get,
     "/static/css/text.css"           -> load("/static/css/text.css").get,
     "/static/css/smart_corners.css"  -> load("/static/css/smart_corners.css").get,
