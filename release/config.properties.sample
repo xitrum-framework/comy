@@ -2,11 +2,11 @@ SERVER_PORT = 8364
 
 # IPs are comma-separated, * to allow any
 
-# IPs allowed to send POST request to /api
-API_ALLOWED_IPS = *
+# IPs allowed to send POST request to /api/xxx
+API_IPS = *
 
-# IPs allowed to accesss /admin
-ADMIN_ALLOWED_IPS = *
+# IPs allowed to accesss /admin/xxx
+ADMIN_IPS = *
 
 LOG_FILE = comy.log
 
