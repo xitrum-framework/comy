@@ -12,7 +12,9 @@ LOG_FILE = comy.log
 
 DB_NAME                 = comy
 DB_CONNECTIONS_PER_HOST = 100
-DB_EXPIRATION_DAYS      = 90
+
+# URLs that have not been accessed within this number of days will be removed
+DB_EXPIRATION_DAYS = 90
 
 DB_HOST_LEFT  = localhost
 DB_PORT_LEFT  = 27017

@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat
 import com.mongodb._
 
 object DB {
-  val COLLECTION   = "comy"
+  val URL_COLL     = "urls"
   val KEY          = "key"
   val URL          = "url"
   val ACCESS_COUNT = "access_count"
@@ -30,7 +30,7 @@ class DB(config: Config) extends Logger {
 
   val mongo = new Mongo(left, right, options)
   val db = mongo.getDB(config.dbName)
-  val coll = db.getCollection(COLLECTION)
+  val coll = db.getCollection(URL_COLL)
 
   ensureIndex
 
@@ -75,12 +75,17 @@ class DB(config: Config) extends Logger {
   }
 
   /**
+   * Removes all URLs that have not been accessed within the last number of days.
+   * The number of days is configured in config.properties.
+   *
    * @return false if there is error (DB is down etc.)
    */
   def removeExpiredUrls: Boolean = {
     try {
       val expirationDate = getFormattedExpirationDate(config.dbExpirationDays)
-      val query = new BasicDBObject(UPDATED_ON, new BasicDBObject("$lte", expirationDate))
+      val query = new BasicDBObject
+      query.put(ACCESS_COUNT, 0)
+      query.put(UPDATED_ON,   new BasicDBObject("$lte", expirationDate))
       val result = coll.find(query)
       while (result.hasNext) {
         coll.remove(result.next)
