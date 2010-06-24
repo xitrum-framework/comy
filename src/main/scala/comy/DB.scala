@@ -5,13 +5,25 @@ import java.text.SimpleDateFormat
 
 import com.mongodb._
 
-object DB {
-  val URL_COLL     = "urls"
+object DBUrlColl {
+  val COLL         = "urls"
   val KEY          = "key"
   val URL          = "url"
   val ACCESS_COUNT = "access_count"
+
+  // The difference, measured in DAYS, between today and January 1, 1970 UTC.
   val CREATED_ON   = "created_on"
   val UPDATED_ON   = "updated_on"  // The date when ACCESS_COUNT is incremented
+}
+
+// TODO: for storing API IPs
+object DBApiIpColl {
+  val COLL = "api_ips"
+}
+
+// TODO: for storing admin IPs
+object DBAdminColl {
+  val COLL = "admin_ips"
 }
 
 /**
@@ -19,7 +31,7 @@ object DB {
  * Only one instance of this class should be used for the whole application.
  */
 class DB(config: Config) extends Logger {
-  import DB._
+  import DBUrlColl._
 
   val left  = new ServerAddress(config.dbHostLeft,  config.dbPortLeft)
   val right = new ServerAddress(config.dbHostRight, config.dbPortRight)
@@ -30,7 +42,7 @@ class DB(config: Config) extends Logger {
 
   val mongo = new Mongo(left, right, options)
   val db = mongo.getDB(config.dbName)
-  val coll = db.getCollection(URL_COLL)
+  val coll = db.getCollection(COLL)
 
   ensureIndex
 
@@ -82,7 +94,7 @@ class DB(config: Config) extends Logger {
    */
   def removeExpiredUrls: Boolean = {
     try {
-      val expirationDate = getFormattedExpirationDate(config.dbExpirationDays)
+      val expirationDate = today - config.dbExpirationDays
       val query = new BasicDBObject
       query.put(ACCESS_COUNT, 0)
       query.put(UPDATED_ON,   new BasicDBObject("$lte", expirationDate))
@@ -130,7 +142,7 @@ class DB(config: Config) extends Logger {
       	// This may not be accurate when there are many concurrent requests to the same key!
         val resultUpdate = new BasicDBObject("$inc", new BasicDBObject(ACCESS_COUNT, 1))
 
-        resultUpdate.append("$set", new BasicDBObject(UPDATED_ON, formatDate(new Date)))
+        resultUpdate.append("$set", new BasicDBObject(UPDATED_ON, today))
         coll.update(result, resultUpdate)
       }
       Some(result.get(URL).toString)
@@ -144,25 +156,14 @@ class DB(config: Config) extends Logger {
    */
   private def addNewUrl(key: String, url: String) {
     val doc = new BasicDBObject
-    val today = new Date
+    val d = today
     doc.put(KEY,          key)
     doc.put(URL,          url)
     doc.put(ACCESS_COUNT, 0)
-    doc.put(CREATED_ON,   formatDate(today))
-    doc.put(UPDATED_ON,   formatDate(today))
+    doc.put(CREATED_ON,   today)
+    doc.put(UPDATED_ON,   today)
     coll.insert(doc)
   }
 
-  private def formatDate(date: Date): String = {
-    val format = new SimpleDateFormat("yyyyMMdd")
-    format.format(date)
-  }
-
-  private def getFormattedExpirationDate(days: Int): String = {
-    val today = new Date
-    val cal = Calendar.getInstance
-    cal.setTime(today)
-    cal.add(Calendar.DATE, -days)
-    formatDate(cal.getTime)
-  }
+  private def today = (System.currentTimeMillis/1000/(24*60*60)).asInstanceOf[Int]
 }
