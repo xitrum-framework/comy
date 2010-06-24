@@ -1,0 +1,20 @@
+#header, #footer {
+  text-align: center;
+}
+
+#header {
+  color: #FFFFDD;
+}
+
+#footer {
+  width: 100%;
+  padding: 10px 40px;  /* 40px = padding of #csc */
+}
+
+#csc {
+  color: #FFFFFF;
+}
+
+#url {
+  width: 560px;
+}

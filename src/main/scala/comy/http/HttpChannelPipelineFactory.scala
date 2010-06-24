@@ -1,7 +1,9 @@
-package comy
+package comy.http
 
 import org.jboss.netty.channel.{Channels, ChannelPipeline, ChannelPipelineFactory}
 import org.jboss.netty.handler.codec.http.{HttpRequestDecoder, HttpResponseEncoder}
+
+import comy._
 
 class HttpChannelPipelineFactory(config: Config) extends ChannelPipelineFactory {
   private val db = new DB(config)
@@ -10,7 +12,7 @@ class HttpChannelPipelineFactory(config: Config) extends ChannelPipelineFactory 
     val pipeline = Channels.pipeline
     pipeline.addLast("decoder", new HttpRequestDecoder)
     pipeline.addLast("encoder", new HttpResponseEncoder)
-    pipeline.addLast("handler", new HttpRequestHandler(config, db))
+    pipeline.addLast("handler", new FrontController(config, db))
     pipeline
   }
 }

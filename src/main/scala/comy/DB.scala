@@ -94,11 +94,11 @@ class DB(config: Config) extends Logger {
   }
 
   def ensureIndex {
-    val obj = new BasicDBObject
-    obj.put(KEY,        1)
-    obj.put(URL,        1)
-    obj.put(UPDATED_ON, 1)
-    coll.ensureIndex(obj)
+    // Index each column separately (3 indexes in total) because we will search
+    // based on each one separately
+    coll.ensureIndex(new BasicDBObject(KEY,        1))
+    coll.ensureIndex(new BasicDBObject(URL,        1))
+    coll.ensureIndex(new BasicDBObject(UPDATED_ON, 1))
   }
 
   /**
