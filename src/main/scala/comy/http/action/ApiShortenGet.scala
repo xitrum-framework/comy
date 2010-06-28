@@ -15,7 +15,10 @@ class ApiShortenGet(request: HttpRequest, response: HttpResponse, db: DB) extend
     val key = path.substring(1)  // Skip "/" prefix
     db.getUrl(key) match {
       case Some(url) =>
-        response.setStatus(MOVED_PERMANENTLY)
+        // Use 302 instead of 301 because:
+        // * Some KDDI AU mobiles display annoying dialog for 301
+        // * Not all browsers support HTTP/1.1
+        response.setStatus(FOUND)
         response.setHeader(LOCATION, url)
 
       case None =>
