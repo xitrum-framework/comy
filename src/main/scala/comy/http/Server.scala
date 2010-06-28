@@ -15,7 +15,5 @@ object Server extends Logger {
         Executors.newCachedThreadPool, Executors.newCachedThreadPool))
     bootstrap.setPipelineFactory(new HttpChannelPipelineFactory(config))
     bootstrap.bind(new InetSocketAddress(config.serverPort))
-
-    info("Comy started")
   }
 }

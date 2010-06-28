@@ -9,5 +9,6 @@ object Http extends Logger {
     val config = new Config(configPath)
     setLogPath(config.logFile)
     Server.start(config)
+    info("HTTP started")
   }
 }
