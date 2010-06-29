@@ -1,56 +1,70 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type"/>
 
     <title>URL Shortener</title>
 
-    <link rel="stylesheet" type="text/css" media="all" href="/static/css/reset.css" />
-    <link rel="stylesheet" type="text/css" media="all" href="/static/css/text.css" />
-    <link rel="stylesheet" type="text/css" media="all" href="/static/css/960_24_col.css" />
-    <link rel="stylesheet" type="text/css" media="all" href="/static/css/smart_corners.css" />
-    <link rel="stylesheet" type="text/css" media="all" href="/static/css/api.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="/static/css/reset.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="/static/css/text.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="/static/css/960_24_col.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="/static/css/smart_corners.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="/static/css/api.css"/>
 
     <script type="text/javascript" src="/static/js/jquery-1.4.2.min.js"></script>
     <script type="text/javascript" src="/static/js/api.js"></script>
-  </head>
-  <body>
-    <div class="container_24">
-      <div class="grid_18 prefix_2 suffix_4">
-        <br />
-        <br />
+</head>
+<body>
+<div class="container_24">
+    <div class="grid_18 prefix_2 suffix_4">
+        <br/>
+        <br/>
 
         <div id="csc">
-          <span class="tr"></span>
+            <span class="tr"></span>
 
-          <h1 id="header">URL Shortener</h1>
+            <h1 id="header">URL Shortener</h1>
 
-          <label>URL:</label>
-          <input id="url" type="text" value="http://mobion.jp/" />
-          <input id="submit" type="submit" value="Shorten" />
+            <label>URL:</label>
+            <input id="url" type="text" value="http://mobion.jp/"/>
+            <input id="submit" type="submit" value="Shorten"/>
 
-          <br />
-          <br />
+            <br/>
+            <br/>
 
-          <div class="grid_5">
-            <img id="qrcode" src="" />
-          </div>
+            <div class="grid_5">
+                <img id="qrcode" src=""/>
+            </div>
 
-          <div>
-            <label>Result:</label>
-            <h3 id="result"></h3>
-            <a id="open" href="" target="_blank">Open</a>
-          </div>
+            <div>
+                <label>Result:</label>
 
-          <div class="clear"></div>
+                <div id="firstrow">
+                    <label id="result"></label>
+                    <!-- start Quang add -->
+                    <input id="btn_customize" type="button" value="Customize"/>
+                </div>
+                <div id="secondrow">
+                    <span id="domain_url"></span>
+                    <input id="result_customize" type="text"/>
+                    <input id="btn_save" type="button" value="Save"/>
+                    <label id="duplicate"/>
+                </div>
+                <!-- end Quang add -->
+                <br/>
+                <a id="open" href="" target="_blank">Open</a>
+            </div>
+            <br/>
 
-          <span class="bl"></span>
-          <span class="br"></span>
+            <div class="clear"></div>
+
+            <span class="bl"></span>
+            <span class="br"></span>
         </div>
 
         <h5 id="footer">&copy; 2010 GNT Inc.</h5>
-      </div>
     </div>
-  </body>
+</div>
+</body>
 </html>

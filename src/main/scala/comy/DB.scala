@@ -14,6 +14,8 @@ object DBUrlColl {
   // The difference, measured in DAYS, between today and January 1, 1970 UTC.
   val CREATED_ON   = "created_on"
   val UPDATED_ON   = "updated_on"  // The date when ACCESS_COUNT is incremented
+
+  val DUPLICATE_KEY   = "DUPLICATE_KEY"
 }
 
 // TODO: for storing API IPs
@@ -45,6 +47,24 @@ class DB(config: Config) extends Logger {
   val coll = db.getCollection(COLL)
 
   ensureIndex
+
+  /**
+   * @return None if there is error (DB is down etc.)
+   */
+  def saveCustomUrl(url: String, custom: String): Option[String] = {
+    try {
+      if (getUrlFromKey(custom, false) == None) {
+        addNewUrl(custom, url)
+        Some(custom)
+      } else {
+        Some(DUPLICATE_KEY)
+      }
+    } catch {
+      case e: Exception =>
+        error(e)
+        None
+    }
+  }
 
   /**
    * @return None if there is error (DB is down etc.)
