@@ -25,11 +25,12 @@
             <span class="tr"></span>
 
             <h1 id="header">URL Shortener</h1>
-
             <label>URL:</label>
-            <input id="url" type="text" value="http://mobion.jp/"/>
-            <input id="submit" type="submit" value="Shorten"/>
-
+            <input id="url" type="text" value="http://mobion.jp/" />
+	    <input id="submit" type="submit" value="Shorten"/>
+	    <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	    <input id="key_user" type="text" align="right"/>
+            <span>(optional, blank to randomize)</span>
             <br/>
             <br/>
 
@@ -39,18 +40,18 @@
 
             <div>
                 <label>Result:</label>
-
-                <div id="firstrow">
-                    <label id="result"></label>
+		<h2 id="result"></h2>
+                <!--<div id="firstrow">
+                    <label id="result"></label> -->
                     <!-- start Quang add -->
-                    <input id="btn_customize" type="button" value="Customize"/>
+                   <!-- <input id="btn_customize" type="button" value="Customize"/> 
                 </div>
                 <div id="secondrow">
                     <span id="domain_url"></span>
                     <input id="result_customize" type="text"/>
                     <input id="btn_save" type="button" value="Save"/>
                     <label id="duplicate"/>
-                </div>
+                </div> -->
                 <!-- end Quang add -->
                 <br/>
                 <a id="open" href="" target="_blank">Open</a>

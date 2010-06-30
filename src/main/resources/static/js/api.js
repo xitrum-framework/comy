@@ -13,67 +13,48 @@ $(function() {
   });
 
   $('#submit').click(function() {
+    var post_url;
     var url = $('#url').val();
-    $.post('/api/shorten?url=' + encodeURIComponent(url), function(key) {
-      var shortUrl = window.location + key;
-      $('#result').text(shortUrl);
-      $('#qrcode').attr('src', '/api/qrcode?url=' + encodeURIComponent(shortUrl));
-      $('#open').attr('href', shortUrl);
 
-      //hidden result customize and button save
-      //asgin value domain url and new result customize
-      //alert($('#result_customize'));
-      $('#result_customize').val(key);
-      //alert(key);
-      //hideCustomize(true);
+    //Check customise key
+    var ALLOW_CHARS = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890_-";
+    var custom = $('#key_user').val();
+    var c;
+    if (custom != '') {
+      var length =  custom.length;
+      if (length > 32) {
+         alert('Length must be <= 32 characters');
+         return;
+      }
+
+      for (var i=0; i < length; i++) {
+         c = custom.charAt(i);
+         if (ALLOW_CHARS.indexOf(c) == -1) {
+           alert(c + ' not allowed');
+           return;
+         }
+      }
+      post_url = '/api/shorten?url=' + encodeURIComponent(url) + '&custom=' + encodeURIComponent(custom);
+    } else {
+      post_url = '/api/shorten?url=' + encodeURIComponent(url);       
+    }
+    //alert(post_url);
+    $.post(post_url, function(key) {
+      var shortUrl = window.location + key;
+
+      if (key == 'DUPLICATE_KEY') {
+         $('#result').text('Key has been chosen. Please select another key.');
+         //$('#qrcode').attr('src','');
+         //$('#open').attr('href', '');       
+      } else {
+        $('#result').text(shortUrl);
+        $('#qrcode').attr('src', '/api/qrcode?url=' + encodeURIComponent(shortUrl));
+        $('#open').attr('href', shortUrl);
+      }
     });
   });
 
   $('#submit').click();
-
-  /* event click when user want to customize shorten url*/
-  $('#btn_customize').click(function(){
-     hideCustomize(false);
-  });
-  
-  /* when user customize shorten url and click save let save to database */
-  $('#btn_save').click(function(){
-     var url = $('#url').val();
-     var custom = $('#result_customize').val();
-
-     if (custom == null || custom == '') {
-       alert('Customize key can not blank.');
-       return;
-     }
-
-     $.post('/api/shorten?url=' + encodeURIComponent(url) + '&custom=' + encodeURIComponent(custom), function(key) {
-       if (key == 'DUPLICATE_KEY') {
-         $('#duplicate').html('Key has been chosen. Please select another key.');
-         $('#duplicate').show();
-         return;
-       }
-
-       var shortUrl = window.location + key;
-       $('#result').text(shortUrl);
-       $('#qrcode').attr('src', '/api/qrcode?url=' + encodeURIComponent(shortUrl));
-       $('#open').attr('href', shortUrl);
-
-       hideCustomize(true);
-       $('#btn_customize').hide();
-     });
-  });
-
-  // hidden result customize, button save, button customize and domain url when initial
-  hideCustomize(true);
-  $('#domain_url').html("" + window.location);
 });
 
-function hideCustomize(b) {
-  if (b == true) {
-    $('#firstrow').show();
-    $('#secondrow').hide();
-  } else {
-    $('#firstrow').hide();
-    $('#secondrow').show();  
-  }
-}
+
