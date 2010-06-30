@@ -16,18 +16,18 @@ $(function() {
     var post_url;
     var url = $('#url').val();
 
-    //Check customise key
+    // Check customise key
     var ALLOW_CHARS = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890_-";
     var custom = $('#key_user').val();
     var c;
     if (custom != '') {
       var length =  custom.length;
       if (length > 32) {
-         alert('Length must be <= 32 characters');
+         alert('Length must not be more than 32 characters');
          return;
       }
 
-      for (var i=0; i < length; i++) {
+      for (var i = 0; i < length; i++) {
          c = custom.charAt(i);
          if (ALLOW_CHARS.indexOf(c) == -1) {
            alert(c + ' not allowed');
