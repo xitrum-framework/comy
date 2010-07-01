@@ -14,8 +14,6 @@ object DBUrlColl {
   // The difference, measured in DAYS, between today and January 1, 1970 UTC.
   val CREATED_ON   = "created_on"
   val UPDATED_ON   = "updated_on"  // The date when ACCESS_COUNT is incremented
-
-  val DUPLICATE_KEY   = "DUPLICATE_KEY"
 }
 
 // TODO: for storing API IPs
@@ -28,12 +26,21 @@ object DBAdminColl {
   val COLL = "admin_ips"
 }
 
+object SaveUrlResult extends Enumeration {
+  type SaveUrlResult = Value
+  val VALID     = Value
+  val INVALID   = Value
+  val DUPLICATE = Value
+  val ERROR     = Value
+}
+
 /**
  * See: http://www.mongodb.org/display/DOCS/Java+Language+Center
  * Only one instance of this class should be used for the whole application.
  */
 class DB(config: Config) extends Logger {
   import DBUrlColl._
+  import SaveUrlResult._
 
   val left  = new ServerAddress(config.dbHostLeft,  config.dbPortLeft)
   val right = new ServerAddress(config.dbHostRight, config.dbPortRight)
@@ -48,49 +55,9 @@ class DB(config: Config) extends Logger {
 
   ensureIndex
 
-  /**
-   * @return None if there is error (DB is down etc.)
-   */
-  def saveCustomUrl(url: String, custom: String): Option[String] = {
-    try {
-      if (getUrlFromKey(custom, false) == None) {
-        addNewUrl(custom, url)
-        Some(custom)
-      } else {
-        Some(DUPLICATE_KEY)
-      }
-    } catch {
-      case e: Exception =>
-        error(e)
-        None
-    }
-  }
-
-  /**
-   * @return None if there is error (DB is down etc.)
-   */
-  def saveUrl(url: String): Option[String] = {
-    try {
-      val existedKey = getKeyFromUrl(url)
-      if (existedKey == None) {
-        var key = ""
-        var keyDuplicated = true
-        while (keyDuplicated) {
-          key = KeyGenerator.generateKey
-          if (getUrlFromKey(key, false) == None) {
-            addNewUrl(key, url)
-            keyDuplicated = false
-          }
-        }
-        Some(key)
-      } else {
-        existedKey
-      }
-    } catch {
-      case e: Exception =>
-        error(e)
-        None
-    }
+  def saveUrl(url: String, key: Option[String]) = key match {
+    case Some(key2) => saveUrlWithKey(url, key2)
+    case None       => saveUrlWithRandomKey(url)
   }
 
   /**
@@ -130,12 +97,71 @@ class DB(config: Config) extends Logger {
     }
   }
 
-  def ensureIndex {
+  //----------------------------------------------------------------------------
+
+  private def ensureIndex {
     // Index each column separately (3 indexes in total) because we will search
     // based on each one separately
     coll.ensureIndex(new BasicDBObject(KEY,        1))
     coll.ensureIndex(new BasicDBObject(URL,        1))
     coll.ensureIndex(new BasicDBObject(UPDATED_ON, 1))
+  }
+
+    /**
+   * @return None if there is error (DB is down etc.)
+   */
+  private def saveUrlWithKey(url: String, key: String): (SaveUrlResult, String) = {
+    if (!validateKey(key)) {
+      (SaveUrlResult.INVALID, "")
+    } else {
+      try {
+        getUrlFromKey(key, false) match {
+          case None =>
+            addNewUrl(key, url)
+            (SaveUrlResult.VALID, key)
+
+          case Some(url2) =>
+            if (url2 == url)
+              (SaveUrlResult.VALID, key)
+            else
+              (SaveUrlResult.DUPLICATE, "")
+        }
+      } catch {
+        case e: Exception =>
+          error(e)
+          (SaveUrlResult.ERROR, "")
+      }
+    }
+  }
+
+  private def validateKey(key: String) = true  // FIXME
+
+  /**
+   * @return None if there is error (DB is down etc.)
+   */
+  private def saveUrlWithRandomKey(url: String): (SaveUrlResult, String) = {
+    try {
+      getKeyFromUrl(url) match {
+        case Some(key) =>
+          (SaveUrlResult.VALID, key)
+
+        case None =>
+          var key = ""
+          var keyDuplicated = true
+          while (keyDuplicated) {
+            key = KeyGenerator.generateKey
+            if (getUrlFromKey(key, false) == None) {
+              addNewUrl(key, url)
+              keyDuplicated = false
+            }
+          }
+          (SaveUrlResult.VALID, key)
+      }
+    } catch {
+      case e: Exception =>
+        error(e)
+        (SaveUrlResult.ERROR, "")
+    }
   }
 
   /**
@@ -159,7 +185,7 @@ class DB(config: Config) extends Logger {
     val result = coll.findOne(new BasicDBObject(KEY, key))
     if (result != null) {
       if (updateAccess) {
-      	// This may not be accurate when there are many concurrent requests to the same key!
+        // This may not be accurate when there are many concurrent requests to the same key!
         val resultUpdate = new BasicDBObject("$inc", new BasicDBObject(ACCESS_COUNT, 1))
 
         resultUpdate.append("$set", new BasicDBObject(UPDATED_ON, today))

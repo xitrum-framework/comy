@@ -18,3 +18,9 @@
 #url {
   width: 560px;
 }
+
+#url_label, #key_label {
+  display: block;
+  width: 40px;
+  float: left;
+}

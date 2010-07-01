@@ -10,10 +10,10 @@
     <link rel="stylesheet" type="text/css" media="all" href="/static/css/text.css"/>
     <link rel="stylesheet" type="text/css" media="all" href="/static/css/960_24_col.css"/>
     <link rel="stylesheet" type="text/css" media="all" href="/static/css/smart_corners.css"/>
-    <link rel="stylesheet" type="text/css" media="all" href="/static/css/api.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="/static/css/index.css"/>
 
     <script type="text/javascript" src="/static/js/jquery-1.4.2.min.js"></script>
-    <script type="text/javascript" src="/static/js/api.js"></script>
+    <script type="text/javascript" src="/static/js/index.js"></script>
 </head>
 <body>
 <div class="container_24">
@@ -26,13 +26,13 @@
 
             <h1 id="header">URL Shortener</h1>
 
-            <label>URL:</label>
-            <input id="url" type="text" value="http://mobion.jp/" />
-	        <input id="submit" type="submit" value="Shorten"/><br />
+            <label id="url_label" for="url">URL:</label>
+            <input id="url" type="text" value="http://mobion.jp/" tabindex="1" />  <!-- Demo -->
+            <input id="submit" type="submit" value="Shorten" tabindex="3" /><br />
 
-            <label>Key:</label>
-	        <input id="key_user" type="text" align="right"/>
-            <span>(optional, a-z A-Z 0-9 _ -, blank to randomize)</span>
+            <label id="key_label" for="key">Key:</label>
+            <input id="key" type="text" tabindex="2" />
+            <span>(optional, a-z A-Z 0-9 _ -)</span>
 
             <br/>
             <br/>
@@ -43,11 +43,10 @@
 
             <div>
                 <label>Result:</label>
-        		<h2 id="result"></h2>
+                <h2 id="result"></h2>
 
                 <a id="open" href="" target="_blank">Open</a>
             </div>
-            <br/>
 
             <div class="clear"></div>
 

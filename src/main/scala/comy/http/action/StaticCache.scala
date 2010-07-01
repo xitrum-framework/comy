@@ -12,10 +12,10 @@ object StaticCache {
     "/static/css/reset.css"          -> load("/static/css/reset.css").get,
     "/static/css/text.css"           -> load("/static/css/text.css").get,
     "/static/css/smart_corners.css"  -> load("/static/css/smart_corners.css").get,
-    "/static/css/api.css"            -> load("/static/css/api.css").get,
+    "/static/css/index.css"          -> load("/static/css/index.css").get,
 
     "/static/js/jquery-1.4.2.min.js" -> load("/static/js/jquery-1.4.2.min.js").get,
-    "/static/js/api.js"              -> load("/static/js/api.js").get,
+    "/static/js/index.js"            -> load("/static/js/index.js").get,
     "/static/js/admin.js"            -> load("/static/js/admin.js").get,
 
     "/static/img/csc_tl.png"         -> load("/static/img/csc_tl.png").get,

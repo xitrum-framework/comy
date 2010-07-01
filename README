@@ -2,21 +2,30 @@ Comy is a simple URL Shortener service that uses Scala, Netty, and MongoDB.
 URLs will be shorten to a 7-character string using base 62. In theory, it can
 support up to 62^7 unique URLs (more than 3 trillions).
 
-== Usage
+== POST
 
 To shorten a URL, send a POST request to:
 http://SERVER/api/shorten?url=ESCAPED_URL
 
 Response:
-* Response code = 200: the response body is a key to lookup the original URL later
-* Response code = 500: there is something wrong at the server side, for example
-  the DB may be down
+* 200: the body is a random key to lookup the original URL later
+* 500: server error, for example the DB may be down
+
+If you do not like the key to be random, send a POST request to:
+http://SERVER/api/shorten?url=ESCAPED_URL&key=KEY
+
+Characters in KEY must be a-z, A-Z, _, or -
+
+Response:
+* 200 or 500: same as above
+* 409: the key has already been chosen or KEY contains invalid charaters
+
+== GET
 
 To be redirected to the original (non-escaped) URL, send a GET request to:
 http://SERVER/KEY
 
 Response:
-* Response code = 301: the client will be redirected to the original URL
-* Response code = 404: invalid key or the key has been expired
-* Response code = 500: there is something wrong at the server side, for example
-  the DB may be down
+* 302: the client will be redirected to the original URL
+* 404: invalid key or the key has been expired
+* 500: server error, for example the DB may be down
