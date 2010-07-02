@@ -1,31 +1,38 @@
 #!/bin/sh
 
-COMY_VERSION=0.8
-SCALA_VERSION=2.8.0.RC6
+VERSION_COMY=0.9
+VERSION_SCALA=2.8.0.RC7
+
+DIR_BASE=target/comy-$VERSION_COMY
+DIR_LIB=$DIR_BASE/lib
+DIR_BIN=$DIR_BASE/bin
 
 cd ..
 
 rm -rf target/comy*
 
-mkdir -p target/comy-$COMY_VERSION
-cp README target/comy-$COMY_VERSION
-cp release/INSTALL target/comy-$COMY_VERSION
+mkdir -p $DIR_BASE
+cp README $DIR_BASE
+cp release/INSTALL $DIR_BASE
 
-mkdir target/comy-$COMY_VERSION/lib
+mkdir $DIR_LIB
 sbt package
-cp target/scala_$SCALA_VERSION/comy_$SCALA_VERSION-$COMY_VERSION.jar target/comy-$COMY_VERSION/lib
-cp lib_managed/scala_$SCALA_VERSION/compile/*.jar target/comy-$COMY_VERSION/lib
-cp lib/*.jar target/comy-$COMY_VERSION/lib
-cp project/boot/scala-$SCALA_VERSION/lib/scala-library.jar target/comy-$COMY_VERSION/lib/scala-library-$SCALA_VERSION.jar
+cp target/scala_$VERSION_SCALA/comy_$VERSION_SCALA-$VERSION_COMY.jar $DIR_LIB
+cp lib_managed/scala_$VERSION_SCALA/compile/*.jar $DIR_LIB
+cp lib/*.jar $DIR_LIB
+cp project/boot/scala-$VERSION_SCALA/lib/scala-library.jar $DIR_LIB/scala-library-$VERSION_SCALA.jar
 
-mkdir target/comy-$COMY_VERSION/bin
-echo "#!/bin/sh\n" > target/comy-$COMY_VERSION/bin/http.sh
-echo java -cp ../lib/log4j-1.2.14.jar:../lib/mongo-java-driver-2.0.jar:../lib/netty-3.2.1.Final.jar:../lib/scala-library-$SCALA_VERSION.jar:../lib/slf4j-api-1.5.10.jar:../lib/slf4j-log4j12-1.5.6.jar:../lib/zxing-core-1.5.jar:../lib/zxing-javase-1.5.jar:../lib/comy_$SCALA_VERSION-$COMY_VERSION.jar -Xms2000m -Xmx6000m -server -Djava.awt.headless=true comy.main.Http config.properties >> target/comy-$COMY_VERSION/bin/http.sh
-chmod +x target/comy-$COMY_VERSION/bin/http.sh
-echo "#!/bin/sh\n" > target/comy-$COMY_VERSION/bin/gc.sh
-echo java -cp ../lib/log4j-1.2.14.jar:../lib/mongo-java-driver-2.0.jar:../lib/netty-3.2.1.Final.jar:../lib/scala-library-$SCALA_VERSION.jar:../lib/slf4j-api-1.5.10.jar:../lib/slf4j-log4j12-1.5.6.jar:../lib/zxing-core-1.5.jar:../lib/zxing-javase-1.5.jar:../lib/comy_$SCALA_VERSION-$COMY_VERSION.jar comy.main.GC config.properties >> target/comy-$COMY_VERSION/bin/gc.sh
-chmod +x target/comy-$COMY_VERSION/bin/gc.sh
-cp release/config.properties.sample target/comy-$COMY_VERSION/bin/config.properties
+mkdir $DIR_BIN
+cp release/config.properties.sample $DIR_BIN/config.properties
+
+echo "#!/bin/sh\n" > $DIR_BIN/http.sh
+# Quoted so that the * isn't expanded by the shell
+echo java -cp '"../lib/*"' -Xms2000m -Xmx6000m -server -Djava.awt.headless=true comy.main.Http config.properties >> $DIR_BIN/http.sh
+chmod +x $DIR_BIN/http.sh
+
+echo "#!/bin/sh\n" > $DIR_BIN/gc.sh
+echo java -cp '"../lib/*"' comy.main.GC config.properties >> $DIR_BIN/gc.sh
+chmod +x $DIR_BIN/gc.sh
 
 cd target
-tar cjf comy-$COMY_VERSION.tar.bz2 comy-$COMY_VERSION
+tar cjf comy-$VERSION_COMY.tar.bz2 comy-$VERSION_COMY
