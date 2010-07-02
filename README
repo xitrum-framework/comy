@@ -18,7 +18,7 @@ Characters in KEY must be a-z, A-Z, _, or -
 
 Response:
 * 200 or 500: same as above
-* 409: the key has already been chosen or KEY contains invalid charaters
+* 400: the key has already been chosen or KEY contains invalid charaters
 
 == GET
 

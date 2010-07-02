@@ -125,12 +125,12 @@ class DB(config: Config) extends Logger {
             if (url2 == url)
               (SaveUrlResult.VALID, key)
             else
-              (SaveUrlResult.DUPLICATE, "")
+              (SaveUrlResult.DUPLICATE, "The key has been chosen.")
         }
       } catch {
         case e: Exception =>
           error(e)
-          (SaveUrlResult.ERROR, "")
+          (SaveUrlResult.ERROR, "Unknown error.")
       }
     }
   }
@@ -141,9 +141,12 @@ class DB(config: Config) extends Logger {
     var result = true
     var msg = ""
     var length = key.length
-    if (length > 32) {
+    if (length == 0) {
        result = false
-       msg = "Key must not be longer than 32 characters."
+       msg = "Key must be longer than 0 character."
+    } else if (length > 32) {
+       result = false
+       msg = "Key must not be longer than 32 characters and must longer than ."
     }
 
     if (result) {

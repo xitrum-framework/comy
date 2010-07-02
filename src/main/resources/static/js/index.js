@@ -1,9 +1,6 @@
 var ALLOW_CHARS = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890_-";
 // Returns true if the key is valid.
 function validateKey(key) {
-  // temporary disable client check
-  return true;
-  
   var length = key.length;
   if (length > 32) {
     alert('Key must not be longer than 32 characters');
@@ -57,12 +54,7 @@ $(function() {
         $('#submit').attr('disabled', '');
       },
       error: function(xhr) {
-        //alert(xhr.statusText + ' ; ' + xhr.responseText)
-        if (xhr.status == 409) {
-          alert('The key has been chosen');
-        } else {
-          alert(xhr.responseText);
-        }
+        alert(xhr.responseText);
         $('#submit').attr('disabled', '');
       }
 
