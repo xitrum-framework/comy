@@ -134,7 +134,23 @@ class DB(config: Config) extends Logger {
     }
   }
 
-  private def validateKey(key: String) = true  // FIXME
+  private def validateKey(key: String):Boolean = {
+    // Need optimize
+    val ALLOW_CHARS = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890_-";
+      var length = key.length;
+      if (length > 32) {
+        false;
+      }
+
+      for (i <- 0 to length-1) {
+        var c = key.charAt(i);
+        if (ALLOW_CHARS.indexOf(c) == -1) {
+          false;
+        }
+      }
+
+      true;
+  }
 
   /**
    * @return None if there is error (DB is down etc.)
