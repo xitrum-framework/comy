@@ -54,7 +54,13 @@ $(function() {
         $('#submit').attr('disabled', '');
       },
       error: function(xhr) {
-        alert(xhr.responseText);
+        if (xhr.status == 401) {
+          alert('The key has been chosen');
+        } else if (xhr.status == 400) {
+          alert('Invalid key');
+        } else {
+          alert('Server error');
+        }
         $('#submit').attr('disabled', '');
       }
 

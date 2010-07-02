@@ -23,15 +23,17 @@ class ApiShortenPost(request: HttpRequest, response: HttpResponse, db: DB) exten
       val (result, key2) = db.saveUrl(url, key)
       result match {
         case SaveUrlResult.ERROR =>
-          response.setStatus(INTERNAL_SERVER_ERROR)
+          response.setStatus(INTERNAL_SERVER_ERROR) // Status code 500
+
+        case SaveUrlResult.DUPLICATE =>
+          response.setStatus(UNAUTHORIZED) // Status code 401, Duplicate key
 
         case SaveUrlResult.VALID =>
           response.setContent(ChannelBuffers.copiedBuffer(key2, CharsetUtil.UTF_8))
           response.setHeader(CONTENT_TYPE, "text/plain")
 
         case _ =>
-          response.setStatus(BAD_REQUEST)
-          response.setContent(ChannelBuffers.copiedBuffer(key2, CharsetUtil.UTF_8))
+          response.setStatus(BAD_REQUEST) // Status code 400, invalid key
       }
     }
   }
