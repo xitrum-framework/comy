@@ -26,7 +26,7 @@ class ApiShortenPost(request: HttpRequest, response: HttpResponse, db: DB) exten
           response.setStatus(INTERNAL_SERVER_ERROR) // Status code 500
 
         case SaveUrlResult.DUPLICATE =>
-          response.setStatus(UNAUTHORIZED) // Status code 401, Duplicate key
+          response.setStatus(CONFLICT) // Status code 409 Duplicate key
 
         case SaveUrlResult.VALID =>
           response.setContent(ChannelBuffers.copiedBuffer(key2, CharsetUtil.UTF_8))
