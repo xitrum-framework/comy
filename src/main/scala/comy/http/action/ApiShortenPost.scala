@@ -30,7 +30,8 @@ class ApiShortenPost(request: HttpRequest, response: HttpResponse, db: DB) exten
           response.setHeader(CONTENT_TYPE, "text/plain")
 
         case _ =>
-          response.setStatus(CONFLICT)
+          response.setStatus(BAD_REQUEST)
+          response.setContent(ChannelBuffers.copiedBuffer(key2, CharsetUtil.UTF_8))
       }
     }
   }

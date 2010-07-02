@@ -57,10 +57,11 @@ $(function() {
         $('#submit').attr('disabled', '');
       },
       error: function(xhr) {
+        //alert(xhr.statusText + ' ; ' + xhr.responseText)
         if (xhr.status == 409) {
           alert('The key has been chosen');
         } else {
-          alert('Server error');
+          alert(xhr.responseText);
         }
         $('#submit').attr('disabled', '');
       }

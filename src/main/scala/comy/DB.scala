@@ -111,8 +111,9 @@ class DB(config: Config) extends Logger {
    * @return None if there is error (DB is down etc.)
    */
   private def saveUrlWithKey(url: String, key: String): (SaveUrlResult, String) = {
-    if (!validateKey(key)) {
-      (SaveUrlResult.INVALID, "")
+    val (result, msg) = validateKey(key)
+    if (!result) {
+      (SaveUrlResult.INVALID, msg)
     } else {
       try {
         getUrlFromKey(key, false) match {
@@ -134,22 +135,28 @@ class DB(config: Config) extends Logger {
     }
   }
 
-  private def validateKey(key: String):Boolean = {
+  private def validateKey(key: String): (Boolean, String) = {
     // Need optimize
     val ALLOW_CHARS = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890_-";
-      var length = key.length;
-      if (length > 32) {
-        false;
-      }
+    var result = true
+    var msg = ""
+    var length = key.length
+    if (length > 32) {
+       result = false
+       msg = "Key must not be longer than 32 characters."
+    }
 
+    if (result) {
       for (i <- 0 to length-1) {
-        var c = key.charAt(i);
-        if (ALLOW_CHARS.indexOf(c) == -1) {
-          false;
+        val c = key.charAt(i).toString
+        if (!ALLOW_CHARS.contains(c)) {
+          result = false
+          msg = "Key contains invalid character(s)."
         }
       }
+    }
 
-      true;
+    (result, msg);
   }
 
   /**
