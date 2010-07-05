@@ -9,32 +9,29 @@ import org.jboss.netty.util.CharsetUtil
 import comy.{DB, SaveUrlResult}
 
 /**
- * Mounted at /api/shorten?url=xxx&custom=yyy
+ * Mounted at /api/shorten?url=URL[&key=KEY]
  */
 class ApiShortenPost(request: HttpRequest, response: HttpResponse, db: DB) extends Abstract(request, response) {
   def execute {
     val urls = qd.getParameters.get("url")
     if (urls == null) {
       response.setStatus(BAD_REQUEST)
+      response.setContent(ChannelBuffers.copiedBuffer("url parameter must be specified", CharsetUtil.UTF_8))
     } else {
-      val url = urls.get(0)
+      val url  = urls.get(0)
       val keys = qd.getParameters.get("key")
-      val key = if (keys != null) Some(keys.get(0)) else None
-      val (result, key2) = db.saveUrl(url, key)
-      result match {
-        case SaveUrlResult.ERROR =>
-          response.setStatus(INTERNAL_SERVER_ERROR) // Status code 500
+      val key  = if (keys != null) Some(keys.get(0)) else None
+      val (resultCode, resultString) = db.saveUrl(url, key)
 
-        case SaveUrlResult.DUPLICATE =>
-          response.setStatus(CONFLICT) // Status code 409 Duplicate key
-
-        case SaveUrlResult.VALID =>
-          response.setContent(ChannelBuffers.copiedBuffer(key2, CharsetUtil.UTF_8))
-          response.setHeader(CONTENT_TYPE, "text/plain")
-
-        case _ =>
-          response.setStatus(BAD_REQUEST) // Status code 400, invalid key
+      val status = resultCode match {
+        case SaveUrlResult.VALID     => OK
+        case SaveUrlResult.INVALID   => BAD_REQUEST
+        case SaveUrlResult.DUPLICATE => CONFLICT
+        case SaveUrlResult.ERROR     => INTERNAL_SERVER_ERROR
       }
+      response.setStatus(status)
+
+      response.setContent(ChannelBuffers.copiedBuffer(resultString, CharsetUtil.UTF_8))
     }
   }
 }

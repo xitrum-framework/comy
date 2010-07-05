@@ -125,41 +125,30 @@ class DB(config: Config) extends Logger {
             if (url2 == url)
               (SaveUrlResult.VALID, key)
             else
-              (SaveUrlResult.DUPLICATE, "The key has been chosen.")
+              (SaveUrlResult.DUPLICATE, "The key has been chosen")
         }
       } catch {
         case e: Exception =>
           error(e)
-          (SaveUrlResult.ERROR, "Unknown error.")
+          (SaveUrlResult.ERROR, "Server error")
       }
     }
   }
 
   private def validateKey(key: String): (Boolean, String) = {
-    // Need optimize
-    val ALLOW_CHARS = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890_-";
-    var result = true
-    var msg = ""
-    var length = key.length
+    val ALLOW_CHARS = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890_-"
+    val length = key.length
     if (length == 0) {
-       result = false
-       msg = "Key must be longer than 0 character."
+       (false, "Key must be blank")
     } else if (length > 32) {
-       result = false
-       msg = "Key must not be longer than 32 characters and must longer than ."
+       (false, "Key must not be longer than 32 characters")
+    } else {
+      val invalidCharIncluded = key.exists(c => ALLOW_CHARS.indexOf(c) == -1)
+      if (invalidCharIncluded)
+        (false, "Key contains invalid character")
+      else
+        (true, "")
     }
-
-    if (result) {
-      for (i <- 0 to length-1) {
-        val c = key.charAt(i).toString
-        if (!ALLOW_CHARS.contains(c)) {
-          result = false
-          msg = "Key contains invalid character(s)."
-        }
-      }
-    }
-
-    (result, msg);
   }
 
   /**

@@ -18,6 +18,7 @@ class FrontController(config: Config, db: DB) extends SimpleChannelUpstreamHandl
   override def messageReceived(ctx: ChannelHandlerContext, e: MessageEvent) {
     val request  = e.getMessage.asInstanceOf[HttpRequest]
     val response = new DefaultHttpResponse(HTTP_1_1, OK)
+    response.setHeader(CONTENT_TYPE, "text/plain")  // Default content type
 
     val notClosed = route(e, request, response)
     if (notClosed) respond(e, request, response)

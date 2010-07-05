@@ -4,6 +4,7 @@ import org.jboss.netty.handler.codec.http._
 import HttpHeaders.Names._
 import HttpResponseStatus._
 import org.jboss.netty.buffer._
+import org.jboss.netty.util.CharsetUtil
 
 import comy.DB
 
@@ -23,6 +24,7 @@ class ApiShortenGet(request: HttpRequest, response: HttpResponse, db: DB) extend
 
       case None =>
         response.setStatus(NOT_FOUND)
+        response.setContent(ChannelBuffers.copiedBuffer("Not found", CharsetUtil.UTF_8))
     }
   }
 }

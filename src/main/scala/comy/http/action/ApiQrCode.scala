@@ -39,8 +39,8 @@ class ApiQrCode(request: HttpRequest, response: HttpResponse) extends Abstract(r
 
       val baos = new ByteArrayOutputStream
       ImageIO.write(image, "png", baos)
-      response.setContent(ChannelBuffers.copiedBuffer(baos.toByteArray))
       response.setHeader(CONTENT_TYPE, "image/png")
+      response.setContent(ChannelBuffers.copiedBuffer(baos.toByteArray))
     }
   }
 
