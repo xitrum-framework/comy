@@ -1,5 +1,7 @@
 package comy.http.action
 
+import java.net.URLConnection
+
 /**
  * Loads static files and caches them in memory.
  */
@@ -45,13 +47,7 @@ object StaticCache {
 
       stream.close
 
-      // NOTE: add more type when adding static files
-      val contentType = path.split("\\.").last match {
-        case "css"  => "text/css"
-        case "js"   => "application/x-javascript"
-        case "html" => "text/html"
-        case "png"  => "image/png"
-      }
+      val contentType = URLConnection.guessContentTypeFromName(path)
       Some((bytes, contentType))
     }
   }

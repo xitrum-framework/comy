@@ -14,6 +14,8 @@ object Server extends Logger {
       new NioServerSocketChannelFactory(
         Executors.newCachedThreadPool, Executors.newCachedThreadPool))
     bootstrap.setPipelineFactory(new HttpChannelPipelineFactory(config))
+    bootstrap.setOption("child.tcpNoDelay", true)
+    bootstrap.setOption("child.keepAlive",  true)
     bootstrap.bind(new InetSocketAddress(config.serverPort))
   }
 }
