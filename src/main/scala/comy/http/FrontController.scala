@@ -24,7 +24,7 @@ class FrontController(config: Config, db: DB) extends SimpleChannelUpstreamHandl
     if (notClosed) respond(e, request, response)
   }
 
-  override def exceptionCaught(ctx:ChannelHandlerContext, e:ExceptionEvent) {
+  override def exceptionCaught(ctx: ChannelHandlerContext, e: ExceptionEvent) {
     error(e.toString)
     e.getChannel.close
   }

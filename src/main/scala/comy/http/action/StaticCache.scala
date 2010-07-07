@@ -47,7 +47,16 @@ object StaticCache {
 
       stream.close
 
-      val contentType = URLConnection.guessContentTypeFromName(path)
+      // Cannot use URLConnection.guessContentTypeFromName(path) because it may
+      // return null!
+      //
+      // NOTE: add more type when adding static files
+      val contentType = path.split("\\.").last match {
+        case "css"  => "text/css"
+        case "js"   => "application/x-javascript"
+        case "html" => "text/html"
+        case "png"  => "image/png"
+      }
       Some((bytes, contentType))
     }
   }
