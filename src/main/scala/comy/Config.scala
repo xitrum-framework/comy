@@ -16,11 +16,7 @@ class Config(path: String) {
   val dbName               = properties.getProperty("DB_NAME")
   val dbConnectionsPerHost = properties.getProperty("DB_CONNECTIONS_PER_HOST").toInt
   val dbExpirationDays     = properties.getProperty("DB_EXPIRATION_DAYS").toInt
-
-  val dbHostLeft  = properties.getProperty("DB_HOST_LEFT")
-  val dbPortLeft  = properties.getProperty("DB_PORT_LEFT").toInt
-  val dbHostRight = properties.getProperty("DB_HOST_RIGHT")
-  val dbPortRight = properties.getProperty("DB_PORT_RIGHT").toInt
+  val dbAddrs              = properties.getProperty("DB_ADDRS").split(",").map(addr => addr.trim)
 
   def isApiAllowed(ip: String) = apiIps.exists { ip2 =>
     (ip2 == "*") || (ip2 == ip)

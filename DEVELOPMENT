@@ -1,9 +1,13 @@
-You need JDK 1.6 and SBT (http://code.google.com/p/simple-build-tool/).
+See release/INSTALL
 
+== Build
+
+Use SBT (http://code.google.com/p/simple-build-tool/):
 * To download dependencies: sbt update
 * To compile:               sbt compile
-* To run:                   sbt run
 * To package to .jar file:  sbt package
+
+== Run
 
 Copy release/config.properties.sample to release/config.properties and edit
 to suit your environment.

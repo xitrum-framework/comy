@@ -1,6 +1,6 @@
 package comy
 
-import java.util.{Date, Calendar}
+import java.util.{ArrayList, Date, Calendar}
 import java.text.SimpleDateFormat
 
 import com.mongodb._
@@ -42,16 +42,16 @@ class DB(config: Config) extends Logger {
   import DBUrlColl._
   import SaveUrlResult._
 
-  val left  = new ServerAddress(config.dbHostLeft,  config.dbPortLeft)
-  val right = new ServerAddress(config.dbHostRight, config.dbPortRight)
+  val addrs = new ArrayList[ServerAddress]
+  for (addr <- config.dbAddrs) addrs.add(new ServerAddress(addr))
 
   val options = new MongoOptions
   options.connectionsPerHost = config.dbConnectionsPerHost
   options.autoConnectRetry   = true
 
-  val mongo = new Mongo(left, right, options)
-  val db = mongo.getDB(config.dbName)
-  val coll = db.getCollection(COLL)
+  val mongo = new Mongo(addrs, options)
+  val db    = mongo.getDB(config.dbName)
+  val coll  = db.getCollection(COLL)
 
   ensureIndex
 

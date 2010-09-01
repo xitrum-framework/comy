@@ -16,7 +16,5 @@ DB_CONNECTIONS_PER_HOST = 100
 # URLs that have not been accessed within this number of days will be removed
 DB_EXPIRATION_DAYS = 90
 
-DB_HOST_LEFT  = localhost
-DB_PORT_LEFT  = 27017
-DB_HOST_RIGHT = localhost
-DB_PORT_RIGHT = 27017
+# Replica set is supported
+DB_ADDRS = localhost:27017, localhost:27017, localhost:27017

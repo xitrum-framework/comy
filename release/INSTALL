@@ -1,30 +1,26 @@
 == Prequisites
 
 * Java 1.6
-* MongoDB 1.4.3
+* MongoDB 1.6
 
 == Configure
+
+Comy supports Replica Set, see:
+http://www.mongodb.org/display/DOCS/Replica+Sets
 
 Edit config.properties to suit your environment. You may also need to edit
 http.sh to change the JVM memory option.
 
-Comy supports Replica Pair:
-
-Comy ---+--- Left  MongoDB
-         \-- Right MongoDB
-
-See: http://www.mongodb.org/display/DOCS/Replica+Pairs
-
 == Run
 
-Change to bin directory, then run:
+Change to bin directory, run:
 ./http.sh
-*
+
 == Remove old data
 
 You may need to remove URL entries that are not accessed for a long time.
 
-Change to bin directory, then run:
+Change to bin directory, run:
 ./gc.sh
 
 You may need to schedule gc.sh to be run periodically.
