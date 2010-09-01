@@ -9,7 +9,7 @@ class Project(info: ProjectInfo) extends DefaultProject(info) {
 
   override def libraryDependencies =
     Set(
-      "org.jboss.netty" % "netty"             % "3.2.1.Final" % "compile->default",
+      "org.jboss.netty" % "netty"             % "3.2.2.Final" % "compile->default",
       "log4j"           % "log4j"             % "1.2.14"      % "compile->default",
       "org.slf4j"       % "slf4j-api"         % "1.5.10"      % "compile->default",
       "org.slf4j"       % "slf4j-log4j12"     % "1.5.6"       % "compile->default",
