@@ -2,6 +2,7 @@ lib_managed
 project/boot
 release/config.properties
 target
+tmp
 
 .*
 *.log

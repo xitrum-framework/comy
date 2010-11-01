@@ -1,20 +1,29 @@
 import sbt._
 
 class Project(info: ProjectInfo) extends DefaultProject(info) {
-  val localMavenRepo = "Local Maven Repo" at
-    "file://" + Path.userHome + "/.m2/repository"
+  // Compile options
 
-  val jbossRepo = "JBoss Repo" at
-    "https://repository.jboss.org/nexus/content/groups/public/"
+  override def compileOptions = super.compileOptions ++
+    Seq("-deprecation",
+        "-Xmigration",
+        "-Xcheckinit",
+        "-Xwarninit",
+        "-encoding", "utf8")
+        .map(x => CompileOption(x))
 
-  override def libraryDependencies =
-    Set(
-      "org.jboss.netty" % "netty"             % "3.2.2.Final" % "compile->default",
-      "log4j"           % "log4j"             % "1.2.14"      % "compile->default",
-      "org.slf4j"       % "slf4j-api"         % "1.5.10"      % "compile->default",
-      "org.slf4j"       % "slf4j-log4j12"     % "1.5.6"       % "compile->default",
-      "org.mongodb"     % "mongo-java-driver" % "2.2"         % "compile->default"
-    ) ++ super.libraryDependencies
+  override def javaCompileOptions = JavaCompileOption("-Xlint:unchecked") :: super.javaCompileOptions.toList
 
-  override def mainClass = Some("comy.main.Http")
+  // Repos ---------------------------------------------------------------------
+
+  override def libraryDependencies = Set(
+    "cntt"           %% "xitrum"            % "0.1-SNAPSHOT",
+    "ch.qos.logback" %  "logback-classic"   % "0.9.26",
+    "org.mongodb"    %  "mongo-java-driver" % "2.3"
+  ) ++ super.libraryDependencies
+
+  // Paths ---------------------------------------------------------------------
+
+  override def unmanagedClasspath = super.unmanagedClasspath +++ ("config")
+
+  override def mainClass = Some("comy.Boot")
 }

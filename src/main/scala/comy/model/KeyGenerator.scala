@@ -1,4 +1,4 @@
-package comy
+package comy.model
 
 object KeyGenerator {
   def generateKey: String = {

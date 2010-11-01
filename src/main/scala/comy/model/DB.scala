@@ -1,9 +1,13 @@
-package comy
+package comy.model
+
+import xt.Logger
 
 import java.util.{ArrayList, Date, Calendar}
 import java.text.SimpleDateFormat
 
 import com.mongodb._
+
+import comy.Config
 
 object DBUrlColl {
   val COLL         = "urls"
@@ -38,19 +42,19 @@ object SaveUrlResult extends Enumeration {
  * See: http://www.mongodb.org/display/DOCS/Java+Language+Center
  * Only one instance of this class should be used for the whole application.
  */
-class DB(config: Config) extends Logger {
+object DB extends Logger {
   import DBUrlColl._
   import SaveUrlResult._
 
   val addrs = new ArrayList[ServerAddress]
-  for (addr <- config.dbAddrs) addrs.add(new ServerAddress(addr))
+  for (addr <- Config.dbAddrs) addrs.add(new ServerAddress(addr))
 
   val options = new MongoOptions
-  options.connectionsPerHost = config.dbConnectionsPerHost
+  options.connectionsPerHost = Config.dbConnectionsPerHost
   options.autoConnectRetry   = true
 
   val mongo = new Mongo(addrs, options)
-  val db    = mongo.getDB(config.dbName)
+  val db    = mongo.getDB(Config.dbName)
   val coll  = db.getCollection(COLL)
 
   ensureIndex
@@ -68,20 +72,19 @@ class DB(config: Config) extends Logger {
       getUrlFromKey(key, true)
     } catch {
       case e: Exception =>
-        error(e)
+        logger.error("getUrl", e)
         None
     }
   }
 
   /**
    * Removes all URLs that have not been accessed within the last number of days.
-   * The number of days is configured in config.properties.
    *
    * @return false if there is error (DB is down etc.)
    */
   def removeExpiredUrls: Boolean = {
     try {
-      val expirationDate = today - config.dbExpirationDays
+      val expirationDate = today - Config.dbExpirationDays
       val query = new BasicDBObject
       query.put(ACCESS_COUNT, 0)
       query.put(UPDATED_ON,   new BasicDBObject("$lte", expirationDate))
@@ -92,7 +95,7 @@ class DB(config: Config) extends Logger {
       true
     } catch {
       case e: Exception =>
-        error(e)
+        logger.error("removeExpiredUrls", e)
         false
     }
   }
@@ -129,7 +132,7 @@ class DB(config: Config) extends Logger {
         }
       } catch {
         case e: Exception =>
-          error(e)
+          logger.error("saveUrlWithKey", e)
           (SaveUrlResult.ERROR, "Server error")
       }
     }
@@ -174,7 +177,7 @@ class DB(config: Config) extends Logger {
       }
     } catch {
       case e: Exception =>
-        error(e)
+        logger.error("saveUrlWithRandomKey", e)
         (SaveUrlResult.ERROR, "")
     }
   }
