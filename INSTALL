@@ -13,14 +13,11 @@ http.sh to change the JVM memory option.
 
 == Run
 
-Change to bin directory, run:
-./http.sh
+bin/xitrum
 
 == Remove old data
 
-You may need to remove URL entries that are not accessed for a long time.
+You may need to remove URL entries that are not accessed for a long time:
+bin/xitrum gc
 
-Change to bin directory, run:
-./gc.sh
-
-You may need to schedule gc.sh to be run periodically.
+You may need to the command to be run periodically.

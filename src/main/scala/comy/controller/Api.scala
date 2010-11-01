@@ -15,6 +15,7 @@ import com.google.zxing.qrcode.QRCodeWriter
 import javax.imageio.ImageIO
 import java.io.ByteArrayOutputStream
 
+import comy.Config
 import comy.model.{DB, SaveUrlResult}
 
 object Api {
@@ -30,6 +31,15 @@ object Api {
 
 class Api extends Controller {
   import Api._
+
+  override def beforeFilter = {
+    if (Config.isApiAllowed(remoteIp)) {
+      true
+    } else {
+      response.setStatus(FORBIDDEN)
+      false
+    }
+  }
 
   def index {
     render
@@ -90,11 +100,4 @@ class Api extends Controller {
       mtx.set(w, h, inverted)
     }
   }
-/*
-  private def isApiAllowed(e: MessageEvent): Boolean = {
-    val remoteAddress = e.getRemoteAddress().toString
-    val ip = remoteAddress.substring(1, remoteAddress.indexOf(':'))
-    config.isApiAllowed(ip)
-  }
-*/
 }
