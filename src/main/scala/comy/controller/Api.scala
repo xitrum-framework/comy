@@ -32,14 +32,7 @@ object Api {
 class Api extends Controller {
   import Api._
 
-  override def beforeFilter = {
-    if (Config.isApiAllowed(remoteIp)) {
-      true
-    } else {
-      response.setStatus(FORBIDDEN)
-      false
-    }
-  }
+  beforeFilter("checkIpForShorten", Except("lengthen"))
 
   def index {
     render
@@ -61,6 +54,21 @@ class Api extends Controller {
     renderText(resultString)
   }
 
+  /** See: http://www.hascode.com/2010/05/playing-around-with-qr-codes/ */
+  def qrcode {
+    val url = param("url")
+
+    val writer = new QRCodeWriter
+    val mtx    = writer.encode(url, BarcodeFormat.QR_CODE, QR_CODE_WIDTH, QR_CODE_HEIGHT)
+    invertImage(mtx)
+    val image  = MatrixToImageWriter.toBufferedImage(mtx)
+
+    val baos = new ByteArrayOutputStream
+    ImageIO.write(image, "png", baos)
+    response.setHeader(CONTENT_TYPE, "image/png")
+    renderBinary(baos.toByteArray)
+  }
+
   def lengthen {
     val key = param("key")
     DB.getUrl(key) match {
@@ -77,22 +85,16 @@ class Api extends Controller {
     }
   }
 
-  /** See: http://www.hascode.com/2010/05/playing-around-with-qr-codes/ */
-  def qrcode {
-    val url = param("url")
-
-    val writer = new QRCodeWriter
-    val mtx    = writer.encode(url, BarcodeFormat.QR_CODE, QR_CODE_WIDTH, QR_CODE_HEIGHT)
-    invertImage(mtx)
-    val image  = MatrixToImageWriter.toBufferedImage(mtx)
-
-    val baos = new ByteArrayOutputStream
-    ImageIO.write(image, "png", baos)
-    response.setHeader(CONTENT_TYPE, "image/png")
-    renderBinary(baos.toByteArray)
-  }
-
   //----------------------------------------------------------------------------
+
+  protected def checkIpForShorten = {
+    if (Config.isApiAllowed(remoteIp)) {
+      true
+    } else {
+      response.setStatus(FORBIDDEN)
+      false
+    }
+  }
 
   private def invertImage(mtx: ByteMatrix) {
     for (w <- 0 until mtx.getWidth; h <- 0 until mtx.getHeight) {
