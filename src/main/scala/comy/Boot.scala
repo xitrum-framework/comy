@@ -10,7 +10,7 @@ import comy.controller._
 
 object Boot {
   def main(args: Array[String]) {
-    val routes      = Api.routes
+    val routes      = Admin.routes ++ Api.routes
     val errorRoutes = Errors.routes
 
     val controllerPaths = List("comy.controller")
