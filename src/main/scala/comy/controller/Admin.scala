@@ -1,17 +1,29 @@
 package comy.controller
 
-import xt.framework.Controller
-
 import org.jboss.netty.handler.codec.http._
 import HttpMethod._
 
 object Admin {
   val routes = List(
-    (GET, "/admin", "Admin#index"))
+    (GET,  "/login", "Admin#login"),
+    (POST, "/login", "Admin#login"),
+    (GET,  "/admin", "Admin#index"))
 }
 
-class Admin extends Controller {
+class Admin extends Application {
+  def login {
+    if (env.method == GET)
+      renderView
+    else {
+      val username = param("username")
+      if (username == "admin")
+        redirectTo("/admin")
+      else
+        renderView
+    }
+  }
+
   def index {
-    render
+    renderView
   }
 }

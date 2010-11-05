@@ -1,7 +1,5 @@
 package comy.controller
 
-import xt.framework.Controller
-
 import org.jboss.netty.handler.codec.http._
 import HttpMethod._
 import HttpHeaders.Names._
@@ -29,13 +27,13 @@ object Api {
   val QR_CODE_HEIGHT = 150
 }
 
-class Api extends Controller {
+class Api extends Application {
   import Api._
 
   beforeFilter("checkIpForShorten", Except("lengthen"))
 
   def index {
-    render
+    renderView
   }
 
   def shorten {
@@ -51,7 +49,7 @@ class Api extends Controller {
       case SaveUrlResult.ERROR     => INTERNAL_SERVER_ERROR
     }
     response.setStatus(status)
-    renderText(resultString)
+    renderText(resultString, None)
   }
 
   /** See: http://www.hascode.com/2010/05/playing-around-with-qr-codes/ */
@@ -76,12 +74,11 @@ class Api extends Controller {
         // Use 302 instead of 301 because:
         // * Some KDDI AU mobiles display annoying dialog for 301
         // * Not all browsers support HTTP/1.1
-        response.setStatus(FOUND)
-        response.setHeader(LOCATION, url)
+        redirectTo(url)
 
       case None =>
         response.setStatus(NOT_FOUND)
-        renderText("Not found")
+        renderText("Not Found")
     }
   }
 

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-JAVA_OPTS='-Xms2000m -Xmx6000m -server -Djava.awt.headless=true -Dxitrum.mode=production'
+JAVA_OPTS='-Xms2000m -Xmx6000m -server -Dxitrum.mode=production'
 
 # These should be the same as in project/build.properties
 APP_VERSION=1.2

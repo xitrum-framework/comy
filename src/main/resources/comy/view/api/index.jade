@@ -1,54 +1,22 @@
-!!!
-html
-  head
-    meta(content="text/html; charset=utf-8" http-equiv="content-type")
+script(type="text/javascript" src="/public/js/index.js")
 
-    title URL Shortener
+label#url_label(for="url") URL:
+input#url(type="text" value="http://mobion.jp/" tabindex="1")
+input#submit(type="submit" value="Shorten" tabindex="3")
+br
 
-    link(rel="stylesheet" type="text/css" media="all" href="/public/css/reset.css")
-    link(rel="stylesheet" type="text/css" media="all" href="/public/css/text.css")
-    link(rel="stylesheet" type="text/css" media="all" href="/public/css/960_24_col.css")
-    link(rel="stylesheet" type="text/css" media="all" href="/public/css/smart_corners.css")
-    link(rel="stylesheet" type="text/css" media="all" href="/public/css/index.css")
+label#key_label(for="key") Key:
+input#key(type="text" tabindex="2")
+span (optional, a-z A-Z 0-9 _ -)
 
-    script(type="text/javascript" src="/public/js/jquery-1.4.2.min.js")
-    script(type="text/javascript" src="/public/js/index.js")
+br
+br
 
-  body
-    .container_24
-      .grid_18.prefix_2.suffix_4
-        br
-        br
+.grid_5
+  img#qrcode(alt="QR code" width="150" height="150" src="")
 
-        #csc
-          span.tr
+div
+  label Result:
+  h2#result
 
-          h1#header URL Shortener
-
-          label#url_label(for="url") URL:
-          input#url(type="text" value="http://mobion.jp/" tabindex="1")
-          input#submit(type="submit" value="Shorten" tabindex="3")
-          br
-
-          label#key_label(for="key") Key:
-          input#key(type="text" tabindex="2")
-          span (optional, a-z A-Z 0-9 _ -)
-
-          br
-          br
-
-          .grid_5
-            img#qrcode(alt="QR code" width="150" height="150" src="")
-
-          div
-            label Result:
-            h2#result
-
-            a#open(href="" target="_blank") Open
-
-          .clear
-
-          span.bl
-          span.br
-
-        h5#footer &copy; 2010 GNT Inc.
+  a#open(href="" target="_blank") Open
