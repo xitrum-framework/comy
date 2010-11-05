@@ -17,7 +17,7 @@ class Admin extends Application {
     else {
       val username = param("username")
       if (username == "admin")
-        redirectTo("/admin")
+        redirectTo("index")
       else
         renderView
     }
