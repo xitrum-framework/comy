@@ -12,7 +12,7 @@ object Admin {
 
 class Admin extends Application {
   def login {
-    if (env.method == GET)
+    if (method == GET)
       renderView
     else {
       val username = param("username")

@@ -29,7 +29,7 @@ html
 
           - if (Config.isAdminAllowed(remoteIp))
             div
-              - if (env.session("user") == null)
+              - if (session("user") == null)
                 a(href="/login") Login
               - else
                 b hehe
