@@ -7,7 +7,7 @@ APP_VERSION=1.2
 APP=comy
 
 # Not frequently changed
-SCALA_VERSION=2.8.0
+SCALA_VERSION=2.8.1
 
 CLASS_PATH="lib/*:config"
 
