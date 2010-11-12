@@ -2,7 +2,6 @@ package comy
 
 import xt.server.Server
 import xt.vc.Router
-import xt.vc.helper.Scalate
 
 import comy.controller._
 
@@ -13,10 +12,7 @@ object Boot {
 
     val routes          = Admin.routes ++ Api.routes
     val controllerPaths = List("comy.controller")
-    val viewPaths       = List("comy.view")
-
     Router(routes, controllerPaths)
-    Scalate(viewPaths)
 
     val s = new Server
     s.start
