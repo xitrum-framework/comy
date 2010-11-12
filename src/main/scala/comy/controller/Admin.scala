@@ -1,7 +1,6 @@
 package comy.controller
 
-import org.jboss.netty.handler.codec.http._
-import HttpMethod._
+import org.jboss.netty.handler.codec.http.HttpMethod._
 
 object Admin {
   val routes = List(

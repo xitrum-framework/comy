@@ -1,22 +1,18 @@
 script(type="text/javascript" src="/public/js/index.js")
 
-label#url_label(for="url") URL:
+label(for="url") URL:
 input#url(type="text" value="http://mobion.jp/" tabindex="1")
 input#submit(type="submit" value="Shorten" tabindex="3")
 br
 
-label#key_label(for="key") Key:
+label(for="key") Key:
 input#key(type="text" tabindex="2")
 span (optional, a-z A-Z 0-9 _ -)
-
-br
 br
 
-.grid_5
-  img#qrcode(alt="QR code" width="150" height="150" src="")
+label Result:
+span#result
+a#open(href="" target="_blank") Open ↑
+br
 
-div
-  label Result:
-  h2#result
-
-  a#open(href="" target="_blank") Open
+img#qrcode(alt="QR code" width="150" height="150" src="")

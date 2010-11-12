@@ -19,8 +19,12 @@
   width: 560px;
 }
 
-#url_label, #key_label {
+label {
   display: block;
-  width: 40px;
+  width: 60px;
   float: left;
+}
+
+#result {
+  font-size: 2em;
 }
