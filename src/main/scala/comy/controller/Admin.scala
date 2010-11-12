@@ -5,7 +5,7 @@ import xt.vc._
 import org.jboss.netty.handler.codec.http.HttpMethod
 
 class Admin extends Application {
-  @Path("/login")
+  @Path("/admin/login")
   def login {
     if (request.getMethod == HttpMethod.GET)
       renderView

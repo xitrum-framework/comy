@@ -30,7 +30,7 @@ html
           - if (Config.isAdminAllowed(remoteIp))
             div
               - if (session("user") == null)
-                a(href="/login") Login
+                a(href="/admin/login") Login
               - else
                 b hehe
 
