@@ -2,7 +2,6 @@ script(type="text/javascript" src="/public/js/index.js")
 
 label(for="url") URL:
 input#url(type="text" value="http://mobion.jp/" tabindex="1")
-input#submit(type="submit" value="Shorten" tabindex="3")
 br
 
 label(for="key") Key:
@@ -10,7 +9,14 @@ input#key(type="text" tabindex="2")
 span (optional, a-z A-Z 0-9 _ -)
 br
 
+input#submit(type="submit" value="Shorten" tabindex="3")
+br
+br
+
+hr
+
 label Result:
+br
 span#result
 a#open(href="" target="_blank") Open ↑
 br
