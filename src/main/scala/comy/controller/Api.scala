@@ -1,7 +1,8 @@
 package comy.controller
 
+import xt.vc._
+
 import org.jboss.netty.handler.codec.http._
-import HttpMethod._
 import HttpHeaders.Names._
 import HttpResponseStatus._
 
@@ -17,12 +18,6 @@ import comy.Config
 import comy.model.{DB, SaveUrlResult}
 
 object Api {
-  val routes = List(
-    (GET,  "/",            "Api#index"),
-    (POST, "/api/shorten", "Api#shorten"),  // /api/shorten?url=URL[&key=KEY]
-    (GET,  "/api/qrcode",  "Api#qrcode"),   // /api/qrcode?url=xxx
-    (GET,  "/:key",        "Api#lengthen"))
-
   val QR_CODE_WIDTH  = 150
   val QR_CODE_HEIGHT = 150
 }
@@ -32,10 +27,13 @@ class Api extends Application {
 
   beforeFilter("checkIpForShorten", Except("lengthen"))
 
+  @Path("/")
   def index {
     renderView
   }
 
+  @POST
+  @Path("/api/shorten")  // ?url=URL[&key=KEY]
   def shorten {
     val url = param("url")
 
@@ -53,6 +51,7 @@ class Api extends Application {
   }
 
   /** See: http://www.hascode.com/2010/05/playing-around-with-qr-codes/ */
+  @Path("/api/qrcode")  // ?url=xxx
   def qrcode {
     val url = param("url")
 
@@ -67,6 +66,7 @@ class Api extends Application {
     renderBinary(baos.toByteArray)
   }
 
+  @Path("/:key")
   def lengthen {
     val key = param("key")
     DB.getUrl(key) match {
