@@ -46,16 +46,19 @@ object DB extends Logger {
   import DBUrlColl._
   import SaveUrlResult._
 
-  val addrs = new ArrayList[ServerAddress]
-  for (addr <- Config.dbAddrs) addrs.add(new ServerAddress(addr))
+  private val coll  = {
+    val addrs = new ArrayList[ServerAddress]
+    for (addr <- Config.dbAddrs) addrs.add(new ServerAddress(addr))
 
-  val options = new MongoOptions
-  options.connectionsPerHost = Config.dbConnectionsPerHost
-  options.autoConnectRetry   = true
+    val options = new MongoOptions
+    options.connectionsPerHost = Config.dbConnectionsPerHost
+    options.autoConnectRetry   = true
 
-  val mongo = new Mongo(addrs, options)
-  val db    = mongo.getDB(Config.dbName)
-  val coll  = db.getCollection(COLL)
+    val mongo = new Mongo(addrs, options)
+    val db    = mongo.getDB(Config.dbName)
+
+    db.getCollection(COLL)
+  }
 
   ensureIndexes
 
