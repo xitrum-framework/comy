@@ -57,7 +57,7 @@ object DB extends Logger {
   val db    = mongo.getDB(Config.dbName)
   val coll  = db.getCollection(COLL)
 
-  ensureIndex
+  ensureIndexes
 
   def saveUrl(url: String, key: Option[String]) = key match {
     case Some(key2) => saveUrlWithKey(url, key2)
@@ -102,7 +102,7 @@ object DB extends Logger {
 
   //----------------------------------------------------------------------------
 
-  private def ensureIndex {
+  private def ensureIndexes {
     // Index each column separately (3 indexes in total) because we will search
     // based on each one separately
     coll.ensureIndex(new BasicDBObject(KEY,        1))
