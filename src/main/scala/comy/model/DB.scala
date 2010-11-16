@@ -227,8 +227,8 @@ object DB extends Logger {
     doc.put(KEY,          key)
     doc.put(URL,          url)
     doc.put(ACCESS_COUNT, 0)
-    doc.put(CREATED_ON,   today)
-    doc.put(UPDATED_ON,   today)
+    doc.put(CREATED_ON,   d)
+    doc.put(UPDATED_ON,   d)
     coll.insert(doc)
   }
 
