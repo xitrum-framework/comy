@@ -1,6 +1,6 @@
 package comy.controller
 
-import xt.vc._
+import xt.vc.annotation._
 
 import org.jboss.netty.handler.codec.http._
 import HttpHeaders.Names._
