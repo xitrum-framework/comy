@@ -1,9 +1,6 @@
 package comy
 
 import xt.server.Server
-import xt.vc.Router
-
-import comy.controller._
 
 object Boot {
   def main(args: Array[String]) {

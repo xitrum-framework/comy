@@ -15,8 +15,14 @@ class Project(info: ProjectInfo) extends DefaultProject(info) {
 
   // Repos ---------------------------------------------------------------------
 
+  // For xitrum during development on local machine
+  val localMaven       = "Local Maven"       at "file://"+ Path.userHome + "/.m2/repository"
+
+  // For xitrum during development on different machines
+  val sonatypeSnapshot = "Sonatype Snapshot" at "https://oss.sonatype.org/content/repositories/snapshots"
+
   override def libraryDependencies = Set(
-    "cntt"           %% "xitrum"            % "0.1-SNAPSHOT",
+    "tv.cntt"        %% "xitrum"            % "1.0-SNAPSHOT",
     "ch.qos.logback" %  "logback-classic"   % "0.9.26",
     "org.mongodb"    %  "mongo-java-driver" % "2.3"
   ) ++ super.libraryDependencies

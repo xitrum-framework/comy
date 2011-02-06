@@ -1,6 +1,6 @@
 package comy.controller
 
-import xt.vc.annotation._
+import xt._
 
 import org.jboss.netty.handler.codec.http._
 import HttpHeaders.Names._
@@ -27,9 +27,34 @@ class Api extends Application {
 
   beforeFilter("checkIpForShorten", Except("lengthen"))
 
+  @GET
   @Path("/")
   def index {
-    renderView
+    renderLayout(
+      <script type="text/javascript" src="/public/js/index.js"></script>
+
+      <label for="url">URL:</label>
+      <input id="url" type="text" value="http://mobion.jp/" tabindex="1" />
+      <br />
+
+      <label for="key">Key:</label>
+      <input id="key" type="text" tabindex="2" />
+      <span>(optional, a-z A-Z 0-9 _ -)</span>
+      <br />
+
+      <input id="submit" type="submit" value="Shorten" tabindex="3" />
+      <br />
+      <br />
+
+      <hr />
+
+      <label>Result:</label>
+      <br />
+      <span id="result"></span>
+      <a id="open" href="" target="_blank">Open ↑</a>
+      <br />
+
+      <img id="qrcode" alt="QR code" width="150" height="150" src="" />)
   }
 
   @POST
@@ -51,6 +76,7 @@ class Api extends Application {
   }
 
   /** See: http://www.hascode.com/2010/05/playing-around-with-qr-codes/ */
+  @GET
   @Path("/api/qrcode")  // ?url=xxx
   def qrcode {
     val url = param("url")
@@ -66,7 +92,8 @@ class Api extends Application {
     renderBinary(baos.toByteArray)
   }
 
-  @Path("/:key")
+  @GET
+  @Path(value="/:key", last=true)
   def lengthen {
     val key = param("key")
     DB.getUrl(key) match {
