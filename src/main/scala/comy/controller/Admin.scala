@@ -1,18 +1,14 @@
 package comy.controller
 
 import xt._
+import comy.view.admin._
 
 class Admin extends Application {
   @GET
   @POST
   @Path("/admin/login")
   def login {
-    renderLayout(
-      <form action="/admin/login" method="post">
-        <label>Username:</label>
-        <input type="text" name="username" />
-        <input type="submit" value="Password »" />
-      </form>)
+    renderView(Login)
   }
 
   @POST
@@ -22,12 +18,12 @@ class Admin extends Application {
     if (username == "admin")
       redirectTo("index")
     else
-      renderView
+      renderView(Login)
   }
 
   @GET
   @Path("/admin")
   def index {
-    renderLayout(<p>Admin page</p>)
+    renderView(Index)
   }
 }
