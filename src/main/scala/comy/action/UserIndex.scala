@@ -26,9 +26,8 @@ class UserIndex extends Application with Postback {
 
       <label>Result:</label>
       <br />
-      <span id="result"></span>
+      <div id="result"></div>
       <br />
-
       <div id="qrcode"></div>
     )
   }
@@ -36,7 +35,11 @@ class UserIndex extends Application with Postback {
   def postback {
     val url = param("url").trim
     if (url.isEmpty) {
-      renderUpdate("result", "URL must not be empty")
+      renderJS(
+        jsUpdate("result", <p class="error">URL must not be empty</p>),
+        jsUpdate("qrcode", "")
+      )
+      return
     }
 
     val keyo = {
@@ -47,28 +50,28 @@ class UserIndex extends Application with Postback {
     val (resultCode, resultString) = DB.saveUrl(url, keyo)
 
     resultCode match {
-      case SaveUrlResult.VALID     =>
+      case SaveUrlResult.VALID =>
         val absoluteUrl = "http://localhost:8364/" + resultString
         renderJS(
           jsUpdate("result", absoluteUrl),
           jsUpdate("qrcode", <a href={absoluteUrl} target="_blank"><img src={urlFor[UserQRCode]("url" -> absoluteUrl)} /></a>)
         )
 
-      case SaveUrlResult.INVALID   =>
+      case SaveUrlResult.INVALID =>
         renderJS(
-          jsUpdate("result", "Bad request"),
+          jsUpdate("result", <p class="error">{resultString}</p>),
           jsUpdate("qrcode", "")
         )
 
       case SaveUrlResult.DUPLICATE =>
         renderJS(
-          jsUpdate("result", "Key has been chosen"),
+          jsUpdate("result", <p class="error">Key has been chosen</p>),
           jsUpdate("qrcode", "")
         )
 
-      case SaveUrlResult.ERROR     =>
+      case SaveUrlResult.ERROR =>
         renderJS(
-          jsUpdate("result", "Server error"),
+          jsUpdate("result", <p class="error">Server error</p>),
           jsUpdate("qrcode", "")
         )
     }

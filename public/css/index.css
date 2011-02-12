@@ -28,3 +28,7 @@ label {
 #result {
   font-size: 2em;
 }
+
+.error {
+  color: red;
+}
