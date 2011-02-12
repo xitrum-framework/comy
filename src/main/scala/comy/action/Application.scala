@@ -34,7 +34,7 @@ trait Application extends Action {
               {if (ComyConfig.isAdminAllowed(remoteIp))
                 <div>
                   {if (session("user") == null)
-                    <a href="/admin/login">Login</a>
+                    <a href={urlFor[AdminLogin]}>Login</a>
                   else
                     <b>hehe</b>
                   }
