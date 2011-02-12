@@ -1,16 +1,10 @@
-package comy.view.layout
+package comy.action
 
-import scala.xml.Unparsed
 import xt._
-import comy.Config
 
-object Application extends View {
-  private val docType = """<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">"""
-
-  def render(controller: Controller) = {
-    import controller._
-
-    docType + "\n" +
+trait Application extends Action {
+  override def layout = Some(() =>
+    DocType.xhtmlTransitional + "\n" +
     <html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'>
       <head>
         <meta content="text/html; charset=utf-8" http-equiv="content-type" />
@@ -59,5 +53,5 @@ object Application extends View {
         </div>
       </body>
     </html>
-  }
+  )
 }

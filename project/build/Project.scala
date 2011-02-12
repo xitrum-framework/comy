@@ -21,10 +21,13 @@ class Project(info: ProjectInfo) extends DefaultProject(info) {
   // For xitrum during development on different machines
   val sonatypeSnapshot = "Sonatype Snapshot" at "https://oss.sonatype.org/content/repositories/snapshots"
 
+  // For netty
+  val jboss            = "JBoss"             at "https://repository.jboss.org/nexus/content/groups/public/"
+
   override def libraryDependencies = Set(
     "tv.cntt"        %% "xitrum"            % "1.0-SNAPSHOT",
-    "ch.qos.logback" %  "logback-classic"   % "0.9.26",
-    "org.mongodb"    %  "mongo-java-driver" % "2.3"
+    "ch.qos.logback" %  "logback-classic"   % "0.9.27",
+    "org.mongodb"    %  "mongo-java-driver" % "2.4"
   ) ++ super.libraryDependencies
 
   // Paths ---------------------------------------------------------------------
