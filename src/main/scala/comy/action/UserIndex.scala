@@ -19,7 +19,7 @@ class UserIndex extends Application with Postback {
         <span>(optional, a-z A-Z 0-9 _ -)</span>
         <br />
 
-        <input id="submit" type="submit" value="Shorten" tabindex="3" />
+        <input type="submit" value="Shorten" tabindex="3" />
       </form>
 
       <hr />
