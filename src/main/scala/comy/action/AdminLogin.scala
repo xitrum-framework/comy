@@ -2,8 +2,8 @@ package comy.action
 
 import xt._
 
+@GET("/admin/login")
 class AdminLogin extends Application {
-  @GET("/admin/login")
   def execute {
     renderView(
       <form action="/admin/login" method="post">

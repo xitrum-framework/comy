@@ -2,8 +2,8 @@ package comy.action
 
 import xt._
 
+@GET("/admin")
 class AdminIndex extends Application {
-  @GET("/admin")
   def execute {
     renderView(<p>Admin page</p>)
   }

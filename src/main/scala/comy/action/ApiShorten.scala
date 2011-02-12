@@ -6,6 +6,7 @@ import xt._
 import comy.{Config => ComyConfig}
 import comy.model.{DB, SaveUrlResult}
 
+@POST("/api/shorten")  // ?url=URL[&key=KEY]
 class ApiShorten extends Action {
   beforeFilters("checkIpForShorten") = () => {
     if (ComyConfig.isApiAllowed(remoteIp)) {
@@ -16,7 +17,6 @@ class ApiShorten extends Action {
     }
   }
 
-  @POST("/api/shorten")  // ?url=URL[&key=KEY]
   def execute {
     val url  = param("url")
     val keyo = paramo("key")

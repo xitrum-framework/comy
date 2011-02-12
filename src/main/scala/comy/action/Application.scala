@@ -17,7 +17,7 @@ trait Application extends Action {
         <link rel="stylesheet" type="text/css" media="all" href="/public/css/smart_corners.css" />
         <link rel="stylesheet" type="text/css" media="all" href="/public/css/index.css" />
 
-        <script type="text/javascript" src="/public/js/jquery-1.4.2.min.js"></script>
+        {Postback.js}
       </head>
 
       <body>
