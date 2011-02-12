@@ -49,7 +49,7 @@ $(function() {
       success: function(key) {
         var shortUrl = window.location + key;
         $('#result').text(shortUrl);
-        $('#qrcode').attr('src', '/api/qrcode?url=' + encodeURIComponent(shortUrl));
+        $('#qrcode').attr('src', '/user/qrcode?url=' + encodeURIComponent(shortUrl));
         $('#open').attr('href', shortUrl);
         $('#submit').attr('disabled', '');
       },
