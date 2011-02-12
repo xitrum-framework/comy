@@ -1,6 +1,7 @@
 package comy.action
 
 import xt._
+import comy.{Config => ComyConfig}
 
 trait Application extends Action {
   override def layout = Some(() =>
@@ -30,7 +31,7 @@ trait Application extends Action {
 
               <h1 id="header"><a href="/">URL Shortener</a></h1>
 
-              {if (Config.isAdminAllowed(remoteIp))
+              {if (ComyConfig.isAdminAllowed(remoteIp))
                 <div>
                   {if (session("user") == null)
                     <a href="/admin/login">Login</a>

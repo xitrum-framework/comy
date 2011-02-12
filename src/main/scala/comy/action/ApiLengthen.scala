@@ -5,8 +5,8 @@ import xt._
 
 import comy.model.DB
 
-@GET(value="/:key", last=true)
 class ApiLengthen extends Action {
+  @GET(value="/:key", last=true)
   def execute {
     val key = param("key")
     DB.getUrl(key) match {

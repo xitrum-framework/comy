@@ -3,13 +3,12 @@ package comy.action
 import org.jboss.netty.handler.codec.http.HttpResponseStatus._
 import xt._
 
-import comy.Config
+import comy.{Config => ComyConfig}
 import comy.model.{DB, SaveUrlResult}
 
-@POST("/api/shorten")  // ?url=URL[&key=KEY]
 class ApiShorten extends Action {
   beforeFilters("checkIpForShorten") = () => {
-    if (Config.isApiAllowed(remoteIp)) {
+    if (ComyConfig.isApiAllowed(remoteIp)) {
       true
     } else {
       response.setStatus(FORBIDDEN)
@@ -17,6 +16,7 @@ class ApiShorten extends Action {
     }
   }
 
+  @POST("/api/shorten")  // ?url=URL[&key=KEY]
   def execute {
     val url  = param("url")
     val keyo = paramo("key")

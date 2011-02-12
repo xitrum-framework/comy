@@ -2,8 +2,8 @@ package comy.action
 
 import xt._
 
-@GET("/")
 class UserIndex extends Application {
+  @GET("/")
   def execute {
     renderView(
       <script type="text/javascript" src="/public/js/index.js"></script>
