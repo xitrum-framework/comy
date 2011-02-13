@@ -43,6 +43,8 @@ trait Application extends Action {
                 </div>
               }
 
+              <div id="flash">{if (flash.isDefined) flash.get}</div>
+
               {at("contentForLayout")}
 
               <div class="clear"></div>
