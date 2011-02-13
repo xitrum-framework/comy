@@ -9,7 +9,7 @@ import comy.model.{DB, SaveUrlResult}
 class UserIndex extends Application with Postback {
   def execute {
     renderView(
-      <form id="form" postback="submit">
+      <form postback="submit">
         <label for="url">URL:</label>
         <input type="text" name="url" value="http://mobion.jp/" tabindex="1" />
         <br />
@@ -29,10 +29,7 @@ class UserIndex extends Application with Postback {
   def postback {
     val url = param("url").trim
     if (url.isEmpty) {
-      renderJS(
-        jsUpdate("result", <p class="error">URL must not be empty</p>),
-        jsUpdate("qrcode", "")
-      )
+      jsRenderUpdate("result", <p class="error">URL must not be empty</p>)
       return
     }
 
@@ -46,7 +43,7 @@ class UserIndex extends Application with Postback {
     resultCode match {
       case SaveUrlResult.VALID =>
         val absoluteUrl = "http://localhost:8364/" + resultString
-        renderUpdate("result",
+        jsRenderUpdate("result",
           <div>
             <hr />
             <div>{absoluteUrl}</div>
@@ -55,13 +52,13 @@ class UserIndex extends Application with Postback {
         )
 
       case SaveUrlResult.INVALID =>
-        renderUpdate("result", <p class="error">{resultString}</p>)
+        jsRenderUpdate("result", <p class="error">{resultString}</p>)
 
       case SaveUrlResult.DUPLICATE =>
-        renderUpdate("result", <p class="error">Key has been chosen</p>)
+        jsRenderUpdate("result", <p class="error">Key has been chosen</p>)
 
       case SaveUrlResult.ERROR =>
-        renderUpdate("result", <p class="error">Server error</p>)
+        jsRenderUpdate("result", <p class="error">Server error</p>)
     }
   }
 }

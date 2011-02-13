@@ -1,5 +1,6 @@
 package comy.action
 
+import scala.collection.mutable.ArrayBuffer
 import xt._
 import comy.{Config => ComyConfig}
 
@@ -33,10 +34,11 @@ trait Application extends Action {
 
               {if (ComyConfig.isAdminAllowed(remoteIp))
                 <div>
-                  {if (session("user").isEmpty)
+                  {if (session("username").isEmpty)
                     <a href={urlFor[AdminLogin]}>Login</a>
                   else
-                    <b>(session("user").get</b>
+                    <b>{session("username").get} </b>
+                    <a href="#" postback="click" action={urlFor[AdminLogin]}>Logout</a>
                   }
                 </div>
               }
