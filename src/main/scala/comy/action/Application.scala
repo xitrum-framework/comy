@@ -30,7 +30,7 @@ trait Application extends Action {
             <div id="csc">
               <span class="tr"></span>
 
-              <h1 id="header"><a href="/">URL Shortener</a></h1>
+              <h1 id="header"><a href={urlFor[UserIndex]}>URL Shortener</a></h1>
 
               {if (ComyConfig.isAdminAllowed(remoteIp))
                 <div>
