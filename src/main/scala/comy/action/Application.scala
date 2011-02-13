@@ -38,7 +38,7 @@ trait Application extends Action {
                     <a href={urlFor[AdminLogin]}>Login</a>
                   else
                     <b>{session("username").get} </b>
-                    <a href="#" postback="click" action={urlFor[AdminLogin]}>Logout</a>
+                    <a href="#" postback="click" action={urlFor[AdminLogout]}>Logout</a>
                   }
                 </div>
               }
