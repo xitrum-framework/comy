@@ -22,13 +22,7 @@ class UserIndex extends Application with Postback {
         <input type="submit" value="Shorten" tabindex="3" />
       </form>
 
-      <hr />
-
-      <label>Result:</label>
-      <br />
       <div id="result"></div>
-      <br />
-      <div id="qrcode"></div>
     )
   }
 
@@ -52,28 +46,22 @@ class UserIndex extends Application with Postback {
     resultCode match {
       case SaveUrlResult.VALID =>
         val absoluteUrl = "http://localhost:8364/" + resultString
-        renderJS(
-          jsUpdate("result", absoluteUrl),
-          jsUpdate("qrcode", <a href={absoluteUrl} target="_blank"><img src={urlFor[UserQRCode]("url" -> absoluteUrl)} /></a>)
+        renderUpdate("result",
+          <div>
+            <hr />
+            <div>{absoluteUrl}</div>
+            <a href={absoluteUrl} target="_blank"><img src={urlFor[UserQRCode]("url" -> absoluteUrl)} /></a>
+          </div>
         )
 
       case SaveUrlResult.INVALID =>
-        renderJS(
-          jsUpdate("result", <p class="error">{resultString}</p>),
-          jsUpdate("qrcode", "")
-        )
+        renderUpdate("result", <p class="error">{resultString}</p>)
 
       case SaveUrlResult.DUPLICATE =>
-        renderJS(
-          jsUpdate("result", <p class="error">Key has been chosen</p>),
-          jsUpdate("qrcode", "")
-        )
+        renderUpdate("result", <p class="error">Key has been chosen</p>)
 
       case SaveUrlResult.ERROR =>
-        renderJS(
-          jsUpdate("result", <p class="error">Server error</p>),
-          jsUpdate("qrcode", "")
-        )
+        renderUpdate("result", <p class="error">Server error</p>)
     }
   }
 }
