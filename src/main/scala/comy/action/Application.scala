@@ -60,6 +60,8 @@ trait Application extends Action {
             <h5 id="footer">&copy; 2010 GNT Inc.</h5>
           </div>
         </div>
+
+        {jsForView}
       </body>
     </html>
   )

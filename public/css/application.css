@@ -17,15 +17,9 @@
 
 #flash {
   color: yellow;
-    font-size: 1.2em;
-}
-
-label {
-  display: block;
-  width: 40px;
-  float: left;
+  font-size: 1.2em;
 }
 
 .error {
-  color: red;
+  color: orange;
 }

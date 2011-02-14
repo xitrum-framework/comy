@@ -1,7 +1,7 @@
 package comy.action.user
 
-import java.net.URLEncoder
 import xitrum._
+import xitrum.vc.validator._
 
 import comy.action.Application
 import comy.model.{DB, SaveUrlResult}
@@ -11,14 +11,19 @@ class Index extends Application with Postback {
   def execute {
     renderView(
       <form postback="submit">
-        <label for="url">URL:</label>
-        <input id="url" type="text" name="url" value="http://mobion.jp/" tabindex="1" />
-        <br />
-
-        <label for="key">Key:</label>
-        <input type="text" name="key" tabindex="2" />
-        <span>(optional, a-z A-Z 0-9 _ -)</span>
-        <br />
+        <table>
+          <tr>
+            <td><label for="url">URL:</label></td>
+            <td>{<input id="url" type="text" name="url" value="http://mobion.jp/" tabindex="1" />.validate(new Required, new URL)}</td>
+          </tr>
+          <tr>
+            <td><label for="key">Key:</label></td>
+            <td>
+              {<input type="text" name="key" tabindex="2" />.validate(new KeyValidator, new MaxLength(32))}
+              <span>(optional, a-z A-Z 0-9 _ -)</span>
+            </td>
+          </tr>
+        </table>
 
         <input type="submit" value="Shorten" tabindex="3" />
       </form>
