@@ -1,10 +1,8 @@
 package comy.model
 
-import xt.Logger
-
 import java.util.{ArrayList, Date, Calendar}
 import java.text.SimpleDateFormat
-
+import xitrum.Logger
 import com.mongodb._
 
 import comy.Config

@@ -1,7 +1,7 @@
 package comy.action.api
 
 import org.jboss.netty.handler.codec.http.HttpResponseStatus._
-import xt._
+import xitrum._
 
 import comy.{Config => ComyConfig}
 import comy.model.{DB, SaveUrlResult}

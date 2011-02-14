@@ -1,6 +1,6 @@
 package comy.action.admin
 
-import xt._
+import xitrum._
 import comy.action.Application
 
 @GET("/admin")

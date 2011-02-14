@@ -1,6 +1,6 @@
 package comy
 
-import xt.server.Server
+import xitrum.server.Server
 
 object Boot {
   def main(args: Array[String]) {

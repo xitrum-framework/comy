@@ -1,7 +1,7 @@
 package comy.action
 
 import scala.collection.mutable.ArrayBuffer
-import xt._
+import xitrum._
 
 import comy.{Config => ComyConfig}
 import comy.action.user.Index

@@ -1,7 +1,7 @@
 package comy.action.user
 
 import java.net.URLEncoder
-import xt._
+import xitrum._
 
 import comy.action.Application
 import comy.model.{DB, SaveUrlResult}

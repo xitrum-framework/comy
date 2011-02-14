@@ -1,7 +1,7 @@
 package comy.action.user
 
 import org.jboss.netty.handler.codec.http.HttpHeaders.Names._
-import xt._
+import xitrum._
 
 import comy.action.Application
 import comy.model.{QRCode => MQRCode}

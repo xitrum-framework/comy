@@ -1,6 +1,6 @@
 package comy
 
-import xt.Logger
+import xitrum.Logger
 import comy.model.DB
 
 /**
