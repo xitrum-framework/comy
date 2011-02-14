@@ -23,7 +23,7 @@ class Login extends Application with Postback {
       session.reset
       session("username") = username
       flash("You have successfully logged in.")
-      jsRedirectTo(urlFor[Index])
+      jsRedirectTo[Index]
     } else {
       jsRenderUpdate("error", <p class="error">Could not login.</p>)
     }

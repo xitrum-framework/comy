@@ -12,6 +12,6 @@ class Logout extends Application with Postback {
   def postback {
     session.reset
     flash("You have logged out.")
-    jsRedirectTo(urlFor[UserIndex])
+    jsRedirectTo[UserIndex]
   }
 }
