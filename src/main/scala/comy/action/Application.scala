@@ -2,7 +2,10 @@ package comy.action
 
 import scala.collection.mutable.ArrayBuffer
 import xt._
+
 import comy.{Config => ComyConfig}
+import comy.action.user.Index
+import comy.action.admin.{Login, Logout}
 
 trait Application extends Action {
   override def layout = Some(() =>
@@ -12,10 +15,11 @@ trait Application extends Action {
         <meta content="text/html; charset=utf-8" http-equiv="content-type" />
         <title>URL Shortener</title>
 
-        <link rel="stylesheet" type="text/css" media="all" href="/public/css/reset.css" />
-        <link rel="stylesheet" type="text/css" media="all" href="/public/css/text.css" />
-        <link rel="stylesheet" type="text/css" media="all" href="/public/css/960_24_col.css" />
+        <link rel="stylesheet" type="text/css" media="all" href="/public/css/960/reset.css" />
+        <link rel="stylesheet" type="text/css" media="all" href="/public/css/960/text.css" />
+        <link rel="stylesheet" type="text/css" media="all" href="/public/css/960/960_24_col.css" />
         <link rel="stylesheet" type="text/css" media="all" href="/public/css/smart_corners.css" />
+        <link rel="stylesheet" type="text/css" media="all" href="/public/css/application.css" />
         <link rel="stylesheet" type="text/css" media="all" href="/public/css/index.css" />
 
         {jsHead}
@@ -30,15 +34,15 @@ trait Application extends Action {
             <div id="csc">
               <span class="tr"></span>
 
-              <h1 id="header"><a href={urlFor[UserIndex]}>URL Shortener</a></h1>
+              <h1 id="header"><a href={urlFor[Index]}>URL Shortener</a></h1>
 
               {if (ComyConfig.isAdminAllowed(remoteIp))
                 <div>
                   {if (session("username").isEmpty)
-                    <a href={urlFor[AdminLogin]}>Login</a>
+                    <a href={urlFor[Login]}>Login</a>
                   else
                     <b>{session("username").get} </b>
-                    <a href="#" postback="click" action={urlFor[AdminLogout]}>Logout</a>
+                    <a href="#" postback="click" action={urlFor[Logout]}>Logout</a>
                   }
                 </div>
               }

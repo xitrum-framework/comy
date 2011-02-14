@@ -1,17 +1,18 @@
-package comy.action
+package comy.action.user
 
 import java.net.URLEncoder
 import xt._
 
+import comy.action.Application
 import comy.model.{DB, SaveUrlResult}
 
 @GET("/")
-class UserIndex extends Application with Postback {
+class Index extends Application with Postback {
   def execute {
     renderView(
       <form postback="submit">
         <label for="url">URL:</label>
-        <input type="text" name="url" value="http://mobion.jp/" tabindex="1" />
+        <input id="url" type="text" name="url" value="http://mobion.jp/" tabindex="1" />
         <br />
 
         <label for="key">Key:</label>
@@ -47,7 +48,7 @@ class UserIndex extends Application with Postback {
           <div>
             <hr />
             <div>{absoluteUrl}</div>
-            <a href={absoluteUrl} target="_blank"><img src={urlFor[UserQRCode]("url" -> absoluteUrl)} /></a>
+            <a href={absoluteUrl} target="_blank"><img src={urlFor[QRCode]("url" -> absoluteUrl)} /></a>
           </div>
         )
 

@@ -1,9 +1,12 @@
-package comy.action
+package comy.action.admin
 
 import xt._
 
+import comy.action.Application
+import comy.action.user.{Index => UserIndex}
+
 @POST("/admin/logout")
-class AdminLogout extends Application with Postback {
+class Logout extends Application with Postback {
   def execute {}
 
   def postback {

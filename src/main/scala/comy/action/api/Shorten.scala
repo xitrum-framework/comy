@@ -1,4 +1,4 @@
-package comy.action
+package comy.action.api
 
 import org.jboss.netty.handler.codec.http.HttpResponseStatus._
 import xt._
@@ -7,7 +7,7 @@ import comy.{Config => ComyConfig}
 import comy.model.{DB, SaveUrlResult}
 
 @POST("/api/shorten")  // ?url=URL[&key=KEY]
-class ApiShorten extends Action {
+class Shorten extends Action {
   beforeFilters("checkIpForShorten") = () => {
     if (ComyConfig.isApiAllowed(remoteIp)) {
       true

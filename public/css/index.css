@@ -1,34 +1,7 @@
-#header, #footer {
-  text-align: center;
-}
-
-#header {
-  color: #FFFFDD;
-}
-
-#footer {
-  width: 100%;
-  padding: 10px 40px;  /* 40px = padding of #csc */
-}
-
-#csc {
-  color: #FFFFFF;
-}
-
 #url {
   width: 540px;
 }
 
-label {
-  display: block;
-  width: 40px;
-  float: left;
-}
-
 #result {
   font-size: 2em;
-}
-
-.error {
-  color: red;
 }

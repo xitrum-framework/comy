@@ -1,0 +1,31 @@
+#header, #footer {
+  text-align: center;
+}
+
+#header {
+  color: #FFFFDD;
+}
+
+#footer {
+  width: 100%;
+  padding: 10px 40px;  /* 40px = padding of #csc */
+}
+
+#csc {
+  color: #FFFFFF;
+}
+
+#flash {
+  color: yellow;
+    font-size: 1.2em;
+}
+
+label {
+  display: block;
+  width: 40px;
+  float: left;
+}
+
+.error {
+  color: red;
+}

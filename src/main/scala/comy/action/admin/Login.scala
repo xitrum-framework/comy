@@ -1,9 +1,10 @@
-package comy.action
+package comy.action.admin
 
 import xt._
+import comy.action.Application
 
 @GET("/admin/login")
-class AdminLogin extends Application with Postback {
+class Login extends Application with Postback {
   def execute {
     renderView(
       <form postback="submit">
@@ -22,7 +23,7 @@ class AdminLogin extends Application with Postback {
       session.reset
       session("username") = username
       flash("You have successfully logged in.")
-      jsRedirectTo(urlFor[AdminIndex])
+      jsRedirectTo(urlFor[Index])
     } else {
       jsRenderUpdate("error", <p class="error">Could not login.</p>)
     }
