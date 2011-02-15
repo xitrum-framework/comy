@@ -13,7 +13,7 @@ class KeyValidator extends Validator {
         function(value, element) {
           return value.match(/^[a-zA-Z0-9_\-]*$/);
         },
-        "Invalid"
+        "Invalid."
       );
     """)
 
