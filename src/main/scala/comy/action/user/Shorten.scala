@@ -3,7 +3,6 @@ package comy.action.user
 import xitrum._
 import comy.model.{DB, SaveUrlResult}
 
-@POST2("/")
 class Shorten extends Action {
   def execute {
     val url = param("url").trim

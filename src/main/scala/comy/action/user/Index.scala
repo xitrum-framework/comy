@@ -9,7 +9,7 @@ import comy.action.Application
 class Index extends Application {
   def execute {
     renderView(
-      <form post2="submit">
+      <form post2="submit" action={urlFor}>
         <table>
           <tr>
             <td><label for="url">URL:</label></td>

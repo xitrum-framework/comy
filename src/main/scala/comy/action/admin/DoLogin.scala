@@ -2,7 +2,6 @@ package comy.action.admin
 
 import xitrum._
 
-@POST2("/admin/login")
 class DoLogin extends Action {
   def execute {
     val username = param("username")

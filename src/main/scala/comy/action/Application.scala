@@ -38,16 +38,16 @@ trait Application extends Action {
 
               {if (ComyConfig.isAdminAllowed(remoteIp))
                 <div>
-                  {if (session("username").isEmpty)
+                  {if (!session.contains("username"))
                     <a href={urlFor[Login]}>Login</a>
                   else
-                    <b>{session("username").get} </b>
+                    <b>{session("username")} </b>
                     <a href="#" post2="click" action={urlFor[Logout]}>Logout</a>
                   }
                 </div>
               }
 
-              <div id="flash">{if (flash.isDefined) flash.get}</div>
+              {if (flasho.isDefined) <div id="flash">flasho.get</div>}
 
               {at("contentForLayout")}
 
