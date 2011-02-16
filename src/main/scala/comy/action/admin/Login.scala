@@ -1,7 +1,7 @@
 package comy.action.admin
 
-import xitrum._
-import xitrum.vc.validator._
+import xitrum.action.annotation._
+import xitrum.action.validation._
 
 import comy.action.Application
 
@@ -9,7 +9,7 @@ import comy.action.Application
 class Login extends Application {
   def execute {
     renderView(
-      <form post2="submit">
+      <form post2="submit" action={urlFor[DoLogin]}>
         <div id="error"></div>
 
         <label>Username:</label> {<input type="text" name="username" />.validate(new Required)}

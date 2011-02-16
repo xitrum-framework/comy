@@ -1,6 +1,6 @@
 package comy.action.admin
 
-import xitrum._
+import xitrum.action.Action
 
 class DoLogin extends Action {
   def execute {

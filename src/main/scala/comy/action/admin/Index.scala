@@ -1,12 +1,12 @@
 package comy.action.admin
 
-import xitrum._
+import xitrum.action.annotation.GET
 import comy.action.Application
 
 @GET("/admin")
 class Index extends Application {
   beforeFilters("authenticate") = () => {
-    val ret = session("username").isDefined
+    val ret = session.contains("username")
     if (!ret) redirectTo[Login]
     ret
   }

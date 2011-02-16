@@ -1,6 +1,7 @@
 package comy.action.user
 
-import xitrum._
+import xitrum.action.Action
+
 import comy.model.{DB, SaveUrlResult}
 
 class Shorten extends Action {

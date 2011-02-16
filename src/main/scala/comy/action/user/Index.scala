@@ -1,7 +1,7 @@
 package comy.action.user
 
-import xitrum._
-import xitrum.vc.validator._
+import xitrum.action.annotation.GET
+import xitrum.action.validation.{Required, MaxLength, URL}
 
 import comy.action.Application
 
@@ -9,7 +9,7 @@ import comy.action.Application
 class Index extends Application {
   def execute {
     renderView(
-      <form post2="submit" action={urlFor}>
+      <form post2="submit" action={urlFor[Shorten]}>
         <table>
           <tr>
             <td><label for="url">URL:</label></td>

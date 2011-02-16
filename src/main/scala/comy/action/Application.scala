@@ -1,15 +1,15 @@
 package comy.action
 
 import scala.collection.mutable.ArrayBuffer
-import xitrum._
+import xitrum.action.Action
+import xitrum.action.view.DocType
 
 import comy.{Config => ComyConfig}
 import comy.action.user.Index
 import comy.action.admin.{Login, Logout}
 
 trait Application extends Action {
-  override def layout = Some(() =>
-    DocType.xhtmlTransitional + "\n" +
+  override def layout = Some(() => DocType.xhtmlTransitional(
     <html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'>
       <head>
         <meta content="text/html; charset=utf-8" http-equiv="content-type" />
@@ -47,7 +47,7 @@ trait Application extends Action {
                 </div>
               }
 
-              {if (flasho.isDefined) <div id="flash">flasho.get</div>}
+              {if (flasho.isDefined) <div id="flash">{flasho.get}</div>}
 
               {at("contentForLayout")}
 
@@ -64,5 +64,5 @@ trait Application extends Action {
         {jsForView}
       </body>
     </html>
-  )
+  ))
 }

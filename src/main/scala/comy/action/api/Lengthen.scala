@@ -1,7 +1,8 @@
 package comy.action.api
 
-import org.jboss.netty.handler.codec.http.HttpResponseStatus._
-import xitrum._
+import org.jboss.netty.handler.codec.http.HttpResponseStatus.NOT_FOUND
+import xitrum.action.Action
+import xitrum.action.annotation.GET
 
 import comy.model.DB
 

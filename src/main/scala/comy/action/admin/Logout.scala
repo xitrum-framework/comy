@@ -1,6 +1,6 @@
 package comy.action.admin
 
-import xitrum._
+import xitrum.action.Action
 import comy.action.user.{Index => UserIndex}
 
 class Logout extends Action {
