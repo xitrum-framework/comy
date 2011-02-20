@@ -22,7 +22,7 @@ trait Application extends Action {
         <link rel="stylesheet" type="text/css" media="all" href="/public/css/application.css" />
         <link rel="stylesheet" type="text/css" media="all" href="/public/css/index.css" />
 
-        {jsHead}
+        {xitrumHead}
       </head>
 
       <body>
@@ -47,7 +47,7 @@ trait Application extends Action {
                 </div>
               }
 
-              {if (flasho.isDefined) <div id="flash">{flasho.get}</div>}
+              <div id="flash">{jsFlash}</div>
 
               {at("contentForLayout")}
 

@@ -7,7 +7,10 @@ import comy.action.Application
 class Index extends Application {
   beforeFilters("authenticate") = () => {
     val ret = session.contains("username")
-    if (!ret) redirectTo[Login]
+    if (!ret) {
+      flash(t("Please login."))
+      redirectTo[Login]
+    }
     ret
   }
 
