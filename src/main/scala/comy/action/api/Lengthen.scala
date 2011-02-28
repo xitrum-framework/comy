@@ -8,7 +8,7 @@ import comy.model.DB
 
 @GET(value="/:key", last=true)
 class Lengthen extends Action {
-  def execute {
+  override def execute {
     val key = param("key")
     DB.getUrl(key) match {
       case Some(url) =>

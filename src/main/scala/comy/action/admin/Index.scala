@@ -14,7 +14,7 @@ class Index extends Application {
     ret
   }
 
-  def execute {
+  override def execute {
     renderView(<p>Admin page</p>)
   }
 }

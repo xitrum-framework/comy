@@ -18,7 +18,7 @@ class Shorten extends Action {
     }
   }
 
-  def execute {
+  override def execute {
     val url  = param("url")
     val keyo = paramo("key")
     val (resultCode, resultString) = DB.saveUrl(url, keyo)

@@ -5,7 +5,7 @@ import xitrum.action.Action
 import comy.model.{DB, SaveUrlResult}
 
 class Shorten extends Action {
-  def execute {
+  override def execute {
     val url = param("url").trim
     if (url.isEmpty) {
       jsRenderUpdate("result", <p class="error">URL must not be empty</p>)

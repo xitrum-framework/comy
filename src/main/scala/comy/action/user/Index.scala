@@ -7,7 +7,7 @@ import comy.action.Application
 
 @GET("/")
 class Index extends Application {
-  def execute {
+  override def execute {
     renderView(
       <form post2="submit" action={urlFor[Shorten]}>
         <table>
