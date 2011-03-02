@@ -8,7 +8,7 @@ class Shorten extends Action {
   override def execute {
     val url = param("url").trim
     if (url.isEmpty) {
-      jsRenderUpdate("result", <p class="error">URL must not be empty</p>)
+      jsRenderHtml("result", <p class="error">URL must not be empty</p>)
       return
     }
 
@@ -22,7 +22,7 @@ class Shorten extends Action {
     resultCode match {
       case SaveUrlResult.VALID =>
         val absoluteUrl = "http://localhost:8364/" + resultString
-        jsRenderUpdate("result",
+        jsRenderHtml("result",
           <div>
             <hr />
             <div>{absoluteUrl}</div>
@@ -31,13 +31,13 @@ class Shorten extends Action {
         )
 
       case SaveUrlResult.INVALID =>
-        jsRenderUpdate("result", <p class="error">{resultString}</p>)
+        jsRenderHtml("result", <p class="error">{resultString}</p>)
 
       case SaveUrlResult.DUPLICATE =>
-        jsRenderUpdate("result", <p class="error">Key has been chosen</p>)
+        jsRenderHtml("result", <p class="error">Key has been chosen</p>)
 
       case SaveUrlResult.ERROR =>
-        jsRenderUpdate("result", <p class="error">Server error</p>)
+        jsRenderHtml("result", <p class="error">Server error</p>)
     }
   }
 }

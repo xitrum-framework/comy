@@ -27,7 +27,7 @@ class Login extends Application {
       flash("You have successfully logged in.")
       jsRedirectTo[Index]
     } else {
-      jsRenderUpdate("error", <p class="error">Could not login.</p>)
+      jsRenderHtml("error", <p class="error">Could not login.</p>)
     }
   }
 }
