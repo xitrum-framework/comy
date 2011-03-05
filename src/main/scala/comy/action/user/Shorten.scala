@@ -5,10 +5,10 @@ import xitrum.action.Action
 import comy.model.{DB, SaveUrlResult}
 
 class Shorten extends Action {
-  override def execute {
+  override def postback {
     val url = param("url").trim
     if (url.isEmpty) {
-      jsRenderHtml("result", <p class="error">URL must not be empty</p>)
+      jsRenderHtml(jsById("result"), <p class="error">URL must not be empty</p>)
       return
     }
 
@@ -22,7 +22,7 @@ class Shorten extends Action {
     resultCode match {
       case SaveUrlResult.VALID =>
         val absoluteUrl = "http://localhost:8364/" + resultString
-        jsRenderHtml("result",
+        jsRenderHtml(jsById("result"),
           <div>
             <hr />
             <div>{absoluteUrl}</div>
@@ -31,13 +31,13 @@ class Shorten extends Action {
         )
 
       case SaveUrlResult.INVALID =>
-        jsRenderHtml("result", <p class="error">{resultString}</p>)
+        jsRenderHtml(jsById("result"), <p class="error">{resultString}</p>)
 
       case SaveUrlResult.DUPLICATE =>
-        jsRenderHtml("result", <p class="error">Key has been chosen</p>)
+        jsRenderHtml(jsById("result"), <p class="error">Key has been chosen</p>)
 
       case SaveUrlResult.ERROR =>
-        jsRenderHtml("result", <p class="error">Server error</p>)
+        jsRenderHtml(jsById("result"), <p class="error">Server error</p>)
     }
   }
 }

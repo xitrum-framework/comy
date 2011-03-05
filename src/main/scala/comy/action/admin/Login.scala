@@ -9,10 +9,10 @@ import comy.action.Application
 class Login extends Application {
   override def execute {
     renderView(
-      <form post2="submit" action={urlForThis}>
+      <form postback="submit" action={urlForPostbackThis}>
         <div id="error"></div>
 
-        <label>Username:</label> {<input type="text" name="username" />.validate(new Required)}
+        <label>Username:</label> {<input type="text" name="username" /> :: Validate(Required)}
         <br />
         <input type="submit" value="Password »" />
       </form>
@@ -27,7 +27,7 @@ class Login extends Application {
       flash("You have successfully logged in.")
       jsRedirectTo[Index]
     } else {
-      jsRenderHtml("error", <p class="error">Could not login.</p>)
+      jsRenderHtml(jsById("error"), <p class="error">Could not login.</p>)
     }
   }
 }
