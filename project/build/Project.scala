@@ -26,8 +26,8 @@ class Project(info: ProjectInfo) extends DefaultProject(info) {
 
   override def libraryDependencies = Set(
     "tv.cntt"        %% "xitrum"            % "1.0-SNAPSHOT",
-    "ch.qos.logback" %  "logback-classic"   % "0.9.27",
-    "org.mongodb"    %  "mongo-java-driver" % "2.4"
+    "ch.qos.logback" %  "logback-classic"   % "0.9.28",
+    "org.mongodb"    %  "mongo-java-driver" % "2.5.3"
   ) ++ super.libraryDependencies
 
   // Paths ---------------------------------------------------------------------
