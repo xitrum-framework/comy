@@ -4,7 +4,7 @@ import java.util.Properties
 import xitrum.{Config => XConfig}
 
 object Config {
-  private val properties = XConfig.loadProperties("comy.properties")
+  private val properties = XConfig.loadPropertiesFromClasspath("comy.properties")
 
   val apiIps   = properties.getProperty("allowed_ips.api").split(',').map(ip => ip.trim)
   val adminIps = properties.getProperty("allowed_ips.admin").split(',').map(ip => ip.trim)

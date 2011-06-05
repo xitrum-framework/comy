@@ -1,6 +1,6 @@
 import sbt._
 
-class Project(info: ProjectInfo) extends DefaultProject(info) {
+class Project(info: ProjectInfo) extends DefaultProject(info) with assembly.AssemblyBuilder {
   // Compile options
 
   override def compileOptions = super.compileOptions ++
@@ -24,7 +24,7 @@ class Project(info: ProjectInfo) extends DefaultProject(info) {
   val jboss            = "JBoss"             at "https://repository.jboss.org/nexus/content/groups/public/"
 
   override def libraryDependencies = Set(
-    "tv.cntt"        %% "xitrum"            % "1.0-SNAPSHOT",
+    "tv.cntt"        %% "xitrum"            % "1.1-SNAPSHOT",
     "ch.qos.logback" %  "logback-classic"   % "0.9.28",
     "org.mongodb"    %  "mongo-java-driver" % "2.5.3"
   ) ++ super.libraryDependencies
