@@ -13,11 +13,11 @@ http.sh to change the JVM memory option.
 
 == Run
 
-bin/xitrum
+bin/runner.sh comy.Boot
 
 == Remove old data
 
 You may need to remove URL entries that are not accessed for a long time:
-bin/xitrum gc
+bin/runner.sh comy.GC
 
 You may need to the command to be run periodically.
