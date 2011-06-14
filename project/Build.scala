@@ -41,7 +41,7 @@ object MyBuild extends Build {
   val dist = TaskKey[Unit]("dist", "Prepare target/dist directory ready for production distribution")
 
   lazy val distTask = dist <<= (externalDependencyClasspath in Runtime, baseDirectory, target, scalaVersion) map { (libs, baseDir, target, scalaVersion) =>
-    val distDir    = new File(target,  "dist")
+    val distDir = new File(target,  "dist")
 
     // Copy bin directory
     val binDir1 = new File(baseDir, "bin")
