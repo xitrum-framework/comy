@@ -38,7 +38,7 @@ object MyBuild extends Build {
 
   // Task "dist" ---------------------------------------------------------------
 
-  val dist = TaskKey[Unit]("dist", "Prepare target/dist directory ready for production distribution")
+  val dist = TaskKey[Unit]("dist", "Prepare target/dist directory, ready for production distribution")
 
   lazy val distTask = dist <<= (externalDependencyClasspath in Runtime, baseDirectory, target, scalaVersion) map { (libs, baseDir, target, scalaVersion) =>
     val distDir = new File(target,  "dist")

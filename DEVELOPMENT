@@ -1,25 +1,5 @@
-See release/INSTALL
+This project uses Xitrum:
+https://github.com/ngocdaothanh/xitrum
 
-== Build
-
-Use SBT (http://code.google.com/p/simple-build-tool/):
-* To download dependencies: sbt update
-* To compile:               sbt compile
-* To package to .jar file:  sbt package
-
-== Run
-
-Copy release/config.properties.sample to release/config.properties and edit
-to suit your environment.
-
-Then start SBT then from SBT command prompt, run:
-> run release/config.properties
-
-== Release
-
-Bump version in project/build.properties and release/release.sh.
-
-Then change to release directory and run:
-./release.sh
-
-comy-<VERSION>.tar.bz2 will be created in target directory.
+Please read its documentation, especially the part about SBT and distribution:
+http://ngocdaothanh.github.com/xitrum
