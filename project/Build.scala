@@ -32,6 +32,7 @@ object MyBuild extends Build {
 
       mainClass           := Some("comy.Boot"),
       distTask,
+      distNeedsPackageBin,  // Must be after distTask
       unmanagedBase in Runtime <<= baseDirectory { base => base / "config" }
     )
   )
@@ -72,4 +73,6 @@ object MyBuild extends Build {
     val jarDir = new File(target, "scala-" + scalaVersion.replace('-', '.'))
     (jarDir * "*.jar").get.foreach { file => IO.copyFile(file, libDir / file.name) }
   }
+
+  val distNeedsPackageBin = dist <<= dist.dependsOn(packageBin in Compile)
 }
