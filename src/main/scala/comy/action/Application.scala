@@ -49,7 +49,7 @@ trait Application extends Action {
 
               <div id="flash">{jsFlash}</div>
 
-              {at("contentForLayout")}
+              {renderedView}
 
               <div class="clear"></div>
 
