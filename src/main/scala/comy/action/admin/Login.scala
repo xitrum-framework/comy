@@ -3,6 +3,7 @@ package comy.action.admin
 import xitrum.action.annotation._
 import xitrum.action.validation._
 
+import comy.action.svUsername
 import comy.action.Application
 
 @GET("/admin/login")
@@ -21,9 +22,9 @@ class Login extends Application {
 
   override def postback {
     val username = param("username")
-    if (username == "xxx") {
+    if (username == "xxx") {  // TODO
       session.reset
-      session("username") = username
+      svUsername.set(username)
       flash("You have successfully logged in.")
       jsRedirectTo[Index]
     } else {
