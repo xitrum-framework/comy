@@ -1,8 +1,8 @@
 package comy.action
 
 import scala.collection.mutable.ArrayBuffer
-import xitrum.action.Action
-import xitrum.action.view.DocType
+import xitrum.Action
+import xitrum.view.DocType
 
 import comy.{Config => ComyConfig}
 import comy.action.user.Index

@@ -1,7 +1,7 @@
 package comy.action.admin
 
-import xitrum.action.annotation._
-import xitrum.action.validation._
+import xitrum.annotation._
+import xitrum.validation._
 
 import comy.action.svUsername
 import comy.action.Application

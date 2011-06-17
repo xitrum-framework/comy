@@ -1,6 +1,6 @@
 package comy.action.admin
 
-import xitrum.action.annotation.GET
+import xitrum.annotation.GET
 
 import comy.action.svUsername
 import comy.action.Application

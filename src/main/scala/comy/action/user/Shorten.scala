@@ -1,6 +1,6 @@
 package comy.action.user
 
-import xitrum.action.Action
+import xitrum.Action
 
 import comy.model.{DB, SaveUrlResult}
 

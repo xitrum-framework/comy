@@ -1,8 +1,9 @@
 package comy.action.api
 
 import org.jboss.netty.handler.codec.http.HttpResponseStatus._
-import xitrum.action.Action
-import xitrum.action.annotation.POST
+
+import xitrum.Action
+import xitrum.annotation.POST
 
 import comy.{Config => ComyConfig}
 import comy.model.{DB, SaveUrlResult}

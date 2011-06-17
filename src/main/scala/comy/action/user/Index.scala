@@ -1,7 +1,7 @@
 package comy.action.user
 
-import xitrum.action.annotation.GET
-import xitrum.action.validation.{Validate, Required, MaxLength, URL}
+import xitrum.annotation.GET
+import xitrum.validation.{Validate, Required, MaxLength, URL}
 
 import comy.action.Application
 

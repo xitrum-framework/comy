@@ -1,5 +1,5 @@
 package comy.action
 
-import xitrum.action.env.session.SessionVar
+import xitrum.SessionVar
 
 object svUsername extends SessionVar[String]

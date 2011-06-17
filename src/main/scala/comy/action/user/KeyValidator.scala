@@ -1,7 +1,7 @@
 package comy.action.user
 
-import xitrum.action.Action
-import xitrum.action.validation.Validator
+import xitrum.Action
+import xitrum.validation.Validator
 
 object KeyValidator extends Validator {
   def render(action: Action, name: String, name2: String) {

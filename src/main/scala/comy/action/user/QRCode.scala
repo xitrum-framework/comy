@@ -1,8 +1,9 @@
 package comy.action.user
 
 import org.jboss.netty.handler.codec.http.HttpHeaders.Names.CONTENT_TYPE
-import xitrum.action.Action
-import xitrum.action.annotation.GET
+
+import xitrum.Action
+import xitrum.annotation.GET
 
 import comy.action.Application
 import comy.model.{QRCode => MQRCode}
