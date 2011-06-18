@@ -5,8 +5,8 @@ import xitrum.Action
 import xitrum.view.DocType
 
 import comy.{Config => ComyConfig}
-import comy.action.user.Index
-import comy.action.admin.{Login, Logout}
+import comy.action.user.{Index => UserIndex}
+import comy.action.admin.{Index => AdminIndex, Login, Logout}
 
 trait AppAction extends Action {
   override def layout = Some(() => DocType.xhtmlTransitional(
@@ -34,15 +34,18 @@ trait AppAction extends Action {
             <div id="csc">
               <span class="tr"></span>
 
-              <h1 id="header"><a href={urlFor[Index]}>URL Shortener</a></h1>
+              <h1 id="header"><a href={urlFor[UserIndex]}>URL Shortener</a></h1>
 
               {if (ComyConfig.isAdminAllowed(remoteIp))
                 <div>
                   {if (!Session.username.isDefined)
                     <a href={urlFor[Login]}>Login</a>
                   else
-                    <b>{Session.username.get} </b>
-                    <a href="#" postback="click" action={urlForPostback[Logout]}>Logout</a>
+                    <span>
+                      <b>{Session.username.get}</b>
+                      <a href={urlFor[AdminIndex]}>Admin</a> |
+                      <a href="#" postback="click" action={urlForPostback[Logout]}>Logout</a>
+                    </span>
                   }
                 </div>
               }
@@ -57,7 +60,7 @@ trait AppAction extends Action {
               <span class="br"></span>
             </div>
 
-            <h5 id="footer">&copy; 2010 GNT Inc.</h5>
+            <h5 id="footer">&copy; GNT Inc.</h5>
           </div>
         </div>
 
