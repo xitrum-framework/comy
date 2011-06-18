@@ -20,4 +20,4 @@ libraryDependencies += "org.mongodb"    %  "mongo-java-driver" % "2.5.3"
 
 mainClass := Some("comy.Boot")
 
-unmanagedClasspath in Runtime <<= (unmanagedClasspath in Runtime, baseDirectory) map { (cp, bd) => cp.:+(new Attributed(bd / "config")(AttributeMap.empty)) }
+unmanagedClasspath in Runtime <<= (unmanagedClasspath in Runtime, baseDirectory) map { (cp, bd) => cp :+ Attributed.blank(bd / "config") }
