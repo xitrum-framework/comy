@@ -3,10 +3,10 @@ package comy.action.user
 import xitrum.annotation.GET
 import xitrum.validation.{Validate, Required, MaxLength, URL}
 
-import comy.action.Application
+import comy.action.AppAction
 
 @GET("/")
-class Index extends Application {
+class Index extends AppAction {
   override def execute {
     renderView(
       <form postback="submit" action={urlForPostback[Shorten]}>

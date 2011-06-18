@@ -5,7 +5,6 @@ import org.jboss.netty.handler.codec.http.HttpHeaders.Names.CONTENT_TYPE
 import xitrum.Action
 import xitrum.annotation.GET
 
-import comy.action.Application
 import comy.model.{QRCode => MQRCode}
 
 @GET("/user/qrcode")  // ?url=xxx

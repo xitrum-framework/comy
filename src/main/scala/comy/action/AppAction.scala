@@ -8,7 +8,7 @@ import comy.{Config => ComyConfig}
 import comy.action.user.Index
 import comy.action.admin.{Login, Logout}
 
-trait Application extends Action {
+trait AppAction extends Action {
   override def layout = Some(() => DocType.xhtmlTransitional(
     <html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'>
       <head>
@@ -38,10 +38,10 @@ trait Application extends Action {
 
               {if (ComyConfig.isAdminAllowed(remoteIp))
                 <div>
-                  {if (!svUsername.isDefined)
+                  {if (!Session.username.isDefined)
                     <a href={urlFor[Login]}>Login</a>
                   else
-                    <b>{svUsername.get} </b>
+                    <b>{Session.username.get} </b>
                     <a href="#" postback="click" action={urlForPostback[Logout]}>Logout</a>
                   }
                 </div>
