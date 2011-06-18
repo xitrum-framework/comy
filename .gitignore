@@ -1,11 +1,7 @@
-lib_managed
-project/boot
-release/config.properties
+log
+project
 target
-tmp
-
 .*
-*.log
 
 # IntelliJ IDEA project file
 *.iml
