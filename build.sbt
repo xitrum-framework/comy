@@ -14,7 +14,7 @@ resolvers += "Local Maven Repository"       at "file://" + Path.userHome.absolut
 
 libraryDependencies += "tv.cntt"        %% "xitrum"            % "1.1-SNAPSHOT"
 
-libraryDependencies += "ch.qos.logback" %  "logback-classic"   % "0.9.28"
+libraryDependencies += "ch.qos.logback" %  "logback-classic"   % "0.9.29"
 
 libraryDependencies += "org.mongodb"    %  "mongo-java-driver" % "2.5.3"
 
