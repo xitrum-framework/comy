@@ -18,6 +18,4 @@ libraryDependencies += "ch.qos.logback" %  "logback-classic"   % "0.9.29"
 
 libraryDependencies += "org.mongodb"    %  "mongo-java-driver" % "2.5.3"
 
-mainClass := Some("comy.Boot")
-
 unmanagedClasspath in Runtime <+= (baseDirectory) map { bd => Attributed.blank(bd / "config") }
