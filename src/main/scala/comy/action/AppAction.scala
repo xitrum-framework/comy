@@ -12,6 +12,8 @@ trait AppAction extends Action {
   override def layout = Some(() => DocType.xhtmlTransitional(
     <html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'>
       <head>
+        {xitrumHead}
+
         <meta content="text/html; charset=utf-8" http-equiv="content-type" />
         <title>URL Shortener</title>
 
@@ -21,8 +23,6 @@ trait AppAction extends Action {
         <link rel="stylesheet" type="text/css" media="all" href="/public/css/smart_corners.css" />
         <link rel="stylesheet" type="text/css" media="all" href="/public/css/application.css" />
         <link rel="stylesheet" type="text/css" media="all" href="/public/css/index.css" />
-
-        {xitrumHead}
       </head>
 
       <body>
