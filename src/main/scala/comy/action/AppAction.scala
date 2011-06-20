@@ -38,11 +38,11 @@ trait AppAction extends Action {
 
               {if (ComyConfig.isAdminAllowed(remoteIp))
                 <div>
-                  {if (!Session.username.isDefined)
+                  {if (!Var.sUsername.isDefined)
                     <a href={urlFor[Login]}>Login</a>
                   else
                     <span>
-                      <b>{Session.username.get}</b>
+                      <b>{Var.sUsername.get}</b>
                       <a href={urlFor[AdminIndex]}>Admin</a> |
                       <a href="#" postback="click" action={urlForPostback[Logout]}>Logout</a>
                     </span>
