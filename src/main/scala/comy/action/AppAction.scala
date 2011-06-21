@@ -1,6 +1,5 @@
 package comy.action
 
-import scala.collection.mutable.ArrayBuffer
 import xitrum.Action
 import xitrum.view.DocType
 
@@ -37,17 +36,14 @@ trait AppAction extends Action {
               <h1 id="header"><a href={urlFor[UserIndex]}>URL Shortener</a></h1>
 
               {if (ComyConfig.isAdminAllowed(remoteIp))
-                <div>
-                  {if (!Var.sUsername.isDefined)
-                    <a href={urlFor[Login]}>Login</a>
-                  else
-                    <span>
-                      <b>{Var.sUsername.get}</b>
-                      <a href={urlFor[AdminIndex]}>Admin</a> |
-                      <a href="#" postback="click" action={urlForPostback[Logout]}>Logout</a>
-                    </span>
-                  }
-                </div>
+                if (!Var.sUsername.isDefined)
+                  <a href={urlFor[Login]}>Login</a>
+                else
+                  <xml:group>
+                    <b>{Var.sUsername.get}</b>
+                    <a href={urlFor[AdminIndex]}>Admin</a> |
+                    <a href="#" postback="click" action={urlForPostback[Logout]}>Logout</a>
+                  </xml:group>
               }
 
               <div id="flash">{jsFlash}</div>

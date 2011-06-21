@@ -22,11 +22,11 @@ class Shorten extends Action {
       case SaveUrlResult.VALID =>
         val absoluteUrl = "http://localhost:8364/" + resultString
         jsRenderHtml(jsById("result"),
-          <div>
+          <xml:group>
             <hr />
-            <div>{absoluteUrl}</div>
+            {absoluteUrl}<br />
             <a href={absoluteUrl} target="_blank"><img src={urlFor[QRCode]("url" -> absoluteUrl)} /></a>
-          </div>
+          </xml:group>
         )
 
       case SaveUrlResult.INVALID =>
