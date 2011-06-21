@@ -17,12 +17,12 @@ trait AppAction extends Action {
         <meta content="text/html; charset=utf-8" http-equiv="content-type" />
         <title>URL Shortener</title>
 
-        <link rel="stylesheet" type="text/css" media="all" href="/public/css/960/reset.css" />
-        <link rel="stylesheet" type="text/css" media="all" href="/public/css/960/text.css" />
-        <link rel="stylesheet" type="text/css" media="all" href="/public/css/960/960_24_col.css" />
-        <link rel="stylesheet" type="text/css" media="all" href="/public/css/smart_corners.css" />
-        <link rel="stylesheet" type="text/css" media="all" href="/public/css/application.css" />
-        <link rel="stylesheet" type="text/css" media="all" href="/public/css/index.css" />
+        <link rel="stylesheet" type="text/css" media="all" href={urlForPublic("css/960/reset.css")} />
+        <link rel="stylesheet" type="text/css" media="all" href={urlForPublic("css/960/text.css")} />
+        <link rel="stylesheet" type="text/css" media="all" href={urlForPublic("css/960/960_24_col.css")} />
+        <link rel="stylesheet" type="text/css" media="all" href={urlForPublic("css/smart_corners.css")} />
+        <link rel="stylesheet" type="text/css" media="all" href={urlForPublic("css/application.css")} />
+        <link rel="stylesheet" type="text/css" media="all" href={urlForPublic("css/index.css")} />
       </head>
 
       <body>
