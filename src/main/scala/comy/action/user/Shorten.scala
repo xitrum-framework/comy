@@ -1,6 +1,8 @@
 package comy.action.user
 
 import xitrum.Action
+
+import comy.action.api.Lengthen
 import comy.model.{DB, SaveUrlResult}
 
 class Shorten extends Action {
@@ -20,7 +22,7 @@ class Shorten extends Action {
 
     resultCode match {
       case SaveUrlResult.VALID =>
-        val absoluteUrl = "http://localhost:8364/" + resultString
+        val absoluteUrl = absoluteUrlFor[Lengthen]("key" -> resultString)
         jsRenderHtml(jsById("result"),
           <xml:group>
             <hr />
