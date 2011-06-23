@@ -8,7 +8,7 @@ import comy.action.user.{Index => UserIndex}
 import comy.action.admin.{Index => AdminIndex, Login, Logout}
 
 trait AppAction extends Action {
-  override def layout = Some(() => DocType.xhtmlTransitional(
+  override def layout = DocType.xhtmlTransitional(
     <html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'>
       <head>
         {xitrumHead}
@@ -63,5 +63,5 @@ trait AppAction extends Action {
         {jsForView}
       </body>
     </html>
-  ))
+  )
 }
