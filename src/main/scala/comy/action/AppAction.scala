@@ -56,7 +56,7 @@ trait AppAction extends Action {
               <span class="br"></span>
             </div>
 
-            <h5 id="footer">&copy; GNT Inc.</h5>
+            <h5 id="footer">Powered by <a href="https://github.com/ngocdaothanh/comy">Comy</a></h5>
           </div>
         </div>
 

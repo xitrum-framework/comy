@@ -1,9 +1,14 @@
+a {
+  color: #3B5998;
+  text-decoration: none;
+}
+
 #header, #footer {
   text-align: center;
 }
 
-#header {
-  color: #FFFFDD;
+#header a {
+  color: orange;
 }
 
 #footer {
