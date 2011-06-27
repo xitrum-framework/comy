@@ -6,6 +6,11 @@ version      := "1.3-SNAPSHOT"
 
 scalaVersion := "2.9.0-1"
 
+scalacOptions ++= Seq(
+  "-deprecation",
+  "-unchecked"
+)
+
 // For Xitrum
 resolvers += "Sonatype Snapshot Repository" at "https://oss.sonatype.org/content/repositories/snapshots"
 
