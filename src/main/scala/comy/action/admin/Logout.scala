@@ -5,7 +5,7 @@ import comy.action.user.{Index => UserIndex}
 
 class Logout extends Action {
   override def postback {
-    session.clear
+    resetSession
     flash("You have logged out.")
     jsRedirectTo[UserIndex]
   }

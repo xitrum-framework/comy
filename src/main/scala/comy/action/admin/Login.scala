@@ -22,7 +22,7 @@ class Login extends AppAction {
   override def postback {
     val username = param("username")
     if (username == "xxx") {  // TODO
-      session.clear
+      resetSession
       Var.sUsername.set(username)
       flash("You have successfully logged in.")
       jsRedirectTo[Index]
