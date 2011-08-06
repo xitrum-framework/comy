@@ -9,7 +9,7 @@ class Shorten extends Action {
   override def postback {
     val url = param("url").trim
     if (url.isEmpty) {
-      jsRenderHtml(jsById("result"), <p class="error">URL must not be empty</p>)
+      jsRender(js$id("result") + ".html(" + jsEscape(<p class="error">URL must not be empty</p>) + ")")
       return
     }
 
@@ -23,22 +23,21 @@ class Shorten extends Action {
     resultCode match {
       case SaveUrlResult.VALID =>
         val absoluteUrl = absoluteUrlFor[Lengthen]("key" -> resultString)
-        jsRenderHtml(jsById("result"),
-          <xml:group>
+        jsRender(js$id("result") + ".html(" +
+          jsEscape(<xml:group>
             <hr />
             {absoluteUrl}<br />
             <a href={absoluteUrl} target="_blank"><img src={urlFor[QRCode]("url" -> absoluteUrl)} /></a>
-          </xml:group>
-        )
+          </xml:group>) + ")")
 
       case SaveUrlResult.INVALID =>
-        jsRenderHtml(jsById("result"), <p class="error">{resultString}</p>)
+        jsRender(js$id("result") + ".html(" + jsEscape(<p class="error">{resultString}</p>) + ")")
 
       case SaveUrlResult.DUPLICATE =>
-        jsRenderHtml(jsById("result"), <p class="error">Key has been chosen</p>)
+        jsRender(js$id("result") + ".html(" + jsEscape(<p class="error">Key has been chosen</p>) + ")")
 
       case SaveUrlResult.ERROR =>
-        jsRenderHtml(jsById("result"), <p class="error">Server error</p>)
+        jsRender(js$id("result") + ".html(" + jsEscape(<p class="error">Server error</p>) + ")")
     }
   }
 }

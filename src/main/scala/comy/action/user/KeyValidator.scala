@@ -17,10 +17,7 @@ object KeyValidator extends Validator {
       );
     """)
 
-    val js = jsChain(
-      jsByName(name2),
-      jsCall("rules", "\"add\"", "{comyKey: true}")
-    )
+    val js = js$name(name2) + "." + "rules.add({comyKey: true})"
     jsAddToView(js)
   }
 
