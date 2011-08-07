@@ -9,7 +9,7 @@ class Shorten extends Action {
   override def postback {
     val url = param("url").trim
     if (url.isEmpty) {
-      jsRender("$('#result').html(%s)".format(jsEscape(<p class="error">URL must not be empty</p>)))
+      jsRenderFormat("$('#result').html(%s)", jsEscape(<p class="error">URL must not be empty</p>))
       return
     }
 
@@ -36,6 +36,6 @@ class Shorten extends Action {
       case SaveUrlResult.ERROR =>
         <p class="error">Server error</p>
     }
-    jsRender("$('#result').html(%s)".format(jsEscape(html)))
+    jsRenderFormat("$('#result').html(%s)", jsEscape(html))
   }
 }
