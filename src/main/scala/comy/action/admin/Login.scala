@@ -27,7 +27,7 @@ class Login extends AppAction {
       flash("You have successfully logged in.")
       jsRedirectTo[Index]
     } else {
-      jsRender(js$id("error") + ".html(" + jsEscape(<p class="error">Could not login.</p>) + ")")
+      jsRender("$('#error').html(%s)".format(jsEscape(<p class="error">Could not login.</p>)))
     }
   }
 }
