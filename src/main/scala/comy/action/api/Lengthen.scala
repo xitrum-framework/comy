@@ -3,11 +3,12 @@ package comy.action.api
 import org.jboss.netty.handler.codec.http.HttpResponseStatus.NOT_FOUND
 
 import xitrum.Action
-import xitrum.annotation.GET
+import xitrum.annotation.{GET, Last}
 
 import comy.model.DB
 
-@GET(value="/:key", last=true)
+@Last
+@GET("/:key")
 class Lengthen extends Action {
   override def execute {
     val key = param("key")
