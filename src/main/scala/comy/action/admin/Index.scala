@@ -1,12 +1,12 @@
 package comy.action.admin
 
 import xitrum.annotation.GET
-import comy.action.{AppAction, Var}
+import comy.action.{AppAction, SVar}
 
 @GET("/admin")
 class Index extends AppAction {
   beforeFilters("authenticate") = () => {
-    val ret = Var.sUsername.isDefined
+    val ret = SVar.username.isDefined
     if (!ret) {
       flash(t("Please login."))
       redirectTo[Login]

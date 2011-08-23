@@ -3,7 +3,7 @@ package comy.action.admin
 import xitrum.annotation._
 import xitrum.validation._
 
-import comy.action.{AppAction, Var}
+import comy.action.{AppAction, SVar}
 
 @GET("/admin/login")
 class Login extends AppAction {
@@ -23,7 +23,7 @@ class Login extends AppAction {
     val username = param("username")
     if (username == "xxx") {  // TODO
       resetSession
-      Var.sUsername.set(username)
+      SVar.username.set(username)
       flash("You have successfully logged in.")
       jsRedirectTo[Index]
     } else {

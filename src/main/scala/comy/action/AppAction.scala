@@ -36,11 +36,11 @@ trait AppAction extends Action {
               <h1 id="header"><a href={urlFor[UserIndex]}>URL Shortener</a></h1>
 
               {if (ComyConfig.isAdminAllowed(remoteIp))
-                if (!Var.sUsername.isDefined)
+                if (!SVar.username.isDefined)
                   <a href={urlFor[Login]}>Login</a>
                 else
                   <xml:group>
-                    <b>{Var.sUsername.get}</b>
+                    <b>{SVar.username.get}</b>
                     <a href={urlFor[AdminIndex]}>Admin</a> |
                     <a href="#" postback="click" action={urlForPostback[Logout]}>Logout</a>
                   </xml:group>
