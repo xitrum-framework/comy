@@ -11,7 +11,8 @@ trait AppAction extends Action {
   override def layout = DocType.xhtmlTransitional(
     <html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'>
       <head>
-        {xitrumHead}
+        {antiCSRFMeta}
+        {xitrumCSS}
 
         <meta content="text/html; charset=utf-8" http-equiv="content-type" />
         <title>URL Shortener</title>
@@ -60,7 +61,7 @@ trait AppAction extends Action {
           </div>
         </div>
 
-        {jsForView}
+        {jsAtBottom}
       </body>
     </html>
   )
