@@ -1,10 +1,9 @@
 package comy
 
-import java.util.Properties
-import xitrum.{Config => XConfig}
+import xitrum.util.Loader
 
 object Config {
-  private val properties = XConfig.propertiesFromFile("config/comy.properties")
+  private val properties = Loader.propertiesFromFile("config/comy.properties")
 
   val apiIps   = properties.getProperty("allowed_ips.api").split(',').map(ip => ip.trim)
   val adminIps = properties.getProperty("allowed_ips.admin").split(',').map(ip => ip.trim)
