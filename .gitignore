@@ -1,6 +1,9 @@
 log
 project
 target
+
+routes.sclasner
+
 .*
 
 # IntelliJ IDEA project file
