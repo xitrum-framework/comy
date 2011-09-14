@@ -2,8 +2,8 @@ log
 project
 target
 
+i18n.pot
 routes.sclasner
-
 .*
 
 # IntelliJ IDEA project file
