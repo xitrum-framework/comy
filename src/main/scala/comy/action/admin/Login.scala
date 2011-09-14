@@ -12,9 +12,9 @@ class Login extends AppAction {
       <form postback="submit" action={urlForPostbackThis}>
         <div id="error"></div>
 
-        <label>Username:</label> <input type="text" name={validate("username", Required)} />
+        <label>{t("Username")}:</label> <input type="text" name={validate("username", Required)} />
         <br />
-        <input type="submit" value="Password »" />
+        <input type="submit" value={t("Password »")} />
       </form>
     )
   }
@@ -24,10 +24,10 @@ class Login extends AppAction {
     if (username == "xxx") {  // TODO
       resetSession
       SVar.username.set(username)
-      flash("You have successfully logged in.")
+      flash(t("You have successfully logged in."))
       jsRedirectTo[Index]
     } else {
-      jsRenderFormat("$('#error').html(%s)", jsEscape(<p class="error">Could not login.</p>))
+      jsRenderFormat("$('#error').html(%s)", jsEscape(<p class="error">{t("Could not login.")}</p>))
     }
   }
 }

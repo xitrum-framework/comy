@@ -1,0 +1,83 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Ngoc Dao <ngocdaothanh@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/main/scala/comy/action/admin/Index.scala:11
+msgid "Please login."
+msgstr "Xin hãy đăng nhập."
+
+#: src/main/scala/comy/action/admin/Login.scala:15
+msgid "Username"
+msgstr "Tên đăng nhập"
+
+#: src/main/scala/comy/action/admin/Login.scala:17
+msgid "Password »"
+msgstr "Mật khẩu »"
+
+#: src/main/scala/comy/action/admin/Login.scala:27
+msgid "You have successfully logged in."
+msgstr "Bạn vừa đăng nhập thành công."
+
+#: src/main/scala/comy/action/admin/Login.scala:30
+msgid "Could not login."
+msgstr "Không đăng nhập được."
+
+#: src/main/scala/comy/action/admin/Logout.scala:9
+msgid "You have logged out."
+msgstr "Bạn vừa đăng xuất."
+
+#: src/main/scala/comy/action/api/Lengthen.scala:22
+msgid "URL Not Found"
+msgstr "Không tìm thấy URL"
+
+#: src/main/scala/comy/action/AppAction.scala:23
+#: src/main/scala/comy/action/AppAction.scala:42
+msgid "URL Shortener"
+msgstr "URL Shortener - Chương trình làm ngắn URL"
+
+#: src/main/scala/comy/action/AppAction.scala:46
+msgid "Login"
+msgstr "Đăng nhập"
+
+#: src/main/scala/comy/action/AppAction.scala:50
+msgid "Admin"
+msgstr "Quản lí"
+
+#: src/main/scala/comy/action/AppAction.scala:51
+msgid "Logout"
+msgstr "Đăng xuất"
+
+#: src/main/scala/comy/action/user/Index.scala:15
+msgid "URL"
+msgstr "URL"
+
+#: src/main/scala/comy/action/user/Index.scala:19
+msgid "Key"
+msgstr "Chuỗi gợi nhớ"
+
+#: src/main/scala/comy/action/user/Index.scala:22
+msgid "(optional, a-z A-Z 0-9 _ -)"
+msgstr "(không có cũng được, kí tự có thể dùng: a-z A-Z 0-9 _ -)"
+
+#: src/main/scala/comy/action/user/Index.scala:27
+msgid "Shorten"
+msgstr "Làm ngắn"
+
+#: src/main/scala/comy/action/user/Shorten.scala:12
+msgid "URL must not be empty"
+msgstr "URL không được để rỗng"
+
+#: src/main/scala/comy/action/user/Shorten.scala:34
+msgid "Key has been chosen"
+msgstr "Chuỗi gợi nhớ đã được sử dụng"
+
+#: src/main/scala/comy/action/user/Shorten.scala:37
+msgid "Server error"
+msgstr "Có lỗi trên server"

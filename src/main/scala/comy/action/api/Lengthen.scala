@@ -19,7 +19,7 @@ class Lengthen extends Action {
 
       case None =>
         response.setStatus(NOT_FOUND)
-        renderText("Not Found")
+        renderText(t("URL Not Found"))
     }
   }
 }

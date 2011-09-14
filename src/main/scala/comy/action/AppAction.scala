@@ -8,6 +8,11 @@ import comy.action.user.{Index => UserIndex}
 import comy.action.admin.{Index => AdminIndex, Login, Logout}
 
 trait AppAction extends Action {
+  beforeFilters("setLanguage") = () => {
+    setLanguage("ja")
+    true
+  }
+
   override def layout = DocType.xhtmlTransitional(
     <html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'>
       <head>
@@ -15,7 +20,7 @@ trait AppAction extends Action {
         {xitrumCSS}
 
         <meta content="text/html; charset=utf-8" http-equiv="content-type" />
-        <title>URL Shortener</title>
+        <title>{t("URL Shortener")}</title>
 
         <link rel="stylesheet" type="text/css" media="all" href={urlForPublic("css/960/reset.css")} />
         <link rel="stylesheet" type="text/css" media="all" href={urlForPublic("css/960/text.css")} />
@@ -34,16 +39,16 @@ trait AppAction extends Action {
             <div id="csc">
               <span class="tr"></span>
 
-              <h1 id="header"><a href={urlFor[UserIndex]}>URL Shortener</a></h1>
+              <h1 id="header"><a href={urlFor[UserIndex]}>{t("URL Shortener")}</a></h1>
 
               {if (ComyConfig.isAdminAllowed(remoteIp))
                 if (!SVar.username.isDefined)
-                  <a href={urlFor[Login]}>Login</a>
+                  <a href={urlFor[Login]}>{t("Login")}</a>
                 else
                   <xml:group>
                     <b>{SVar.username.get}</b>
-                    <a href={urlFor[AdminIndex]}>Admin</a> |
-                    <a href="#" postback="click" action={urlForPostback[Logout]}>Logout</a>
+                    <a href={urlFor[AdminIndex]}>{t("Admin")}</a> |
+                    <a href="#" postback="click" action={urlForPostback[Logout]}>{t("Logout")}</a>
                   </xml:group>
               }
 
