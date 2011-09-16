@@ -5,11 +5,12 @@ import org.jboss.netty.handler.codec.http.HttpResponseStatus._
 import xitrum.Action
 import xitrum.annotation.POST
 
+import comy.action.SetLanguage
 import comy.{Config => ComyConfig}
 import comy.model.{DB, SaveUrlResult}
 
 @POST("/api/shorten")  // ?url=URL[&key=KEY]
-class Shorten extends Action {
+class Shorten extends Action with SetLanguage {
   beforeFilters("checkIpForShorten") = () => {
     if (ComyConfig.isApiAllowed(remoteIp)) {
       true

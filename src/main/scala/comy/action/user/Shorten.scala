@@ -2,10 +2,11 @@ package comy.action.user
 
 import xitrum.Action
 
+import comy.action.SetLanguage
 import comy.action.api.Lengthen
 import comy.model.{DB, SaveUrlResult}
 
-class Shorten extends Action {
+class Shorten extends Action with SetLanguage {
   override def postback {
     val url = param("url").trim
     if (url.isEmpty) {

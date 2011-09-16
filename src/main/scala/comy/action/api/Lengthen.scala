@@ -5,11 +5,12 @@ import org.jboss.netty.handler.codec.http.HttpResponseStatus.NOT_FOUND
 import xitrum.Action
 import xitrum.annotation.{GET, Last}
 
+import comy.action.SetLanguage
 import comy.model.DB
 
 @Last
 @GET("/:key")
-class Lengthen extends Action {
+class Lengthen extends Action with SetLanguage {
   override def execute {
     val key = param("key")
     DB.getUrl(key) match {

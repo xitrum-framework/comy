@@ -7,12 +7,7 @@ import comy.{Config => ComyConfig}
 import comy.action.user.{Index => UserIndex}
 import comy.action.admin.{Index => AdminIndex, Login, Logout}
 
-trait AppAction extends Action {
-  beforeFilters("setLanguage") = () => {
-    setLanguage("ja")
-    true
-  }
-
+trait AppAction extends Action with SetLanguage {
   override def layout = DocType.xhtmlTransitional(
     <html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'>
       <head>
@@ -20,7 +15,7 @@ trait AppAction extends Action {
         {xitrumCSS}
 
         <meta content="text/html; charset=utf-8" http-equiv="content-type" />
-        <title>{t("URL Shortener")}</title>
+        <title>{tc("App name", "URL Shortener")}</title>
 
         <link rel="stylesheet" type="text/css" media="all" href={urlForPublic("css/960/reset.css")} />
         <link rel="stylesheet" type="text/css" media="all" href={urlForPublic("css/960/text.css")} />
@@ -39,7 +34,7 @@ trait AppAction extends Action {
             <div id="csc">
               <span class="tr"></span>
 
-              <h1 id="header"><a href={urlFor[UserIndex]}>{t("URL Shortener")}</a></h1>
+              <h1 id="header"><a href={urlFor[UserIndex]}>{tc("App name", "URL Shortener")}</a></h1>
 
               {if (ComyConfig.isAdminAllowed(remoteIp))
                 if (!SVar.username.isDefined)
