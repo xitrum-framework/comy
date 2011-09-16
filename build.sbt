@@ -22,6 +22,10 @@ resolvers += "repo.codahale.com"    at "http://repo.codahale.com"
 
 libraryDependencies += "tv.cntt"         %% "xitrum"            % "1.1-SNAPSHOT"
 
+autoCompilerPlugins := true
+
+addCompilerPlugin("tv.cntt" %% "xitrum-xgettext" % "1.1-SNAPSHOT")
+
 // An implementation of SLF4J must be provided for Xitrum
 libraryDependencies += "ch.qos.logback"  %  "logback-classic"   % "0.9.29"
 

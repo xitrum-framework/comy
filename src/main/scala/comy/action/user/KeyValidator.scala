@@ -12,8 +12,7 @@ object KeyValidator extends Validator {
         "comyKey",
         function(value, element) {
           return value.match(/^[a-zA-Z0-9_\-]*$/);
-        },
-        "Invalid."
+        },'""" + t("Invalid.") + """'
       );
     """)
 

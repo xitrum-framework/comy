@@ -2,8 +2,9 @@ package comy.model
 
 import java.util.{ArrayList, Date, Calendar}
 import java.text.SimpleDateFormat
-import xitrum.Logger
+
 import com.mongodb._
+import xitrum.{I18n, Logger}
 
 import comy.Config
 
@@ -60,8 +61,8 @@ object DB extends Logger {
 
   ensureIndexes
 
-  def saveUrl(url: String, key: Option[String]) = key match {
-    case Some(key2) => saveUrlWithKey(url, key2)
+  def saveUrl(i18n: I18n, url: String, key: Option[String]) = key match {
+    case Some(key2) => saveUrlWithKey(i18n, url, key2)
     case None       => saveUrlWithRandomKey(url)
   }
 
@@ -114,8 +115,8 @@ object DB extends Logger {
     /**
    * @return None if there is error (DB is down etc.)
    */
-  private def saveUrlWithKey(url: String, key: String): (SaveUrlResult, String) = {
-    val (result, msg) = validateKey(key)
+  private def saveUrlWithKey(i18n: I18n, url: String, key: String): (SaveUrlResult, String) = {
+    val (result, msg) = validateKey(i18n, key)
     if (!result) {
       (SaveUrlResult.INVALID, msg)
     } else {
@@ -129,27 +130,27 @@ object DB extends Logger {
             if (url2 == url)
               (SaveUrlResult.VALID, key)
             else
-              (SaveUrlResult.DUPLICATE, "The key has been chosen")
+              (SaveUrlResult.DUPLICATE, i18n.t("The key has been chosen"))
         }
       } catch {
         case e: Exception =>
           logger.error("saveUrlWithKey", e)
-          (SaveUrlResult.ERROR, "Server error")
+          (SaveUrlResult.ERROR, i18n.t("Server error"))
       }
     }
   }
 
-  private def validateKey(key: String): (Boolean, String) = {
+  private def validateKey(i18n: I18n, key: String): (Boolean, String) = {
     val ALLOW_CHARS = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890_-"
     val length = key.length
     if (length == 0) {
-       (false, "Key must be blank")
+       (false, i18n.t("Key must not be blank"))
     } else if (length > 32) {
-       (false, "Key must not be longer than 32 characters")
+       (false, i18n.t("Key must not be longer than 32 characters"))
     } else {
       val invalidCharIncluded = key.exists(c => ALLOW_CHARS.indexOf(c) == -1)
       if (invalidCharIncluded)
-        (false, "Key contains invalid character")
+        (false, i18n.t("Key contains invalid character"))
       else
         (true, "")
     }

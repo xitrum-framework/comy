@@ -17,7 +17,7 @@ class Shorten extends Action {
       val ret = param("key").trim
       if (ret.isEmpty) None else Some(ret)
     }
-    val (resultCode, resultString) = DB.saveUrl(url, keyo)
+    val (resultCode, resultString) = DB.saveUrl(this, url, keyo)
     val html = resultCode match {
       case SaveUrlResult.VALID =>
         val absoluteUrl = absoluteUrlFor[Lengthen]("key" -> resultString)

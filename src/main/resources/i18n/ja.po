@@ -9,75 +9,97 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/main/scala/comy/action/admin/Index.scala:11
+#: ../../../../src/main/scala/comy/model/DB.scala:133
+msgid "The key has been chosen"
+msgstr "キーが使われています"
+
+#: ../../../../src/main/scala/comy/action/user/KeyValidator.scala:15
+msgid "Invalid."
+msgstr "不正。"
+
+#: ../../../../src/main/scala/comy/action/admin/Index.scala:11
 msgid "Please login."
 msgstr "ログインしてください。"
 
-#: src/main/scala/comy/action/admin/Login.scala:15
-msgid "Username"
-msgstr "ユーザ名"
-
-#: src/main/scala/comy/action/admin/Login.scala:17
-msgid "Password »"
-msgstr "パスワード »"
-
-#: src/main/scala/comy/action/admin/Login.scala:27
-msgid "You have successfully logged in."
-msgstr "ログインしました。"
-
-#: src/main/scala/comy/action/admin/Login.scala:30
-msgid "Could not login."
-msgstr "ログインできませんでした。"
-
-#: src/main/scala/comy/action/admin/Logout.scala:9
-msgid "You have logged out."
-msgstr "ログアウトしました。"
-
-#: src/main/scala/comy/action/api/Lengthen.scala:22
-msgid "URL Not Found"
-msgstr "URL見つかりませんでした"
-
-#: src/main/scala/comy/action/AppAction.scala:23
-#: src/main/scala/comy/action/AppAction.scala:42
-msgid "URL Shortener"
-msgstr "URL Shortener - URL短縮"
-
-#: src/main/scala/comy/action/AppAction.scala:46
-msgid "Login"
-msgstr "ログイン"
-
-#: src/main/scala/comy/action/AppAction.scala:50
-msgid "Admin"
-msgstr "管理"
-
-#: src/main/scala/comy/action/AppAction.scala:51
-msgid "Logout"
-msgstr "ログアウト"
-
-#: src/main/scala/comy/action/user/Index.scala:15
-msgid "URL"
-msgstr "URL"
-
-#: src/main/scala/comy/action/user/Index.scala:19
-msgid "Key"
-msgstr "キー"
-
-#: src/main/scala/comy/action/user/Index.scala:22
-msgid "(optional, a-z A-Z 0-9 _ -)"
-msgstr "（オプション、使用可能文字：a-z A-Z 0-9 _ -）"
-
-#: src/main/scala/comy/action/user/Index.scala:27
-msgid "Shorten"
-msgstr "短縮"
-
-#: src/main/scala/comy/action/user/Shorten.scala:12
+#: ../../../../src/main/scala/comy/action/user/Shorten.scala:12
 msgid "URL must not be empty"
 msgstr "URLが必須です"
 
-#: src/main/scala/comy/action/user/Shorten.scala:34
+#: ../../../../src/main/scala/comy/model/DB.scala:138
+#: ../../../../src/main/scala/comy/action/user/Shorten.scala:37
+msgid "Server error"
+msgstr "サーバーエラー"
+
+#: ../../../../src/main/scala/comy/action/user/Index.scala:22
+msgid "(optional, a-z A-Z 0-9 _ -)"
+msgstr "（オプション、使用可能文字：a-z A-Z 0-9 _ -）"
+
+#: ../../../../src/main/scala/comy/model/DB.scala:147
+msgid "Key must not be blank"
+msgstr "キーが必須です"
+
+#: ../../../../src/main/scala/comy/action/user/Shorten.scala:34
 msgid "Key has been chosen"
 msgstr "キーが使われています"
 
-#: src/main/scala/comy/action/user/Shorten.scala:37
-msgid "Server error"
-msgstr "サーバーエラー"
+#: ../../../../src/main/scala/comy/action/AppAction.scala:46
+msgid "Login"
+msgstr "ログイン"
+
+#: ../../../../src/main/scala/comy/action/admin/Login.scala:27
+msgid "You have successfully logged in."
+msgstr "ログインしました。"
+
+#: ../../../../src/main/scala/comy/action/admin/Login.scala:17
+msgid "Password »"
+msgstr "パスワード »"
+
+#: ../../../../src/main/scala/comy/model/DB.scala:149
+msgid "Key must not be longer than 32 characters"
+msgstr "キーの最長が32文字です"
+
+#: ../../../../src/main/scala/comy/action/admin/Logout.scala:11
+msgid "You have logged out."
+msgstr "ログアウトしました。"
+
+#: ../../../../src/main/scala/comy/action/user/Index.scala:19
+msgid "Key"
+msgstr "キー"
+
+#: ../../../../src/main/scala/comy/action/admin/Login.scala:15
+msgid "Username"
+msgstr "ユーザ名"
+
+#: ../../../../src/main/scala/comy/action/admin/Login.scala:30
+msgid "Could not login."
+msgstr "ログインできませんでした。"
+
+#: ../../../../src/main/scala/comy/action/AppAction.scala:42
+#: ../../../../src/main/scala/comy/action/AppAction.scala:23
+msgid "URL Shortener"
+msgstr "URL Shortener - URL短縮"
+
+#: ../../../../src/main/scala/comy/action/AppAction.scala:51
+msgid "Logout"
+msgstr "ログアウト"
+
+#: ../../../../src/main/scala/comy/action/user/Index.scala:15
+msgid "URL"
+msgstr "URL"
+
+#: ../../../../src/main/scala/comy/action/AppAction.scala:50
+msgid "Admin"
+msgstr "管理"
+
+#: ../../../../src/main/scala/comy/model/DB.scala:153
+msgid "Key contains invalid character"
+msgstr "キーが不正文字を含めています"
+
+#: ../../../../src/main/scala/comy/action/api/Lengthen.scala:22
+msgid "URL Not Found"
+msgstr "URL見つかりませんでした"
+
+#: ../../../../src/main/scala/comy/action/user/Index.scala:27
+msgid "Shorten"
+msgstr "短縮"
+

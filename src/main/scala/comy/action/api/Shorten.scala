@@ -22,7 +22,7 @@ class Shorten extends Action {
   override def execute {
     val url  = param("url")
     val keyo = paramo("key")
-    val (resultCode, resultString) = DB.saveUrl(url, keyo)
+    val (resultCode, resultString) = DB.saveUrl(this, url, keyo)
 
     val status = resultCode match {
       case SaveUrlResult.VALID     => OK
