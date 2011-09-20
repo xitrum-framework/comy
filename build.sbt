@@ -2,7 +2,7 @@ organization := "tv.cntt"
 
 name         := "comy"
 
-version      := "1.3-SNAPSHOT"
+version      := "1.4-SNAPSHOT"
 
 scalaVersion := "2.9.1"
 
@@ -20,7 +20,7 @@ resolvers += "Scala Tools Snapshot" at "http://nexus.scala-tools.org/content/rep
 // Xitrum uses Jerkson: https://github.com/codahale/jerkson
 resolvers += "repo.codahale.com"    at "http://repo.codahale.com"
 
-libraryDependencies += "tv.cntt"         %% "xitrum"            % "1.1-SNAPSHOT"
+libraryDependencies += "tv.cntt"         %% "xitrum"            % "1.2-SNAPSHOT"
 
 autoCompilerPlugins := true
 
