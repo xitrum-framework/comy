@@ -20,7 +20,7 @@ resolvers += "Scala Tools Snapshot" at "http://nexus.scala-tools.org/content/rep
 // Xitrum uses Jerkson: https://github.com/codahale/jerkson
 resolvers += "repo.codahale.com"    at "http://repo.codahale.com"
 
-libraryDependencies += "tv.cntt"         %% "xitrum"            % "1.3-SNAPSHOT"
+libraryDependencies += "tv.cntt"         %% "xitrum"            % "1.4-SNAPSHOT"
 
 // An implementation of SLF4J must be provided for Xitrum
 libraryDependencies += "ch.qos.logback"  %  "logback-classic"   % "0.9.29"
