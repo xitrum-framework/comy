@@ -13,12 +13,12 @@ class Index extends AppAction {
         <table>
           <tr>
             <td><label for="url">{t("URL")}:</label></td>
-            <td><input id="url" type="text" name={validate("url", Required, URL)} value="http://mobion.jp/" tabindex="1" /></td>
+            <td>{<input id="url" type="text" name="url" value="http://mobion.jp/" tabindex="1" /> :: Required :: URL}</td>
           </tr>
           <tr>
             <td><label for="key">{t("Key")}:</label></td>
             <td>
-              <input type="text" name={validate("key", KeyValidator, MaxLength(32))} tabindex="2" />
+              {<input type="text" name="key" tabindex="2" /> :: MaxLength(32) :: KeyValidator}
               <span>{t("(optional, a-z A-Z 0-9 _ -)")}</span>
             </td>
           </tr>

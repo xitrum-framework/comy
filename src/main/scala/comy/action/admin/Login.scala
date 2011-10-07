@@ -12,8 +12,10 @@ class Login extends AppAction {
       <form postback="submit" action={urlForPostbackThis}>
         <div id="error"></div>
 
-        <label>{t("Username")}:</label> <input type="text" name={validate("username", Required)} />
+        <label>{t("Username")}:</label>
+        {<input type="text" name="username" /> :: Required}
         <br />
+
         <input type="submit" value={t("Password »")} />
       </form>
     )
