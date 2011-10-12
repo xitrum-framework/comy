@@ -11,7 +11,7 @@
 
 /* here's the box... the image is the upper-left corner */
 #csc {
-  background : #669900 url(/public/img/csc_tl.png) no-repeat;
+  background : #669900 url(../img/csc_tl.png) no-repeat;
   width : 100%;
   height : auto;
   position : relative;
@@ -29,21 +29,21 @@
 
 /* change position and image: top-right */
 .tr {
-  background : transparent url(/public/img/csc_tr.png) no-repeat;
+  background : transparent url(../img/csc_tr.png) no-repeat;
   top : 0;
   right : 0;
 }
 
 /* change position and image: bottom-left */
 .bl {
-  background : transparent url(/public/img/csc_bl.png) no-repeat;
+  background : transparent url(../img/csc_bl.png) no-repeat;
   bottom : 0;
   left : 0;
 }
 
 /* change position and image: bottom-right */
 .br {
-  background : transparent url(/public/img/csc_br.png) no-repeat;
+  background : transparent url(../img/csc_br.png) no-repeat;
   right : 0;
   bottom : 0;
 }
