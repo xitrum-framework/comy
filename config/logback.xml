@@ -3,7 +3,7 @@
 <configuration scan="true" scanPeriod="30 seconds">
   <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
-      <pattern>[%level] %c{1}: %m%n</pattern>
+      <pattern>[%level] %m%n</pattern>
     </encoder>
   </appender>
 
