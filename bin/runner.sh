@@ -12,4 +12,6 @@ JAVA_OPTS='-Xms512m -Xmx1024m -XX:MaxPermSize=128m -server -Djava.awt.headless=t
 # starting multiple processes from different directories
 CLASS_PATH="lib/slf4j-api-1.6.2.jar:$ROOT_DIR/lib/*:config"
 
+# Use exec to be compatible with daemontools:
+# http://cr.yp.to/daemontools.html
 exec java $JAVA_OPTS -cp $CLASS_PATH $@
