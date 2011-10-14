@@ -10,6 +10,6 @@ JAVA_OPTS='-Xms512m -Xmx1024m -XX:MaxPermSize=128m -server -Djava.awt.headless=t
 #
 # Include ROOT_DIR to do "ps aux | grep java" to get pid easier when
 # starting multiple processes from different directories
-CLASS_PATH="lib/slf4j-api-1.6.1.jar:$ROOT_DIR/lib/*:config"
+CLASS_PATH="lib/slf4j-api-1.6.2.jar:$ROOT_DIR/lib/*:config"
 
 java $JAVA_OPTS -cp $CLASS_PATH $@
