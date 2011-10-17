@@ -6,7 +6,7 @@ import xitrum.Action
 import xitrum.validation.Validator
 
 object KeyValidator extends Validator {
-  def render(action: Action, elem: Elem, name: String, name2: String): Elem = {
+  def render(action: Action, elem: Elem, paramName: String): Elem = {
     import action._
 
     jsAddToView("""
@@ -18,13 +18,14 @@ object KeyValidator extends Validator {
       );
     """)
 
-    val js = js$name(name2) + "." + "rules('add', {comyKey: true})"
+    val js = js$name(paramName) + "." + "rules('add', {comyKey: true})"
     jsAddToView(js)
 
     elem
   }
 
-  def validate(action: Action, name: String, name2: String): Boolean = {
-    true
+  def validate(action: Action, paramName: String): Boolean = {
+    val value = action.param(paramName).trim
+    """^[a-zA-Z0-9_\-]*$""".r.findFirstIn(value).isDefined
   }
 }
