@@ -20,14 +20,14 @@ resolvers += "Scala Tools Snapshot" at "http://nexus.scala-tools.org/content/rep
 // Xitrum uses Jerkson: https://github.com/codahale/jerkson
 resolvers += "repo.codahale.com"    at "http://repo.codahale.com"
 
-libraryDependencies += "tv.cntt"         %% "xitrum"            % "1.5-SNAPSHOT"
+libraryDependencies += "tv.cntt"         %% "xitrum"            % "1.6-SNAPSHOT"
 
 // An implementation of SLF4J must be provided for Xitrum
-libraryDependencies += "ch.qos.logback"  %  "logback-classic"   % "0.9.29"
+libraryDependencies += "ch.qos.logback"  %  "logback-classic"   % "1.0.0"
 
 libraryDependencies += "org.mongodb"     %  "mongo-java-driver" % "2.5.3"
 
-addCompilerPlugin("tv.cntt" %% "xitrum-xgettext" % "1.1-SNAPSHOT")
+addCompilerPlugin("tv.cntt" %% "xitrum-xgettext" % "1.1")
 
 // For "sbt console"
 unmanagedClasspath in Compile <+= (baseDirectory) map { bd => Attributed.blank(bd / "config") }

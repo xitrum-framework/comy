@@ -5,7 +5,7 @@ import comy.action.{AppAction, SVar}
 
 @GET("/admin")
 class Index extends AppAction {
-  beforeFilters("authenticate") = () => {
+  beforeFilter { () =>
     val ret = SVar.username.isDefined
     if (!ret) {
       flash(t("Please login."))

@@ -11,7 +11,7 @@ import comy.model.{DB, SaveUrlResult}
 
 @POST("/api/shorten")  // ?url=URL[&key=KEY]
 class Shorten extends Action with SetLanguage {
-  beforeFilters("checkIpForShorten") = () => {
+  beforeFilter { () =>
     if (ComyConfig.isApiAllowed(remoteIp)) {
       true
     } else {

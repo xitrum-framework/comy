@@ -3,7 +3,7 @@ package comy.action
 import xitrum.Action
 
 trait SetLanguage extends Action {
-  beforeFilters("setLanguage") = () => {
+  beforeFilter { () =>
     setLanguage("ja")
     true
   }
