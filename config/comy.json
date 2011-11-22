@@ -1,0 +1,17 @@
+{
+  "allowedIps": {
+    // IPs allowed to send POST request to /api/xxx
+    "api":   ["*"],
+    // IPs allowed to accesss /admin/xxx
+    "admin": ["*"]
+  },
+
+  "db": {
+    // Replica set is supported
+    "addresses":          ["localhost:27017", "localhost:27017", "localhost:27017"],
+    "connectionsPerHost": 100,
+    "name":               "comy",
+    // URLs that have not been accessed within this number of days will be removed
+    "expirationDays":     90
+  }
+}

@@ -2,22 +2,21 @@ package comy
 
 import xitrum.util.Loader
 
+case class AllowedIps(api: List[String], admin: List[String])
+case class Db(addresses: List[String], connectionsPerHost: Int, name: String, expirationDays: Int)
+case class Config(allowedIps: AllowedIps, db: Db)
+
 object Config {
-  private val properties = Loader.propertiesFromFile("config/comy.properties")
+  private val config = Loader.jsonFromClasspath[Config]("comy.json")
 
-  val apiIps   = properties.getProperty("allowed_ips.api").split(',').map(ip => ip.trim)
-  val adminIps = properties.getProperty("allowed_ips.admin").split(',').map(ip => ip.trim)
+  val allowedIps = config.allowedIps
+  val db         = config.db
 
-  val dbAddrs              = properties.getProperty("db.addrs").split(',').map(addr => addr.trim)
-  val dbConnectionsPerHost = properties.getProperty("db.connections_per_host").toInt
-  val dbName               = properties.getProperty("db.name")
-  val dbExpirationDays     = properties.getProperty("db.expiration_days").toInt
-
-  def isApiAllowed(ip: String) = apiIps.exists { ip2 =>
+  def isApiAllowed(ip: String) = allowedIps.api.exists { ip2 =>
     (ip2 == "*") || (ip2 == ip)
   }
 
-  def isAdminAllowed(ip: String) = adminIps.exists { ip2 =>
+  def isAdminAllowed(ip: String) = allowedIps.admin.exists { ip2 =>
     (ip2 == "*") || (ip2 == ip)
   }
 }

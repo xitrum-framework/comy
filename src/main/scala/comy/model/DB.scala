@@ -46,15 +46,15 @@ object DB extends Logger {
   import SaveUrlResult._
 
   private val coll  = {
-    val addrs = new ArrayList[ServerAddress]
-    for (addr <- Config.dbAddrs) addrs.add(new ServerAddress(addr))
+    val addresses = new ArrayList[ServerAddress]
+    for (a <- Config.db.addresses) addresses.add(new ServerAddress(a))
 
     val options = new MongoOptions
-    options.connectionsPerHost = Config.dbConnectionsPerHost
+    options.connectionsPerHost = Config.db.connectionsPerHost
     options.autoConnectRetry   = true
 
-    val mongo = new Mongo(addrs, options)
-    val db    = mongo.getDB(Config.dbName)
+    val mongo = new Mongo(addresses, options)
+    val db    = mongo.getDB(Config.db.name)
 
     db.getCollection(COLL)
   }
@@ -86,7 +86,7 @@ object DB extends Logger {
    */
   def removeExpiredUrls: Boolean = {
     try {
-      val expirationDate = today - Config.dbExpirationDays
+      val expirationDate = today - Config.db.expirationDays
       val query = new BasicDBObject
       query.put(ACCESS_COUNT, 0)
       query.put(UPDATED_ON,   new BasicDBObject("$lte", expirationDate))
