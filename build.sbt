@@ -12,7 +12,7 @@ scalacOptions ++= Seq(
 )
 
 // Remove this when Netty 4 is released (this must be put before Xitrum below)
-libraryDependencies += "org.jboss.netty" % "netty" % "4.0.0.Alpha1-SNAPSHOT" from "http://cloud.github.com/downloads/ngocdaothanh/xitrum/netty-4.0.0.Alpha1-SNAPSHOT.jar"
+libraryDependencies += "io.netty" % "netty" % "4.0.0.Alpha1-SNAPSHOT" from "http://cloud.github.com/downloads/ngocdaothanh/xitrum/netty-4.0.0.Alpha1-SNAPSHOT.jar"
 
 // For Xitrum
 resolvers += "Scala Tools Snapshot" at "http://nexus.scala-tools.org/content/repositories/snapshots"
@@ -20,7 +20,7 @@ resolvers += "Scala Tools Snapshot" at "http://nexus.scala-tools.org/content/rep
 // Xitrum uses Jerkson: https://github.com/codahale/jerkson
 resolvers += "repo.codahale.com"    at "http://repo.codahale.com"
 
-libraryDependencies += "tv.cntt"         %% "xitrum"            % "1.6"
+libraryDependencies += "tv.cntt"         %% "xitrum"            % "1.7"
 
 // An implementation of SLF4J must be provided for Xitrum
 libraryDependencies += "ch.qos.logback"  %  "logback-classic"   % "1.0.0"

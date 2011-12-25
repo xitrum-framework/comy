@@ -9,7 +9,7 @@ import comy.action.{AppAction, SVar}
 class Login extends AppAction {
   override def execute {
     renderView(
-      <form postback="submit" action={urlForPostbackThis}>
+      <form data-postback="submit" action={urlForPostbackThis}>
         <div id="error"></div>
 
         <label>{t("Username")}:</label>

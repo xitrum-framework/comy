@@ -1,6 +1,6 @@
 package comy.action.api
 
-import org.jboss.netty.handler.codec.http.HttpResponseStatus.NOT_FOUND
+import io.netty.handler.codec.http.HttpResponseStatus.NOT_FOUND
 
 import xitrum.Action
 import xitrum.annotation.{GET, Last}

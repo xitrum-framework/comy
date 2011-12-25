@@ -43,7 +43,7 @@ trait AppAction extends Action with SetLanguage {
                   <xml:group>
                     <b>{SVar.username.get}</b>
                     <a href={urlFor[AdminIndex]}>{t("Admin")}</a> |
-                    <a href="#" postback="click" action={urlForPostback[Logout]}>{t("Logout")}</a>
+                    <a href="#" data-postback="click" action={urlForPostback[Logout]}>{t("Logout")}</a>
                   </xml:group>
               }
 

@@ -9,7 +9,7 @@ import comy.action.AppAction
 class Index extends AppAction {
   override def execute {
     renderView(
-      <form postback="submit" action={urlForPostback[Shorten]}>
+      <form data-postback="submit" action={urlForPostback[Shorten]}>
         <table>
           <tr>
             <td><label for="url">{t("URL")}:</label></td>
