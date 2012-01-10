@@ -8,7 +8,6 @@ object Boot {
     // Avoid error when creating QRCode when running in console-only environment
     System.setProperty("java.awt.headless", "true")
 
-    Routes.fromCacheFileOrRecollect()
     Server.start()
   }
 }
