@@ -1,0 +1,57 @@
+-
+  import comy.{Config => ComyConfig}
+  import comy.controller._
+
+!!! 5
+html
+  head
+    = antiCSRFMeta
+    = xitrumCSS
+
+    meta(content="text/html; charset=utf-8" http-equiv="content-type")
+    title= tc("App name", "URL Shortener")
+
+    link(rel="stylesheet" type="text/css" media="all" href={urlForPublic("css/960/reset.css")})
+    link(rel="stylesheet" type="text/css" media="all" href={urlForPublic("css/960/text.css")})
+    link(rel="stylesheet" type="text/css" media="all" href={urlForPublic("css/960/960_24_col.css")})
+    link(rel="stylesheet" type="text/css" media="all" href={urlForPublic("css/smart_corners.css")})
+    link(rel="stylesheet" type="text/css" media="all" href={urlForPublic("css/application.css")})
+    link(rel="stylesheet" type="text/css" media="all" href={urlForPublic("css/index.css")})
+
+  body
+    .container_24
+      .grid_15.prefix_3.suffix_6
+        br
+        br
+
+        #csc
+          span.tr
+
+          h1#header
+            a(href={Users.index.url})= tc("App name", "URL Shortener")
+
+          -
+            if (ComyConfig.isAdminAllowed(remoteIp))
+              if (!SVar.username.isDefined)
+                <a href={Admins.login.url}>{t("Login")}</a>
+              else
+                <xml:group>
+                  <b>{SVar.username.get}</b>
+                  <a href={Admins.index.url}>{t("Admin")}</a> |
+                  <a href="#" data-postback="click" action={Admins.logout.url}>{t("Logout")}</a>
+                </xml:group>
+
+          #flash= jsRenderFlash()
+
+          != renderedView
+
+          .clear
+
+          span.bl
+          span.br
+
+        h5#footer
+          span Powered by
+          a(href="https://github.com/ngocdaothanh/comy") Comy
+
+    = jsAtBottom

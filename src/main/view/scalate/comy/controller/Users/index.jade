@@ -1,0 +1,19 @@
+- import comy.controller.Users
+
+form(data-postback="submit" action={Users.shorten.url})
+  table
+    tr
+      td
+        label(for="url")= t("URL")
+      td
+        input#url(type="text" name="url" value="http://mobion.jp/" tabindex="1" class="required url")
+    tr
+      td
+        label(for="key")= t("Key")
+      td
+        input(type="text" name="key" tabindex="2" class="maxlength(32) keyvalidator")
+        span= t("(optional, a-z A-Z 0-9 _ -)")
+
+  input(type="submit" value={t("Shorten")} tabindex="3")
+
+#result

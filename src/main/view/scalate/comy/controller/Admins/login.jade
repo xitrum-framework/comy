@@ -1,0 +1,10 @@
+- import comy.controller.Admins
+
+form(data-postback="submit" action={currentController.asInstanceOf[Admins].doLogin.url})
+  #error
+
+  label= t("Username")
+  input(type="text" name="username" class="required")
+  br
+
+  input(type="submit" value={t("Password »")})
