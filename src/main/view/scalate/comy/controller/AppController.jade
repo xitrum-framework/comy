@@ -30,16 +30,13 @@ html
           h1#header
             a(href={Users.index.url})= tc("App name", "URL Shortener")
 
-          -
-            if (ComyConfig.isAdminAllowed(remoteIp))
-              if (!SVar.username.isDefined)
-                <a href={Admins.login.url}>{t("Login")}</a>
-              else
-                <xml:group>
-                  <b>{SVar.username.get}</b>
-                  <a href={Admins.index.url}>{t("Admin")}</a> |
-                  <a href="#" data-postback="click" action={Admins.logout.url}>{t("Logout")}</a>
-                </xml:group>
+          - if (ComyConfig.isAdminAllowed(remoteIp))
+            - if (!SVar.username.isDefined)
+              a(href={Admins.login.url})= t("Login")
+            - else
+              b= SVar.username.get
+              a(href={Admins.index.url})= t("Admin") + " | "
+              a(href="#" data-postback="click" action={Admins.logout.url})= t("Logout")
 
           #flash= jsRenderFlash()
 

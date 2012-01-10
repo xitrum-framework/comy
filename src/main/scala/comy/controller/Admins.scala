@@ -25,7 +25,7 @@ class Admins extends AppController {
   def doLogin = POST("login") {
     val username = param("username")
     if (username == "xxx") {  // TODO
-      resetSession
+      resetSession()
       SVar.username.set(username)
       flash(t("You have successfully logged in."))
       jsRedirectTo(index)
