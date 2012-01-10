@@ -66,9 +66,7 @@ object DB extends Logger {
     case None       => saveUrlWithRandomKey(url)
   }
 
-  /**
-   * @return None if there is error (DB is down etc.)
-   */
+  /** @return None if there is error (DB is down etc.) */
   def getUrl(key: String): Option[String] = {
     try {
       getUrlFromKey(key, true)
@@ -112,53 +110,35 @@ object DB extends Logger {
     coll.ensureIndex(new BasicDBObject(UPDATED_ON, 1))
   }
 
-    /**
-   * @return None if there is error (DB is down etc.)
-   */
-  private def saveUrlWithKey(i18n: I18n, url: String, key: String): (SaveUrlResult, String) = {
-    val (result, msg) = validateKey(i18n, key)
-    if (!result) {
-      (SaveUrlResult.INVALID, msg)
-    } else {
-      try {
-        getUrlFromKey(key, false) match {
-          case None =>
-            addNewUrl(key, url)
-            (SaveUrlResult.VALID, key)
+  /** @return None if there is error (DB is down etc.) */
+  private def saveUrlWithKey(i18n: I18n, url: String, keyValue: String): (SaveUrlResult, String) = {
+    val key = Key(keyValue)
+    key.v(i18n) match {
+      case Some(msg) =>
+        (SaveUrlResult.INVALID, msg)
 
-          case Some(url2) =>
-            if (url2 == url)
-              (SaveUrlResult.VALID, key)
-            else
-              (SaveUrlResult.DUPLICATE, i18n.t("The key has been chosen"))
+      case None =>
+        try {
+          getUrlFromKey(keyValue, false) match {
+            case None =>
+              addNewUrl(keyValue, url)
+              (SaveUrlResult.VALID, keyValue)
+
+            case Some(url2) =>
+              if (url2 == url)
+                (SaveUrlResult.VALID, keyValue)
+              else
+                (SaveUrlResult.DUPLICATE, i18n.t("The key has been chosen"))
+          }
+        } catch {
+          case e: Exception =>
+            logger.error("saveUrlWithKey", e)
+            (SaveUrlResult.ERROR, i18n.t("Server error"))
         }
-      } catch {
-        case e: Exception =>
-          logger.error("saveUrlWithKey", e)
-          (SaveUrlResult.ERROR, i18n.t("Server error"))
-      }
     }
   }
 
-  private def validateKey(i18n: I18n, key: String): (Boolean, String) = {
-    val ALLOW_CHARS = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890_-"
-    val length = key.length
-    if (length == 0) {
-       (false, i18n.t("Key must not be blank"))
-    } else if (length > 32) {
-       (false, i18n.t("Key must not be longer than 32 characters"))
-    } else {
-      val invalidCharIncluded = key.exists(c => ALLOW_CHARS.indexOf(c) == -1)
-      if (invalidCharIncluded)
-        (false, i18n.t("Key contains invalid character"))
-      else
-        (true, "")
-    }
-  }
-
-  /**
-   * @return None if there is error (DB is down etc.)
-   */
+  /** @return None if there is error (DB is down etc.) */
   private def saveUrlWithRandomKey(url: String): (SaveUrlResult, String) = {
     try {
       getKeyFromUrl(url) match {
@@ -184,9 +164,7 @@ object DB extends Logger {
     }
   }
 
-  /**
-   * @return None if URL is not existed, or otherwise the associated key
-   */
+  /** @return None if URL is not existed, or otherwise the associated key */
   private def getKeyFromUrl(url: String): Option[String] = {
     val result = coll.findOne(new BasicDBObject(URL, url))
     if (result != null) {
@@ -217,9 +195,7 @@ object DB extends Logger {
     }
   }
 
-  /**
-   * Add a new URL to the database
-   */
+  /** Add a new URL to the database */
   private def addNewUrl(key: String, url: String) {
     val doc = new BasicDBObject
     val d = today
