@@ -5,7 +5,7 @@ object Admins extends Admins
 class Admins extends AppController {
   pathPrefix = "admin"
 
-  beforeFilter {
+  beforeFilter(except = Seq(login, doLogin)) {
     val ret = SVar.username.isDefined
     if (!ret) {
       flash(t("Please login."))
