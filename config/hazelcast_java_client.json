@@ -1,7 +1,0 @@
-{
-  "groupName":     "my_project",
-  "groupPassword": "dev-pass",
-
-  // List of ip:port, no port means 5701
-  "addresses": ["127.0.0.1"]
-}

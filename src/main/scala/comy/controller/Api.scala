@@ -1,6 +1,6 @@
 package comy.controller
 
-import io.netty.handler.codec.http.HttpResponseStatus._
+import org.jboss.netty.handler.codec.http.HttpResponseStatus._
 
 import comy.{Config => ComyConfig}
 import comy.model.{DB, SaveUrlResult}

@@ -1,6 +1,6 @@
 package comy.controller
 
-import io.netty.handler.codec.http.HttpHeaders.Names.CONTENT_TYPE
+import org.jboss.netty.handler.codec.http.HttpHeaders.Names.CONTENT_TYPE
 import xitrum.validator.{Required, MaxLength, URL}
 
 import comy.model.{DB, SaveUrlResult, QRCode}

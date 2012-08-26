@@ -1,22 +1,28 @@
 {
-  // Comment out if you don'nt want to start HTTP server
-  "http": {
-    "port": 8364
-   },
+  // Comment out if you don't want to protect
+  // the whole site with basic authentication
+  // "basicAuth": {
+    // "realm":    "xitrum",
+    // "username": "xitrum",
+    // "password": "xitrum"
+  // },
 
-  // Comment out if you don't want to start HTTPS server
-  "https": {
-    "port": 4364,
+  // Comment out the one you don't want to start
+  "port": {
+    "http":              8364,
+    "https":             4364//,
+    //"flashSocketPolicy": 8430  // If enabled, flash_socket_policy.xml will be returned
+  },
 
-    // You can use KeyStore Explorer to create self-signed keystore:
-    // http://www.lazgosoftware.com/kse/index.html
-    // More info:
-    // http://wiki.eclipse.org/Jetty/Howto/Configure_SSL
-    "keystore": {
-      "path":                "config/keystore.jks",
-      "password":            "xitrum",
-      "certificatePassword": "xitrum"
-    }
+  // Not used if port.https above is disabled.
+  // You can use KeyStore Explorer to create self-signed keystore:
+  // http://www.lazgosoftware.com/kse/index.html
+  // More info:
+  // http://wiki.eclipse.org/Jetty/Howto/Configure_SSL
+  "keystore": {
+    "path":                "config/keystore.jks",
+    "password":            "xitrum",
+    "certificatePassword": "xitrum"
   },
 
   // Comment out if you don't use reverse proxy
@@ -32,7 +38,7 @@
     // //   X-Forwarded-Proto, or X-Forwarded-Scheme, or X-Forwarded-Ssl
     // "ips": ["127.0.0.1"],
     // // If you want the site to be http://<domain>/my_site/...
-    // "baseUri": "/my_site"
+    // "baseUrl": "/my_site"
   // },
 
   // Default Scalate template type, can be: jade, mustache, scaml, ssp
@@ -48,7 +54,8 @@
   "session": {
     // To store sessions on client side: xitrum.scope.session.CookieSessionStore
     // To store sessions on server side: xitrum.scope.session.HazelcastSessionStore
-    "store": "xitrum.scope.session.CookieSessionStore",
+    // "store": "xitrum.scope.session.CookieSessionStore",
+    "store": "xitrum.scope.session.HazelcastSessionStore",
 
     // If you run multiple sites on the same domain, make sure that there's no
     // cookie name conflict between sites

@@ -5,8 +5,8 @@
 !!! 5
 html
   head
-    = antiCSRFMeta
-    = xitrumCSS
+    != antiCSRFMeta
+    != xitrumCSS
 
     meta(content="text/html; charset=utf-8" http-equiv="content-type")
     title= tc("App name", "URL Shortener")
@@ -17,6 +17,8 @@ html
     link(rel="stylesheet" type="text/css" media="all" href={urlForPublic("css/smart_corners.css")})
     link(rel="stylesheet" type="text/css" media="all" href={urlForPublic("css/application.css")})
     link(rel="stylesheet" type="text/css" media="all" href={urlForPublic("css/index.css")})
+
+    != jsDefaults
 
   body
     .container_24
@@ -51,4 +53,4 @@ html
           span Powered by
           a(href="https://github.com/ngocdaothanh/comy") Comy
 
-    = jsAtBottom
+    != jsForView
