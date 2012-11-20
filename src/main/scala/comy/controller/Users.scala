@@ -23,7 +23,7 @@ class Users extends AppController {
   def shorten = POST("/user/shorten") {
     val url = param("url").trim
     if (url.isEmpty) {
-      jsRespond("$('#result').html(%s)".format(jsEscape(<p class="error">{t("URL must not be empty")}</p>)))
+      jsRespond("$('#result').html('%s')".format(jsEscape(<p class="error">{t("URL must not be empty")}</p>)))
     } else {
       val keyo = {
         val ret = param("key").trim
@@ -48,7 +48,7 @@ class Users extends AppController {
         case SaveUrlResult.ERROR =>
           <p class="error">{t("Server error")}</p>
       }
-      jsRespond("$('#result').html(%s)".format(jsEscape(html)))
+      jsRespond("$('#result').html('%s')".format(jsEscape(html)))
     }
   }
 }

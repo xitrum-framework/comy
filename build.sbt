@@ -18,7 +18,9 @@ scalacOptions ++= Seq(
 // and it takes several hours to sync from Sonatype to Maven Central
 resolvers += "SonatypeReleases" at "http://oss.sonatype.org/content/repositories/releases/"
 
-libraryDependencies += "tv.cntt" %% "xitrum" % "1.9.6"
+resolvers += "SonatypeSnapshots" at "http://oss.sonatype.org/content/repositories/snapshots/"
+
+libraryDependencies += "tv.cntt" %% "xitrum" % "1.9.11-SNAPSHOT"
 
 // Xitrum uses Jerkson: https://github.com/codahale/jerkson
 resolvers += "repo.codahale.com" at "http://repo.codahale.com"
@@ -26,7 +28,7 @@ resolvers += "repo.codahale.com" at "http://repo.codahale.com"
 // An implementation of SLF4J must be provided for Xitrum
 libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.0.7"
 
-libraryDependencies += "org.mongodb" %  "mongo-java-driver" % "2.8.0"
+libraryDependencies += "org.mongodb" %  "mongo-java-driver" % "2.9.3"
 
 // xgettext i18n translation key string extractor is a compiler plugin ---------
 

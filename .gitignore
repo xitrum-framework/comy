@@ -1,9 +1,10 @@
 log
-project
+project/project
+project/target
 target
 
 i18n.pot
-routes.sclasner
+routes.cache
 .*
 
 # IntelliJ IDEA project file

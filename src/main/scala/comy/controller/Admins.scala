@@ -25,17 +25,17 @@ class Admins extends AppController {
   def doLogin = POST("login") {
     val username = param("username")
     if (username == "xxx") {  // TODO
-      resetSession()
+      session.clear()
       SVar.username.set(username)
       flash(t("You have successfully logged in."))
       jsRedirectTo(index)
     } else {
-      jsRespond("$('#error').html(%s)".format(jsEscape(<p class="error">{t("Could not login.")}</p>)))
+      jsRespond("$('#error').html('%s')".format(jsEscape(<p class="error">{t("Could not login.")}</p>)))
     }
   }
 
   def logout = POST("logout") {
-    resetSession()
+    session.clear()
     flash(t("You have logged out."))
     jsRedirectTo(Users.index)
   }
