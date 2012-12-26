@@ -1,22 +1,28 @@
 package comy
 
-import xitrum.util.Loader
+import com.typesafe.config.{Config => TConfig, ConfigFactory}
 
-case class AllowedIps(api: List[String], admin: List[String])
-case class Db(addresses: List[String], connectionsPerHost: Int, name: String, expirationDays: Int)
-case class Config(allowedIps: AllowedIps, db: Db)
+class AllowedIps(config: TConfig) {
+  val api   = config.getStringList("api")
+  val admin = config.getStringList("admin")
+
+  def isApiAllowed(ip: String) =
+    api.contains("*") || api.contains(ip)
+
+  def isAdminAllowed(ip: String) =
+    admin.contains("*") || admin.contains(ip)
+}
+
+class Db(config: TConfig) {
+  val addresses          = config.getStringList("addresses")
+  val connectionsPerHost = config.getInt("connectionsPerHost")
+  val name               = config.getString("name")
+  val expirationDays     = config.getInt("expirationDays")
+}
 
 object Config {
-  private val config = Loader.jsonFromClasspath[Config]("comy.json")
+  private val config = ConfigFactory.load("comy.conf")
 
-  val allowedIps = config.allowedIps
-  val db         = config.db
-
-  def isApiAllowed(ip: String) = allowedIps.api.exists { ip2 =>
-    (ip2 == "*") || (ip2 == ip)
-  }
-
-  def isAdminAllowed(ip: String) = allowedIps.admin.exists { ip2 =>
-    (ip2 == "*") || (ip2 == ip)
-  }
+  val allowedIps = new AllowedIps(config.getConfig("allowedIps"))
+  val db         = new Db(config.getConfig("db"))
 }

@@ -32,7 +32,7 @@ html
           h1#header
             a(href={Users.index.url})= tc("App name", "URL Shortener")
 
-          - if (ComyConfig.isAdminAllowed(remoteIp))
+          - if (ComyConfig.allowedIps.isAdminAllowed(remoteIp))
             - if (!SVar.username.isDefined)
               a(href={Admins.login.url})= t("Login")
             - else

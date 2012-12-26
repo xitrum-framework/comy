@@ -47,7 +47,11 @@ object DB extends Logger {
 
   private val coll  = {
     val addresses = new ArrayList[ServerAddress]
-    for (a <- Config.db.addresses) addresses.add(new ServerAddress(a))
+    val it        = Config.db.addresses.iterator()
+    while (it.hasNext()) {
+      val a = it.next()
+      addresses.add(new ServerAddress(a))
+    }
 
     val options = new MongoOptions
     options.connectionsPerHost = Config.db.connectionsPerHost
