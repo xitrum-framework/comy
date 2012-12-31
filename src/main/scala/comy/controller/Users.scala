@@ -30,7 +30,11 @@ class Users extends AppController {
         if (ret.isEmpty) None else Some(ret)
       }
       val (resultCode, resultString) = DB.saveUrl(this, url, keyo)
-      val html/*: scala.xml.Node*/ = resultCode match {
+
+      // This causes error with Scala 2.10.0:
+      //val html = resultCode match {...
+
+      val html: scala.xml.Node = resultCode match {
         case SaveUrlResult.VALID =>
           val absoluteUrl = Api.lengthen.absoluteUrl("key" -> resultString)
           <xml:group>
