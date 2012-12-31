@@ -30,14 +30,14 @@ class Users extends AppController {
         if (ret.isEmpty) None else Some(ret)
       }
       val (resultCode, resultString) = DB.saveUrl(this, url, keyo)
-      val html = resultCode match {
+      val html/*: scala.xml.Node*/ = resultCode match {
         case SaveUrlResult.VALID =>
           val absoluteUrl = Api.lengthen.absoluteUrl("key" -> resultString)
           <xml:group>
-          <hr />
-          {absoluteUrl}<br />
-          <a href={absoluteUrl} target="_blank"><img src={qrcode.url("url" -> absoluteUrl)} /></a>
-        </xml:group>
+            <hr />
+            {absoluteUrl}<br />
+            <a href={absoluteUrl} target="_blank"><img src={qrcode.url("url" -> absoluteUrl)} /></a>
+          </xml:group>
 
         case SaveUrlResult.INVALID =>
           <p class="error">{resultString}</p>
