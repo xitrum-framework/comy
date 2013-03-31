@@ -53,11 +53,13 @@ object DB extends Logger {
       addresses.add(new ServerAddress(a))
     }
 
-    val options = new MongoOptions
-    options.connectionsPerHost = Config.db.connectionsPerHost
-    options.autoConnectRetry   = true
+    val options = MongoClientOptions
+      .builder()
+      .connectionsPerHost(Config.db.connectionsPerHost)
+      .autoConnectRetry(true)
+      .build()
 
-    val mongo = new Mongo(addresses, options)
+    val mongo = new MongoClient(addresses, options)
     val db    = mongo.getDB(Config.db.name)
 
     db.getCollection(COLL)
