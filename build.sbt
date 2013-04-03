@@ -18,10 +18,10 @@ scalacOptions ++= Seq(
 // and it takes several hours to sync from Sonatype to Maven Central
 resolvers += "SonatypeReleases" at "http://oss.sonatype.org/content/repositories/releases/"
 
-libraryDependencies += "tv.cntt" %% "xitrum" % "1.20"
+libraryDependencies += "tv.cntt" %% "xitrum" % "1.21"
 
 // An implementation of SLF4J must be provided for Xitrum
-libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.0.10"
+libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.0.11"
 
 libraryDependencies += "org.mongodb" %  "mongo-java-driver" % "2.11.0"
 
@@ -39,12 +39,15 @@ addCompilerPlugin("org.scala-lang.plugins" % "continuations" % "2.10.1")
 
 scalacOptions += "-P:continuations:enable"
 
-// Precompile Scalate ----------------------------------------------------------
+// Template engine for Xitrum --------------------------------------------------
 
+libraryDependencies += "tv.cntt" %% "xitrum-scalate" % "1.0"
+
+// Precompile Scalate
 seq(scalateSettings:_*)
 
 scalateTemplateConfig in Compile := Seq(TemplateConfig(
-  file("src") / "main" / "scalate",  // See scalateDir in config/xitrum.conf
+  file("src") / "main" / "scalate",  // See config/scalate.conf
   Seq(),
   Seq(Binding("helper", "xitrum.Controller", true))
 ))
