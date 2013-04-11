@@ -30,11 +30,11 @@ html
           span.tr
 
           h1#header
-            a(href={url[UsersIndex]})= tc("App name", "URL Shortener")
+            a(href={url[UserIndex]})= tc("App name", "URL Shortener")
 
           - if (ComyConfig.allowedIps.isAdminAllowed(remoteIp))
             - if (!SVar.username.isDefined)
-              a(href={url[AdminLogin])= t("Login")
+              a(href={url[AdminLogin]})= t("Login")
             - else
               b= SVar.username.get
               a(href={url[AdminIndex]})= t("Admin") + " | "
