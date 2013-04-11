@@ -1,14 +1,15 @@
-package comy.controller
+package comy.action
 
 import org.jboss.netty.handler.codec.http.HttpResponseStatus._
+import xitrum.annotation.{GET, POST, Last}
 
 import comy.{Config => ComyConfig}
 import comy.model.{DB, SaveUrlResult}
 
-object Api extends Api
-
-class Api extends SetLanguage {
-  def lengthen = last.GET(":key") {
+@Last
+@GET(":key")
+class ApiLengthen extends SetLanguage {
+  def execute() {
     val key = param("key")
     DB.getUrl(key) match {
       case Some(url) =>
@@ -20,8 +21,10 @@ class Api extends SetLanguage {
         respondText(t("URL Not Found"))
     }
   }
+}
 
-  def shorten = POST("api/shorten") {  // ?url=URL[&key=KEY]
+@POST("api/shorten")  // ?url=URL[&key=KEY]
+class ApiShorten extends SetLanguage {
 //  beforeFilter { () =>
 //    if (ComyConfig.isApiAllowed(remoteIp)) {
 //      true
@@ -31,6 +34,7 @@ class Api extends SetLanguage {
 //    }
 //  }
 
+  def execute() {  
     val url  = param("url")
     val keyo = paramo("key")
     val (resultCode, resultString) = DB.saveUrl(this, url, keyo)

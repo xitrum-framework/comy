@@ -1,4 +1,4 @@
-package comy.controller
+package comy.action
 
 import xitrum.SessionVar
 

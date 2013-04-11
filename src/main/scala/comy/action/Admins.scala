@@ -1,42 +1,55 @@
-package comy.controller
+package comy.action
 
-object Admins extends Admins
+import xitrum.Action
+import xitrum.annotation.{GET, POST}
 
-class Admins extends AppController {
-  pathPrefix = "admin"
+trait AdminAuth {
+  this: Action =>
 
-  beforeFilter(except = Seq(login, doLogin)) {
+  beforeFilter {
     val ret = SVar.username.isDefined
     if (!ret) {
       flash(t("Please login."))
-      redirectTo(login)
+      redirectTo[AdminLogin]()
     }
     ret
   }
+}
 
-  def index = GET {
+@GET("admin")
+class AdminIndex extends AppAction with AdminAuth {
+  def execute() {
     respondInlineView(<p>Admin page</p>)
   }
+}
 
-  def login = GET("login") {
+@GET("admin/login")
+class AdminLogin extends AppAction {
+  def execute() {
     respondView()
   }
+}
 
-  def doLogin = POST("login") {
+@POST("admin/login")
+class AdminDoLogin extends AppAction {
+  def execute() {
     val username = param("username")
     if (username == "xxx") {  // TODO
       session.clear()
       SVar.username.set(username)
       flash(t("You have successfully logged in."))
-      jsRedirectTo(index)
+      jsRedirectTo[AdminIndex]()
     } else {
       jsRespond("$('#error').html('%s')".format(jsEscape(<p class="error">{t("Could not login.")}</p>)))
     }
   }
+}
 
-  def logout = POST("logout") {
+@POST("logout")
+class AdminLogout extends AppAction {
+  def execute() {
     session.clear()
     flash(t("You have logged out."))
-    jsRedirectTo(Users.index)
+    jsRedirectTo[UserIndex]()
   }
 }

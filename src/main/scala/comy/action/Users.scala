@@ -1,26 +1,33 @@
-package comy.controller
+package comy.action
 
 import org.jboss.netty.handler.codec.http.HttpHeaders.Names.CONTENT_TYPE
+
+import xitrum.annotation.{GET, POST}
 import xitrum.validator.{Required, MaxLength, URL}
 
 import comy.model.{DB, SaveUrlResult, QRCode}
 
-object Users extends Users
-
-class Users extends AppController {
-  def index = GET {
+@GET("")
+class UserIndex extends AppAction {
+  def execute() {
     respondView()
   }
+}
 
-  def qrcode = GET("user/qrcode") {  // ?url=xxx
+@GET("user/qrcode")  // ?url=xxx
+class UserQRcode extends AppAction {
+  def execute() {
     // See: http://www.hascode.com/2010/05/playing-around-with-qr-codes/
     val url   = param("url")
     val bytes = QRCode.render(url)
     response.setHeader(CONTENT_TYPE, "image/png")
     respondBinary(bytes)
   }
+}
 
-  def shorten = POST("/user/shorten") {
+@POST("user/shorten")
+class UserShorten extends AppAction {
+  def execute() {
     val url = param("url").trim
     if (url.isEmpty) {
       jsRespond("$('#result').html('%s')".format(jsEscape(<p class="error">{t("URL must not be empty")}</p>)))
@@ -36,11 +43,11 @@ class Users extends AppController {
 
       val html: scala.xml.Node = resultCode match {
         case SaveUrlResult.VALID =>
-          val absoluteUrl = Api.lengthen.absoluteUrl("key" -> resultString)
+          val absoluteUrl = absUrl[ApiLengthen]("key" -> resultString)
           <xml:group>
             <hr />
             {absoluteUrl}<br />
-            <a href={absoluteUrl} target="_blank"><img src={qrcode.url("url" -> absoluteUrl)} /></a>
+            <a href={absoluteUrl} target="_blank"><img src={url[UserQRcode]("url" -> absoluteUrl)} /></a>
           </xml:group>
 
         case SaveUrlResult.INVALID =>
