@@ -1,6 +1,6 @@
 -
   import comy.{Config => ComyConfig}
-  import comy.controller._
+  import comy.action._
 
 !!! 5
 html
@@ -30,15 +30,15 @@ html
           span.tr
 
           h1#header
-            a(href={Users.index.url})= tc("App name", "URL Shortener")
+            a(href={url[UsersIndex]})= tc("App name", "URL Shortener")
 
           - if (ComyConfig.allowedIps.isAdminAllowed(remoteIp))
             - if (!SVar.username.isDefined)
-              a(href={Admins.login.url})= t("Login")
+              a(href={url[AdminLogin])= t("Login")
             - else
               b= SVar.username.get
-              a(href={Admins.index.url})= t("Admin") + " | "
-              a(href="#" data-postback="click" action={Admins.logout.url})= t("Logout")
+              a(href={url[AdminIndex]})= t("Admin") + " | "
+              a(href="#" data-postback="click" action={url[AdminLogout]})= t("Logout")
 
           #flash= jsRenderFlash()
 

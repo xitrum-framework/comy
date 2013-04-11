@@ -1,6 +1,6 @@
-- import comy.controller.Admins
+- import comy.action._
 
-form(data-postback="submit" action={currentController.asInstanceOf[Admins].doLogin.url})
+form(data-postback="submit" action={url[AdminDoLogin]})
   #error
 
   label= t("Username")
