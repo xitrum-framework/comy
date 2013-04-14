@@ -1,7 +1,6 @@
 package comy
 
-import xitrum.routing.Routes
-import xitrum.handler.Server
+import xitrum.Server
 
 object Boot {
   def main(args: Array[String]) {
