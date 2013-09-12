@@ -3,7 +3,7 @@ package comy.action
 import org.jboss.netty.handler.codec.http.HttpHeaders.Names.CONTENT_TYPE
 
 import xitrum.annotation.{GET, POST}
-import xitrum.validator.{Required, MaxLength, URL}
+import xitrum.validator.{Required, MaxLength, Url}
 
 import comy.model.{DB, SaveUrlResult, QRCode}
 
