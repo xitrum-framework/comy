@@ -7,7 +7,7 @@ name         := "comy"
 
 version      := "1.7-SNAPSHOT"
 
-scalaVersion := "2.10.2"
+scalaVersion := "2.10.3"
 
 scalacOptions ++= Seq(
   "-deprecation",
