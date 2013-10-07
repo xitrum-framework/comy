@@ -24,7 +24,7 @@ libraryDependencies += "tv.cntt" %% "xitrum" % "2.10"
 // An implementation of SLF4J must be provided for Xitrum
 libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.0.13"
 
-libraryDependencies += "org.mongodb" %  "mongo-java-driver" % "2.11.2"
+libraryDependencies += "org.mongodb" %  "mongo-java-driver" % "2.11.3"
 
 // By default, version 2.10.0 of the libs below is used!!! ---------------------
 
