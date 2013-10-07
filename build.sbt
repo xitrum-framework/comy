@@ -26,6 +26,20 @@ libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.0.13"
 
 libraryDependencies += "org.mongodb" %  "mongo-java-driver" % "2.11.2"
 
+// By default, version 2.10.0 of the libs below is used!!! ---------------------
+
+libraryDependencies <+= scalaVersion { sv =>
+  "org.scala-lang" % "scala-compiler" % sv
+}
+
+libraryDependencies <+= scalaVersion { sv =>
+  "org.scala-lang" % "scala-reflect" % sv
+}
+
+libraryDependencies <+= scalaVersion { sv =>
+  "org.scala-lang" % "scalap" % sv
+}
+
 // xgettext i18n translation key string extractor is a compiler plugin ---------
 
 autoCompilerPlugins := true
