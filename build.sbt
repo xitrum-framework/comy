@@ -9,11 +9,7 @@ version      := "1.7-SNAPSHOT"
 
 scalaVersion := "2.10.3"
 
-scalacOptions ++= Seq(
-  "-deprecation",
-  "-feature",
-  "-unchecked"
-)
+scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked")
 
 // Most Scala projects are published to Sonatype, but Sonatype is not default
 // and it takes several hours to sync from Sonatype to Maven Central
