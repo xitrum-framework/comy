@@ -4,7 +4,7 @@ import java.util.{ArrayList, Date, Calendar}
 import java.text.SimpleDateFormat
 
 import com.mongodb._
-import xitrum.{I18n, Logger}
+import xitrum.{I18n, Log}
 
 import comy.Config
 
@@ -41,7 +41,7 @@ object SaveUrlResult extends Enumeration {
  * See: http://www.mongodb.org/display/DOCS/Java+Language+Center
  * Only one instance of this class should be used for the whole application.
  */
-object DB extends Logger {
+object DB extends Log {
   import DBUrlColl._
   import SaveUrlResult._
 
@@ -78,7 +78,7 @@ object DB extends Logger {
       getUrlFromKey(key, true)
     } catch {
       case e: Exception =>
-        logger.error("getUrl", e)
+        log.error("getUrl", e)
         None
     }
   }
@@ -101,7 +101,7 @@ object DB extends Logger {
       true
     } catch {
       case e: Exception =>
-        logger.error("removeExpiredUrls", e)
+        log.error("removeExpiredUrls", e)
         false
     }
   }
@@ -138,7 +138,7 @@ object DB extends Logger {
           }
         } catch {
           case e: Exception =>
-            logger.error("saveUrlWithKey", e)
+            log.error("saveUrlWithKey", e)
             (SaveUrlResult.ERROR, i18n.t("Server error"))
         }
     }
@@ -165,7 +165,7 @@ object DB extends Logger {
       }
     } catch {
       case e: Exception =>
-        logger.error("saveUrlWithRandomKey", e)
+        log.error("saveUrlWithRandomKey", e)
         (SaveUrlResult.ERROR, "")
     }
   }

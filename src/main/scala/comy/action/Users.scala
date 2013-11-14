@@ -1,6 +1,7 @@
 package comy.action
 
-import org.jboss.netty.handler.codec.http.HttpHeaders.Names.CONTENT_TYPE
+import org.jboss.netty.handler.codec.http.HttpHeaders
+import HttpHeaders.Names.CONTENT_TYPE
 
 import xitrum.annotation.{GET, POST}
 import xitrum.validator.{Required, MaxLength, Url}
@@ -20,7 +21,7 @@ class UserQRcode extends AppAction {
     // See: http://www.hascode.com/2010/05/playing-around-with-qr-codes/
     val url   = param("url")
     val bytes = QRCode.render(url)
-    response.setHeader(CONTENT_TYPE, "image/png")
+    HttpHeaders.setHeader(response, CONTENT_TYPE, "image/png")
     respondBinary(bytes)
   }
 }

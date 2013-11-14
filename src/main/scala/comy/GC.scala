@@ -1,16 +1,16 @@
 package comy
 
-import xitrum.Logger
+import xitrum.Log
 import comy.model.DB
 
 /**
  * This Gabage Collector should be run periodically to remove old (expired) URL
  * entries.
  */
-object GC extends Logger {
+object GC extends Log {
   def main(args: Array[String]) {
-    logger.info("GC started")
+    log.info("GC started")
     DB.removeExpiredUrls
-    logger.info("GC stopped")
+    log.info("GC stopped")
   }
 }
