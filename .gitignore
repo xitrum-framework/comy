@@ -2,6 +2,7 @@ log
 project/project
 project/target
 target
+upload
 
 i18n.pot
 routes.cache
