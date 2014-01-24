@@ -1,6 +1,6 @@
 package comy.action
 
-import org.jboss.netty.handler.codec.http.HttpResponseStatus._
+import io.netty.handler.codec.http.HttpResponseStatus._
 import xitrum.annotation.{GET, POST, Last}
 
 import comy.{Config => ComyConfig}
@@ -34,7 +34,7 @@ class ApiShorten extends SetLanguage {
 //    }
 //  }
 
-  def execute() {  
+  def execute() {
     val url  = param("url")
     val keyo = paramo("key")
     val (resultCode, resultString) = DB.saveUrl(this, url, keyo)

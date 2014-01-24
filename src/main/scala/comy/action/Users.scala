@@ -1,6 +1,6 @@
 package comy.action
 
-import org.jboss.netty.handler.codec.http.HttpHeaders
+import io.netty.handler.codec.http.HttpHeaders
 import HttpHeaders.Names.CONTENT_TYPE
 
 import xitrum.annotation.{GET, POST}
