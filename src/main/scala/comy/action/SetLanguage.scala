@@ -4,7 +4,7 @@ import xitrum.Action
 
 trait SetLanguage extends Action {
   beforeFilter {
-    setLanguage("ja")
+    language = "ja"
     true
   }
 }
