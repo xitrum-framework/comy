@@ -29,7 +29,7 @@ scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked")
 // and it takes several hours to sync from Sonatype to Maven Central
 resolvers += "SonatypeReleases" at "http://oss.sonatype.org/content/repositories/releases/"
 
-libraryDependencies += "tv.cntt" %% "xitrum" % "3.4"
+libraryDependencies += "tv.cntt" %% "xitrum" % "3.5"
 
 // An implementation of SLF4J must be provided for Xitrum
 libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.1.1"
