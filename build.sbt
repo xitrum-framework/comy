@@ -21,7 +21,7 @@ name         := "comy"
 
 version      := "1.7-SNAPSHOT"
 
-scalaVersion := "2.10.3"
+scalaVersion := "2.10.4"
 
 scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked")
 
@@ -34,10 +34,10 @@ javacOptions ++= Seq("-source", "1.7", "-target", "1.7")
 // and it takes several hours to sync from Sonatype to Maven Central
 resolvers += "SonatypeReleases" at "http://oss.sonatype.org/content/repositories/releases/"
 
-libraryDependencies += "tv.cntt" %% "xitrum" % "3.5"
+libraryDependencies += "tv.cntt" %% "xitrum" % "3.6"
 
 // An implementation of SLF4J must be provided for Xitrum
-libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.1.1"
+libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.1.2"
 
 libraryDependencies += "org.mongodb" %  "mongo-java-driver" % "2.11.3"
 
