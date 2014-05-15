@@ -1,4 +1,4 @@
-Simple URL Shortener using Xitrum (https://github.com/ngocdaothanh/xitrum) and MongoDB.
+Simple URL Shortener using Xitrum (https://github.com/xitrum-framework/xitrum) and MongoDB.
 
 URLs will be shorten to a 7-character string using base 62. In theory, it can
 support up to 62^7 unique URLs (more than 3 trillions).
