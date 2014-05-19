@@ -39,7 +39,7 @@ libraryDependencies += "tv.cntt" %% "xitrum" % "3.12"
 // An implementation of SLF4J must be provided for Xitrum
 libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.1.2"
 
-libraryDependencies += "org.mongodb" %  "mongo-java-driver" % "2.11.3"
+libraryDependencies += "org.mongodb" %  "mongo-java-driver" % "2.12.1"
 
 // xgettext i18n translation key string extractor is a compiler plugin ---------
 

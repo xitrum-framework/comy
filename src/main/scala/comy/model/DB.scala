@@ -56,7 +56,6 @@ object DB extends Log {
     val options = MongoClientOptions
       .builder()
       .connectionsPerHost(Config.db.connectionsPerHost)
-      .autoConnectRetry(true)
       .build()
 
     val mongo = new MongoClient(addresses, options)
@@ -111,9 +110,9 @@ object DB extends Log {
   private def ensureIndexes {
     // Index each column separately (3 indexes in total) because we will search
     // based on each one separately
-    coll.ensureIndex(new BasicDBObject(KEY,        1))
-    coll.ensureIndex(new BasicDBObject(URL,        1))
-    coll.ensureIndex(new BasicDBObject(UPDATED_ON, 1))
+    coll.createIndex(new BasicDBObject(KEY,        1))
+    coll.createIndex(new BasicDBObject(URL,        1))
+    coll.createIndex(new BasicDBObject(UPDATED_ON, 1))
   }
 
   /** @return None if there is error (DB is down etc.) */
