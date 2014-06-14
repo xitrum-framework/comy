@@ -10,8 +10,8 @@ case class Key(value: String) {
     val invalidCharIncluded = value.exists(c => ALLOW_CHARS.indexOf(c) == -1)
     val erroro = if (invalidCharIncluded) Some(i18n.t("Key contains invalid character")) else None
 
-    Required.v("Key", value) orElse
-    MaxLength(32).v("Key", value) orElse
+    Required.message("Key", value) orElse
+    MaxLength(32).message("Key", value) orElse
     erroro
   }
 }
