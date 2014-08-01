@@ -4,7 +4,7 @@ name         := "comy"
 
 version      := "1.7-SNAPSHOT"
 
-scalaVersion := "2.11.1"
+scalaVersion := "2.11.2"
 
 scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked")
 
@@ -13,19 +13,19 @@ javacOptions ++= Seq("-source", "1.7", "-target", "1.7")
 
 //------------------------------------------------------------------------------
 
-libraryDependencies += "tv.cntt" %% "xitrum" % "3.16"
+libraryDependencies += "tv.cntt" %% "xitrum" % "3.17"
 
 // An implementation of SLF4J must be provided for Xitrum
 libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.1.2"
 
 // For writing condition in logback.xml
-libraryDependencies += "org.codehaus.janino" % "janino" % "2.7.4"
+libraryDependencies += "org.codehaus.janino" % "janino" % "2.7.5"
 
 libraryDependencies += "org.mongodb" %  "mongo-java-driver" % "2.12.2"
 
 // Scalate template engine config for Xitrum -----------------------------------
 
-libraryDependencies += "tv.cntt" %% "xitrum-scalate" % "2.1"
+libraryDependencies += "tv.cntt" %% "xitrum-scalate" % "2.2"
 
 // Precompile Scalate templates
 seq(scalateSettings:_*)
@@ -40,7 +40,7 @@ ScalateKeys.scalateTemplateConfig in Compile := Seq(TemplateConfig(
 
 autoCompilerPlugins := true
 
-addCompilerPlugin("tv.cntt" %% "xgettext" % "1.0")
+addCompilerPlugin("tv.cntt" %% "xgettext" % "1.1")
 
 scalacOptions += "-P:xgettext:xitrum.I18n"
 
