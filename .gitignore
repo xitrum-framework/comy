@@ -5,7 +5,6 @@ target
 tmp
 
 i18n.pot
-routes.cache
 .*
 
 # IntelliJ IDEA project file
