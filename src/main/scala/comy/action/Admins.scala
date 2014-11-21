@@ -7,12 +7,10 @@ trait AdminAuth {
   this: Action =>
 
   beforeFilter {
-    val ret = SVar.username.isDefined
-    if (!ret) {
+    if (SVar.username.isEmpty) {
       flash(t("Please login."))
       redirectTo[AdminLogin]()
     }
-    ret
   }
 }
 

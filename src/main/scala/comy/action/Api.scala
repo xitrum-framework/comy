@@ -26,11 +26,9 @@ class ApiLengthen extends SetLanguage {
 @POST("api/shorten")  // ?url=URL[&key=KEY]
 class ApiShorten extends SetLanguage {
 //  beforeFilter { () =>
-//    if (ComyConfig.isApiAllowed(remoteIp)) {
-//      true
-//    } else {
+//    if (!ComyConfig.isApiAllowed(remoteIp)) {
 //      response.setStatus(FORBIDDEN)
-//      false
+//      respondText("FORBIDDEN")
 //    }
 //  }
 
