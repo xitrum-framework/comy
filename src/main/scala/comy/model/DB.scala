@@ -91,8 +91,8 @@ object DB extends Log {
     try {
       val expirationDate = today - Config.db.expirationDays
       val query = new BasicDBObject
-      query.put(ACCESS_COUNT, 0)
-      query.put(UPDATED_ON,   new BasicDBObject("$lte", expirationDate))
+      query.append(ACCESS_COUNT, 0)
+      query.append(UPDATED_ON,   new BasicDBObject("$lte", expirationDate))
       val result = coll.find(query)
       while (result.hasNext) {
         coll.remove(result.next)
@@ -204,11 +204,11 @@ object DB extends Log {
   private def addNewUrl(key: String, url: String) {
     val doc = new BasicDBObject
     val d = today
-    doc.put(KEY,          key)
-    doc.put(URL,          url)
-    doc.put(ACCESS_COUNT, 0)
-    doc.put(CREATED_ON,   d)
-    doc.put(UPDATED_ON,   d)
+    doc.append(KEY,          key)
+    doc.append(URL,          url)
+    doc.append(ACCESS_COUNT, 0)
+    doc.append(CREATED_ON,   d)
+    doc.append(UPDATED_ON,   d)
     coll.insert(doc)
   }
 
