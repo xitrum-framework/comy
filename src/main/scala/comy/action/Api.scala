@@ -3,7 +3,6 @@ package comy.action
 import io.netty.handler.codec.http.HttpResponseStatus._
 import xitrum.annotation.{GET, POST, Last}
 
-import comy.{Config => ComyConfig}
 import comy.model.{DB, SaveUrlResult}
 
 @Last

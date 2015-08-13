@@ -2,9 +2,7 @@ package comy.action
 
 import io.netty.handler.codec.http.HttpHeaders
 import HttpHeaders.Names.CONTENT_TYPE
-
 import xitrum.annotation.{GET, POST}
-import xitrum.validator.{Required, MaxLength, Url}
 
 import comy.model.{DB, SaveUrlResult, QRCode}
 

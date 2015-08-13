@@ -1,8 +1,6 @@
 package comy.model
 
-import java.util.{ArrayList, Date, Calendar}
-import java.text.SimpleDateFormat
-
+import java.util.ArrayList
 import com.mongodb._
 import xitrum.{I18n, Log}
 
@@ -48,7 +46,7 @@ object DB extends Log {
   private val coll  = {
     val addresses = new ArrayList[ServerAddress]
     val it        = Config.db.addresses.iterator()
-    while (it.hasNext()) {
+    while (it.hasNext) {
       val a = it.next()
       addresses.add(new ServerAddress(a))
     }
@@ -87,7 +85,7 @@ object DB extends Log {
    *
    * @return false if there is error (DB is down etc.)
    */
-  def removeExpiredUrls: Boolean = {
+  def removeExpiredUrls(): Boolean = {
     try {
       val expirationDate = today - Config.db.expirationDays
       val query = new BasicDBObject
@@ -107,7 +105,7 @@ object DB extends Log {
 
   //----------------------------------------------------------------------------
 
-  private def ensureIndexes {
+  private def ensureIndexes() {
     // Index each column separately (3 indexes in total) because we will search
     // based on each one separately
     coll.createIndex(new BasicDBObject(KEY,        1))
@@ -155,7 +153,7 @@ object DB extends Log {
           var keyDuplicated = true
           while (keyDuplicated) {
             key = KeyGenerator.generateKey
-            if (getUrlFromKey(key, false) == None) {
+            if (getUrlFromKey(key, false).isEmpty) {
               addNewUrl(key, url)
               keyDuplicated = false
             }
