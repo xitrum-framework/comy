@@ -1,7 +1,6 @@
 package comy.action
 
-import io.netty.handler.codec.http.HttpHeaders
-import HttpHeaders.Names.CONTENT_TYPE
+import io.netty.handler.codec.http.HttpHeaderNames.CONTENT_TYPE
 import xitrum.annotation.{GET, POST}
 
 import comy.model.{DB, SaveUrlResult, QRCode}
@@ -19,7 +18,7 @@ class UserQRcode extends AppAction {
     // See: http://www.hascode.com/2010/05/playing-around-with-qr-codes/
     val url   = param("url")
     val bytes = QRCode.render(url)
-    HttpHeaders.setHeader(response, CONTENT_TYPE, "image/png")
+    response.headers.set(CONTENT_TYPE, "image/png")
     respondBinary(bytes)
   }
 }
