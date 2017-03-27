@@ -1,6 +1,6 @@
 == Prequisites
 
-* Java 1.6+
+* Java 1.8+
 * MongoDB 2+
 
 == Configure
