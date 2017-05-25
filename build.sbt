@@ -2,7 +2,7 @@ organization := "tv.cntt"
 name         := "comy"
 version      := "1.7-SNAPSHOT"
 
-scalaVersion := "2.12.1"
+scalaVersion := "2.12.2"
 scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked")
 
 // Xitrum requires Java 8
@@ -10,7 +10,7 @@ javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
 
 //------------------------------------------------------------------------------
 
-libraryDependencies += "tv.cntt" %% "xitrum" % "3.28.3"
+libraryDependencies += "tv.cntt" %% "xitrum" % "3.28.4"
 
 // An implementation of SLF4J must be provided for Xitrum
 libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.2"
@@ -25,7 +25,7 @@ libraryDependencies += "org.mongodb" %  "mongo-java-driver" % "3.3.0"
 libraryDependencies += "tv.cntt" %% "xitrum-scalate" % "2.8.0"
 
 // Precompile Scalate templates
-Seq(scalateSettings:_*)
+scalateSettings
 ScalateKeys.scalateTemplateConfig in Compile := Seq(TemplateConfig(
   baseDirectory.value / "src" / "main" / "scalate",
   Seq.empty,
