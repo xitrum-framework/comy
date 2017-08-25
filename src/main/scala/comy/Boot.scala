@@ -8,5 +8,6 @@ object Boot {
     System.setProperty("java.awt.headless", "true")
 
     Server.start()
+    Server.stopAtShutdown()
   }
 }
