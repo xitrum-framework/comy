@@ -10,13 +10,13 @@ javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
 
 //------------------------------------------------------------------------------
 
-libraryDependencies += "tv.cntt" %% "xitrum" % "3.28.11"
+libraryDependencies += "tv.cntt" %% "xitrum" % "3.28.12"
 
 // An implementation of SLF4J must be provided for Xitrum
 libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.3"
 
 // For writing condition in logback.xml
-libraryDependencies += "org.codehaus.janino" % "janino" % "3.0.9"
+libraryDependencies += "org.codehaus.janino" % "janino" % "3.0.10"
 
 libraryDependencies += "org.mongodb" %  "mongo-java-driver" % "3.3.0"
 
@@ -26,8 +26,9 @@ libraryDependencies += "tv.cntt" %% "xitrum-scalate" % "2.8.1"
 
 // Precompile Scalate templates
 import org.fusesource.scalate.ScalatePlugin._
+scalateSettings
 ScalateKeys.scalateTemplateConfig in Compile := Seq(TemplateConfig(
-  baseDirectory.value / "src" / "main" / "scalate",
+  (sourceDirectory in Compile).value / "scalate",
   Seq.empty,
   Seq(Binding("helper", "xitrum.Action", importMembers = true))
 ))
