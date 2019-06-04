@@ -10,7 +10,7 @@ javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
 
 //------------------------------------------------------------------------------
 
-libraryDependencies += "tv.cntt" %% "xitrum" % "3.28.16"
+libraryDependencies += "tv.cntt" %% "xitrum" % "3.28.17"
 
 // An implementation of SLF4J must be provided for Xitrum
 libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.3"
@@ -18,7 +18,7 @@ libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.3"
 // For writing condition in logback.xml
 libraryDependencies += "org.codehaus.janino" % "janino" % "3.0.12"
 
-libraryDependencies += "org.mongodb" % "mongo-java-driver" % "3.3.0"
+libraryDependencies += "org.mongodb" % "mongo-java-driver" % "3.10.2"
 
 // Scalate template engine config for Xitrum -----------------------------------
 
@@ -36,7 +36,7 @@ ScalateKeys.scalateTemplateConfig in Compile := Seq(TemplateConfig(
 // xgettext i18n translation key string extractor is a compiler plugin ---------
 
 autoCompilerPlugins := true
-addCompilerPlugin("tv.cntt" %% "xgettext" % "1.5.2")
+addCompilerPlugin("tv.cntt" %% "xgettext" % "1.5.3")
 scalacOptions += "-P:xgettext:xitrum.I18n"
 
 // Put config directory in classpath for easier development --------------------
