@@ -2,7 +2,7 @@ organization := "tv.cntt"
 name         := "comy"
 version      := "1.7-SNAPSHOT"
 
-scalaVersion := "2.12.8"
+scalaVersion := "2.12.9"
 scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked")
 
 // Xitrum requires Java 8
@@ -10,13 +10,13 @@ javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
 
 //------------------------------------------------------------------------------
 
-libraryDependencies += "tv.cntt" %% "xitrum" % "3.28.17"
+libraryDependencies += "tv.cntt" %% "xitrum" % "3.28.18"
 
 // An implementation of SLF4J must be provided for Xitrum
 libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.3"
 
 // For writing condition in logback.xml
-libraryDependencies += "org.codehaus.janino" % "janino" % "3.0.12"
+libraryDependencies += "org.codehaus.janino" % "janino" % "3.1.0"
 
 libraryDependencies += "org.mongodb" % "mongo-java-driver" % "3.10.2"
 
