@@ -16,21 +16,21 @@ trait AdminAuth {
 
 @GET("admin")
 class AdminIndex extends AppAction with AdminAuth {
-  def execute() {
+  def execute(): Unit = {
     respondInlineView(<p>Admin page</p>)
   }
 }
 
 @GET("admin/login")
 class AdminLogin extends AppAction {
-  def execute() {
+  def execute(): Unit = {
     respondView()
   }
 }
 
 @POST("admin/login")
 class AdminDoLogin extends AppAction {
-  def execute() {
+  def execute(): Unit = {
     val username = param("username")
     if (username == "xxx") {  // TODO
       session.clear()
@@ -45,7 +45,7 @@ class AdminDoLogin extends AppAction {
 
 @POST("logout")
 class AdminLogout extends AppAction {
-  def execute() {
+  def execute(): Unit = {
     session.clear()
     flash(t("You have logged out."))
     jsRedirectTo[UserIndex]()

@@ -23,7 +23,7 @@ object QRCode {
     baos.toByteArray
   }
 
-  private def invertImage(mtx: ByteMatrix) {
+  private def invertImage(mtx: ByteMatrix): Unit = {
     for (w <- 0 until mtx.getWidth; h <- 0 until mtx.getHeight) {
       val inverted = if (mtx.get(w, h) == 0x00) 0xFF else 0x00
       mtx.set(w, h, inverted)

@@ -8,7 +8,7 @@ import comy.model.{DB, SaveUrlResult}
 @Last
 @GET(":key")
 class ApiLengthen extends SetLanguage {
-  def execute() {
+  def execute(): Unit = {
     val key = param("key")
     DB.getUrl(key) match {
       case Some(url) =>
@@ -24,14 +24,14 @@ class ApiLengthen extends SetLanguage {
 
 @POST("api/shorten")  // ?url=URL[&key=KEY]
 class ApiShorten extends SetLanguage {
-//  beforeFilter { () =>
-//    if (!ComyConfig.isApiAllowed(remoteIp)) {
+//  beforeFilter {
+//    if (!comy.Config.allowedIps.isApiAllowed(remoteIp)) {
 //      response.setStatus(FORBIDDEN)
 //      respondText("FORBIDDEN")
 //    }
 //  }
 
-  def execute() {
+  def execute(): Unit = {
     val url  = param("url")
     val keyo = paramo("key")
     val (resultCode, resultString) = DB.saveUrl(this, url, keyo)

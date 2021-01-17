@@ -8,9 +8,9 @@ import comy.model.DB
  * entries.
  */
 object GC extends Log {
-  def main(args: Array[String]) {
+  def main(args: Array[String]): Unit = {
     log.info("GC started")
-    DB.removeExpiredUrls
+    DB.removeExpiredUrls()
     log.info("GC stopped")
   }
 }

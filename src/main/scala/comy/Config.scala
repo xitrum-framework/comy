@@ -1,23 +1,25 @@
 package comy
 
-import com.typesafe.config.{Config => TConfig, ConfigFactory}
+import com.typesafe.config.{ConfigFactory, Config => TConfig}
+
+import java.util
 
 class AllowedIps(config: TConfig) {
-  val api   = config.getStringList("api")
-  val admin = config.getStringList("admin")
+  val api  : util.List[String] = config.getStringList("api")
+  val admin: util.List[String] = config.getStringList("admin")
 
-  def isApiAllowed(ip: String) =
+  def isApiAllowed(ip: String): Boolean =
     api.contains("*") || api.contains(ip)
 
-  def isAdminAllowed(ip: String) =
+  def isAdminAllowed(ip: String): Boolean =
     admin.contains("*") || admin.contains(ip)
 }
 
 class Db(config: TConfig) {
-  val addresses          = config.getStringList("addresses")
-  val connectionsPerHost = config.getInt("connectionsPerHost")
-  val name               = config.getString("name")
-  val expirationDays     = config.getInt("expirationDays")
+  val addresses: util.List[String] = config.getStringList("addresses")
+  val connectionsPerHost: Int = config.getInt("connectionsPerHost")
+  val name: String = config.getString("name")
+  val expirationDays: Int = config.getInt("expirationDays")
 }
 
 object Config {

@@ -1,10 +1,10 @@
 package comy.model
 
-import java.util.ArrayList
 import com.mongodb._
 import xitrum.{I18n, Log}
-
 import comy.Config
+
+import java.util
 
 object DBUrlColl {
   val COLL         = "urls"
@@ -29,10 +29,7 @@ object DBAdminColl {
 
 object SaveUrlResult extends Enumeration {
   type SaveUrlResult = Value
-  val VALID     = Value
-  val INVALID   = Value
-  val DUPLICATE = Value
-  val ERROR     = Value
+  val VALID, INVALID, DUPLICATE, ERROR = Value
 }
 
 /**
@@ -44,7 +41,7 @@ object DB extends Log {
   import SaveUrlResult._
 
   private val coll  = {
-    val addresses = new ArrayList[ServerAddress]
+    val addresses = new util.ArrayList[ServerAddress]
     val it        = Config.db.addresses.iterator()
     while (it.hasNext) {
       val a = it.next()
@@ -62,9 +59,9 @@ object DB extends Log {
     db.getCollection(COLL)
   }
 
-  ensureIndexes
+  ensureIndexes()
 
-  def saveUrl(i18n: I18n, url: String, key: Option[String]) = key match {
+  def saveUrl(i18n: I18n, url: String, key: Option[String]): (SaveUrlResult, String) = key match {
     case Some(key2) => saveUrlWithKey(i18n, url, key2)
     case None       => saveUrlWithRandomKey(url)
   }
@@ -72,7 +69,7 @@ object DB extends Log {
   /** @return None if there is error (DB is down etc.) */
   def getUrl(key: String): Option[String] = {
     try {
-      getUrlFromKey(key, true)
+      getUrlFromKey(key, updateAccess = true)
     } catch {
       case e: Exception =>
         log.error("getUrl", e)
@@ -105,7 +102,7 @@ object DB extends Log {
 
   //----------------------------------------------------------------------------
 
-  private def ensureIndexes() {
+  private def ensureIndexes(): Unit = {
     // Index each column separately (3 indexes in total) because we will search
     // based on each one separately
     coll.createIndex(new BasicDBObject(KEY,        1))
@@ -122,7 +119,7 @@ object DB extends Log {
 
       case None =>
         try {
-          getUrlFromKey(keyValue, false) match {
+          getUrlFromKey(keyValue, updateAccess = false) match {
             case None =>
               addNewUrl(keyValue, url)
               (SaveUrlResult.VALID, keyValue)
@@ -153,7 +150,7 @@ object DB extends Log {
           var keyDuplicated = true
           while (keyDuplicated) {
             key = KeyGenerator.generateKey
-            if (getUrlFromKey(key, false).isEmpty) {
+            if (getUrlFromKey(key, updateAccess = false).isEmpty) {
               addNewUrl(key, url)
               keyDuplicated = false
             }
@@ -199,7 +196,7 @@ object DB extends Log {
   }
 
   /** Add a new URL to the database */
-  private def addNewUrl(key: String, url: String) {
+  private def addNewUrl(key: String, url: String): Unit = {
     val doc = new BasicDBObject
     val d = today
     doc.append(KEY,          key)

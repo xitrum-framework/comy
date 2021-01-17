@@ -7,14 +7,14 @@ import comy.model.{DB, SaveUrlResult, QRCode}
 
 @GET("")
 class UserIndex extends AppAction {
-  def execute() {
+  def execute(): Unit = {
     respondView()
   }
 }
 
 @GET("user/qrcode")  // ?url=xxx
 class UserQRcode extends AppAction {
-  def execute() {
+  def execute(): Unit = {
     // See: http://www.hascode.com/2010/05/playing-around-with-qr-codes/
     val url   = param("url")
     val bytes = QRCode.render(url)
@@ -25,7 +25,7 @@ class UserQRcode extends AppAction {
 
 @POST("user/shorten")
 class UserShorten extends AppAction {
-  def execute() {
+  def execute(): Unit = {
     val toBeShorten = param("url").trim
     if (toBeShorten.isEmpty) {
       jsRespond("$('#result').html('%s')".format(jsEscape(<p class="error">{t("URL must not be empty")}</p>)))
@@ -41,7 +41,7 @@ class UserShorten extends AppAction {
     // This causes error with Scala 2.10.0:
     //val html = resultCode match {...
 
-    val html: scala.xml.Node = resultCode match {
+    val html = resultCode match {
       case SaveUrlResult.VALID =>
         val absoluteUrl = absUrl[ApiLengthen]("key" -> resultString)
         <xml:group>
